@@ -37,3 +37,7 @@ Simple MERN is still in progress.
 ## Contributors
 
 maksym-terela-md
+
+## MongoDB Community Edition
+
+brew services start mongodb-community@6.0
