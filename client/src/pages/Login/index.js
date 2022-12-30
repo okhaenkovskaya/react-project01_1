@@ -10,24 +10,25 @@ const Container = styled.div`
   position: relative;
   
   img {
-        position: absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-`;
-
-const Form = styled.form`
+  
+  form {
   padding: 50px 125px;
   position: relative;
-      z-index: 2;
-    background: #191A1D;
-    border-radius: 10px;
-    width: 804px;
-    margin: 0 auto;
+  z-index: 2;
+  background: #191A1D;
+  border-radius: 10px;
+  width: 804px;
+  margin: 0 auto;}
 `;
+
+
 
 const Title = styled.h2`
   font-style: normal;
@@ -40,53 +41,59 @@ const Title = styled.h2`
 `;
 
 const Input = styled.input`
-    height: 63px;
-    background: rgba(48, 48, 51, 0.7);
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0 15px;
-    margin: 0 0 40px;
-    border: 0;
-    display:block;
-    width: 100%;
+  height: 63px;
+  background: rgba(48, 48, 51, 0.7);
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 23px;
+  padding: 0 15px;
+  margin: 0 0 40px;
+  border: 0;
+  display:block;
+  width: 100%;
 `;
 
-const Button = styled.button`
-    height: 51px;
-    background: rgba(48, 48, 51, 0.7);
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0 15px;
-    margin: 0 auto 40px;
-    border: 0;
-    display:block;
-    width: 233px;
-    
-    &:disabled {
-      opacity: 0.2;
-    }
-`;
 
 const LoginPage = () => {
   const {loginTitle, bgTitle} = accountData;
 
+  const BASE_URL = 'http://localhost:5010/user/login';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log('submit')
+    const result = await (
+      await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: 'test@example.com',
+          password: 123
+        })
+      })
+    ).json();
+    if(result) {
+      console.log(result, 'result')
+    } else {
+      console.log('nothing')
+    }
+  }
 
   return (
     <Container>
       <img src={bgTitle} alt={loginTitle} />
 
-      <Form>
+      <form onSubmit={handleSubmit}>
         <Title>{loginTitle}</Title>
         <Input type="email" placeholder="Email" />
-        <Input type="password" placeholder="Password" />
-        <Button type="button">Send</Button>
-      </Form>
+        <Input type="password" placeholder="Password" autocomplete="on" />
+        <button onClick={() => console.log('click')} type="submit">Send</button>
+      </form>
     </Container>
   );
 };

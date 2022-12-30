@@ -4,7 +4,8 @@ const DashboardPosts = ({ posts, setPosts, setEditPostData, setShowEditPopup, ch
 
   return (
     <div>
-      {posts.map((item) => <DashboardPost key={item.id}
+      {posts.map((item) => <DashboardPost
+        key={item.id}
         item={item}
         posts={posts}
         setCheckedPosts={setCheckedPosts}
