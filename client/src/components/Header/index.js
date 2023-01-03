@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 import Logo from "../Logo";
-import {headerData} from '../../data/HeaderData';
-import {NavItem, NavList} from "../Nav";
+import { headerData } from "../../data/HeaderData";
+import { NavItem, NavList } from "../Nav";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -14,17 +14,22 @@ const HeaderContainer = styled.header`
 `;
 
 const Header = () => {
-  const {logoUrl, headerNavItems} = headerData;
+  const { logoUrl, headerNavItems } = headerData;
 
   return (
     <HeaderContainer>
-        <Logo logoUrl={logoUrl} />
+      <Logo logoUrl={logoUrl} />
 
-        <NavList>
-          {headerNavItems.map(item => <NavItem key={item.id} url={item.link}>{item.svg}{item.name}</NavItem>)}
-        </NavList>
+      <NavList>
+        {headerNavItems.map((item) => (
+          <NavItem key={item.id} url={item.link}>
+            {item.svg}
+            {item.name}
+          </NavItem>
+        ))}
+      </NavList>
     </HeaderContainer>
-  )
-}
+  );
+};
 
 export default Header;

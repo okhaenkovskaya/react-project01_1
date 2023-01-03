@@ -1,28 +1,29 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const NavListItem = styled.li`
-  margin: ${props => props.margin || "0 0 0 10px"};
+  margin: ${(props) => props.margin || "0 0 0 10px"};
 `;
 
 const NavbarLink = styled(NavLink)`
-  color: #F2F2F2;
+  color: #f2f2f2;
   font-size: 18px;
   font-weight: 400;
   text-decoration: none;
   opacity: 0.5;
 
   &:hover,
-  &:focus{
-    
+  &:focus {
     opacity: 0.9;
   }
-  &.active{
+  &.active {
     font-weight: 700;
     opacity: 1;
   }
 
-  ${({ type }) => type === 'dashboard' && `
+  ${({ type }) =>
+    type === "dashboard" &&
+    `
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -56,16 +57,12 @@ const NavbarLink = styled(NavLink)`
   `}
 `;
 
-const NavItem = ({children, type, url, margin, svg, isEnd}) => {
-  const end = isEnd ? 'end' : null;
+const NavItem = ({ children, type, url, margin, svg, isEnd }) => {
+  const end = isEnd ? "end" : null;
 
   return (
     <NavListItem margin={margin}>
-      <NavbarLink
-        type={type}
-        activeclassname="active"
-        to={url}
-        end={end}>
+      <NavbarLink type={type} activeclassname="active" to={url} end={end}>
         {svg}
         {children}
       </NavbarLink>

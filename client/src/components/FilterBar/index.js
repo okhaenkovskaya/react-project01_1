@@ -7,15 +7,14 @@ const FilterWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin:0 0 48px;
-  
+  margin: 0 0 48px;
+
   select option:first-child {
-    display:none;
+    display: none;
   }
 `;
 
-
-const FilterBar = ({onSearchBeer, onFilter}) => {
+const FilterBar = ({ onSearchBeer, onFilter }) => {
   return (
     <FilterWrap>
       <SortSelects onFilter={onFilter} />

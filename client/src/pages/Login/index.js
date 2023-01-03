@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {accountData} from '../../data/AccountData';
+import { accountData } from "../../data/AccountData";
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   padding: 50px;
   position: relative;
-  
+
   img {
     position: absolute;
     top: 0;
@@ -17,18 +17,17 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
   }
-  
+
   form {
-  padding: 50px 125px;
-  position: relative;
-  z-index: 2;
-  background: #191A1D;
-  border-radius: 10px;
-  width: 804px;
-  margin: 0 auto;}
+    padding: 50px 125px;
+    position: relative;
+    z-index: 2;
+    background: #191a1d;
+    border-radius: 10px;
+    width: 804px;
+    margin: 0 auto;
+  }
 `;
-
-
 
 const Title = styled.h2`
   font-style: normal;
@@ -51,38 +50,36 @@ const Input = styled.input`
   padding: 0 15px;
   margin: 0 0 40px;
   border: 0;
-  display:block;
+  display: block;
   width: 100%;
 `;
 
-
 const LoginPage = () => {
-  const {loginTitle, bgTitle} = accountData;
+  const { loginTitle, bgTitle } = accountData;
 
-  const BASE_URL = 'http://localhost:5010/user/login';
+  const BASE_URL = "http://localhost:5010/user/login";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('submit')
     const result = await (
       await fetch(BASE_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: 'test@example.com',
-          password: 123
-        })
+          email: "test@example.com",
+          password: 123,
+        }),
       })
     ).json();
-    if(result) {
-      console.log(result, 'result')
+    if (result) {
+      console.log(result, "result");
     } else {
-      console.log('nothing')
+      console.log("nothing");
     }
-  }
+  };
 
   return (
     <Container>
@@ -92,7 +89,9 @@ const LoginPage = () => {
         <Title>{loginTitle}</Title>
         <Input type="email" placeholder="Email" />
         <Input type="password" placeholder="Password" autocomplete="on" />
-        <button onClick={() => console.log('click')} type="submit">Send</button>
+        <button onClick={() => console.log("click")} type="submit">
+          Send
+        </button>
       </form>
     </Container>
   );

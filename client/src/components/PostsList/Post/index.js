@@ -1,7 +1,7 @@
 import Button from "../../Link";
 import styled from "styled-components";
 
-import {ReactComponent as IconArrow} from "../../../assets/icons/arrow.svg";
+import { ReactComponent as IconArrow } from "../../../assets/icons/arrow.svg";
 
 const Container = styled.div`
   font-size: 16px;
@@ -9,7 +9,7 @@ const Container = styled.div`
   font-weight: 400;
   margin: 0 38px 38px;
   width: calc(33.33% - 76px);
-  background: #191A1D;
+  background: #191a1d;
   border-radius: 28px;
   position: relative;
   overflow: hidden;
@@ -21,7 +21,7 @@ const TextWrap = styled.div`
 
 const Image = styled.div`
   margin: 0;
-  
+
   img {
     height: 100px;
     width: auto;
@@ -43,18 +43,16 @@ const Text = styled.div`
 `;
 
 const Holder = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-
-const Post = ({post: {id, name, description, image_url}}) => {
-
+const Post = ({ post: { id, name, description, image_url } }) => {
   let slicedText = description;
   if (description.length > 40) {
-    slicedText = description.slice(0,39);
-    slicedText += '...';
+    slicedText = description.slice(0, 39);
+    slicedText += "...";
   }
 
   return (
@@ -68,7 +66,7 @@ const Post = ({post: {id, name, description, image_url}}) => {
         <Holder>
           <Button url={`/posts/${id}`}>
             Read more
-            <IconArrow/>
+            <IconArrow />
           </Button>
         </Holder>
       </TextWrap>

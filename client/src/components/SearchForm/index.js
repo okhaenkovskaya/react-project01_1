@@ -1,4 +1,4 @@
-import { ReactComponent as IconSearch } from '../../assets/icons/search.svg';
+import { ReactComponent as IconSearch } from "../../assets/icons/search.svg";
 import styled from "styled-components";
 
 const FilterWrap = styled.div`
@@ -7,7 +7,7 @@ const FilterWrap = styled.div`
   border-radius: 10px;
   padding: 0 10px 0 60px;
   position: relative;
-  
+
   button {
     position: absolute;
     top: 0;
@@ -19,14 +19,14 @@ const FilterWrap = styled.div`
     border: 0;
     color: #fff;
     background: none;
-    
+
     svg {
       display: inline-block;
       vertical-align: top;
-      margin:2px 0 0 -4px;
+      margin: 2px 0 0 -4px;
     }
   }
-  
+
   input {
     width: 100%;
     height: 56px;
@@ -38,18 +38,17 @@ const FilterWrap = styled.div`
   }
 `;
 
-const SearchForm = ({onSearchBeer}) => {
-
+const SearchForm = ({ onSearchBeer }) => {
   const handleChange = (e) => {
-    if(e.target.value.length > 0) {
-      onSearchBeer(e.target.value)
+    if (e.target.value.length > 0) {
+      onSearchBeer(e.target.value);
     }
-  }
+  };
 
   return (
     <FilterWrap>
       <button type="button">
-        <IconSearch/>
+        <IconSearch />
       </button>
       <input type="text" placeholder="Search Beer" onChange={handleChange} />
     </FilterWrap>

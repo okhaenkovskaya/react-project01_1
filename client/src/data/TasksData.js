@@ -1,26 +1,26 @@
 export const TasksData = [
   {
     id: 0,
-    title: 'Task 1',
+    title: "Task 1",
     completed: false,
-    pinned: false
+    pinned: false,
   },
   {
     id: 1,
-    title: 'Task 2',
+    title: "Task 2",
     completed: false,
-    pinned: true
+    pinned: true,
   },
   {
     id: 2,
-    title: 'Task 3',
+    title: "Task 3",
     completed: true,
-    pinned: false
+    pinned: false,
   },
   {
     id: 3,
-    title: 'Task 4',
+    title: "Task 4",
     completed: false,
-    pinned: false
-  }
-]
+    pinned: false,
+  },
+];

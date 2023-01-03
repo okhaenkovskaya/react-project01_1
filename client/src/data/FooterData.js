@@ -1,28 +1,29 @@
-import LogoImg from '../assets/images/logo.svg';
+import LogoImg from "../assets/images/logo.svg";
 
 export const footerData = {
   logoUrl: LogoImg,
-  infoTExt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  copyright: '©My-app 2022. All rights reserved',
+  infoTExt:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  copyright: "©My-app 2022. All rights reserved",
   footerNavFirst: {
     heading: "Top Hops",
     items: [
       {
         id: 0,
         name: "Fuggles",
-        link: "/Archive/hops/fuggles"
+        link: "/Archive/hops/fuggles",
       },
       {
         id: 1,
         name: "Nelson Sauvin",
-        link: "Archive/hops/nelson-sauvin"
+        link: "Archive/hops/nelson-sauvin",
       },
       {
         id: 2,
         name: "Dana",
-        link: "Archive/hops/dana"
-      }
-    ]
+        link: "Archive/hops/dana",
+      },
+    ],
   },
   footerNavSecond: {
     heading: "Top Yeast",
@@ -30,19 +31,19 @@ export const footerData = {
       {
         id: 0,
         name: "Belgian Ardennes",
-        link: "Archive/yeast/belgian-ardennes"
+        link: "Archive/yeast/belgian-ardennes",
       },
       {
         id: 1,
         name: "Bohemian Lager",
-        link: "Archive/yeast/bohemian-lager"
+        link: "Archive/yeast/bohemian-lager",
       },
       {
         id: 2,
         name: "French Saison",
-        link: "Archive/yeast/french-saison"
-      }
-    ]
+        link: "Archive/yeast/french-saison",
+      },
+    ],
   },
   footerNavThird: {
     heading: "Menu",
@@ -50,23 +51,23 @@ export const footerData = {
       {
         id: 0,
         name: "Home",
-        link: "/"
+        link: "/",
       },
       {
         id: 1,
         name: "Contact",
-        link: "/Contact"
+        link: "/Contact",
       },
       {
         id: 2,
         name: "Dashboard",
-        link: "/Dashboard"
+        link: "/Dashboard",
       },
       {
         id: 3,
         name: "Item34",
-        link: "/figma"
-      }
-    ]
+        link: "/figma",
+      },
+    ],
   },
-}
+};

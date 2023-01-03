@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 import Button from "../../components/Link";
-import {notFoundImageData} from "../../data/NotFoundData";
-
+import { notFoundImageData } from "../../data/NotFoundData";
 
 const NotFoundContainer = styled.div`
   background-image: url(${notFoundImageData.src});
@@ -13,13 +12,13 @@ const NotFoundContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 513px;
-  
+
   > div {
     padding: 50px;
     text-align: center;
     opacity: 0.82;
   }
-  
+
   a {
     margin: 10px auto;
     min-width: 171px;
@@ -31,14 +30,14 @@ const Title = styled.h1`
   font-weight: 300;
   font-size: 72px;
   line-height: 90px;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
 const NotFound = () => {
   return (
     <NotFoundContainer>
-        <Title>404</Title>
-        <Button url={'/'}>Go to Homepage</Button>
+      <Title>404</Title>
+      <Button url={"/"}>Go to Homepage</Button>
     </NotFoundContainer>
   );
 };

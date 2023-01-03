@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import Button from "../Link";
-import { ReactComponent as IconArrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as IconArrow } from "../../assets/icons/arrow.svg";
 
 const Container = styled.div`
   font-size: 16px;
@@ -10,7 +10,7 @@ const Container = styled.div`
   margin: 0 0 70px;
   display: flex;
   justify-content: space-between;
-  background: #191A1D;
+  background: #191a1d;
   border-radius: 28px;
   position: relative;
   overflow: hidden;
@@ -23,7 +23,7 @@ const TextWrap = styled.div`
 
 const Image = styled.div`
   width: 48%;
-  
+
   img {
     height: 100%;
     max-height: 400px;
@@ -45,14 +45,12 @@ const Text = styled.div`
 `;
 
 const Holder = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-
-const FeaturedPost = ({beer: {id, name, description, image_url}}) => {
-
+const FeaturedPost = ({ beer: { id, name, description, image_url } }) => {
   return (
     <Container>
       <TextWrap>
@@ -61,9 +59,8 @@ const FeaturedPost = ({beer: {id, name, description, image_url}}) => {
         <Holder>
           <Button url={`/posts/${id}`}>
             Read more
-            <IconArrow/>
+            <IconArrow />
           </Button>
-
         </Holder>
       </TextWrap>
       <Image>

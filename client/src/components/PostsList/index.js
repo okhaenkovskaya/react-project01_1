@@ -10,41 +10,54 @@ const PostsListContainer = styled.div`
 `;
 
 const Button = styled.button`
-    display: block;
-    background: #5458F7;
-    width: fit-content;
-    padding: 7px 35px;
-    margin: 0 auto;
-    border: 0;
-    border-radius: 40px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 12px;
-    line-height: 1.5;
-    font-weight: 600;
-    
-    &:hover {
-      opacity: 0.7;
-    }
+  display: block;
+  background: #5458f7;
+  width: fit-content;
+  padding: 7px 35px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 40px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
-const PostsList = ({beers, newBeersLoading, page, onRequestBeers, setNewBeersLoading, isCompleted}) => {
-
+const PostsList = ({
+  beers,
+  newBeersLoading,
+  page,
+  onRequestBeers,
+  setNewBeersLoading,
+  isCompleted,
+}) => {
   return (
     <>
       <PostsListContainer>
-        {beers.map(post => (<Post key={post.id} post={post}/>))}
+        {beers.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
       </PostsListContainer>
 
       {newBeersLoading && <Loader />}
 
-      {beers.length > 0 && !isCompleted ? <Button
-        onClick={() => {
-          onRequestBeers(page);
-          setNewBeersLoading(true)
-        }}>
-        Load more
-      </Button> : '' }
+      {beers.length > 0 && !isCompleted ? (
+        <Button
+          onClick={() => {
+            onRequestBeers(page);
+            setNewBeersLoading(true);
+          }}
+        >
+          Load more
+        </Button>
+      ) : (
+        ""
+      )}
     </>
   );
 };
