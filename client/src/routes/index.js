@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 
-import { PrivateLayout, PublicLayout } from '../layout'
+import { PrivateLayout, PublicLayout } from "../layout";
 import {
     Home,
     Register,
@@ -12,7 +12,8 @@ import {
     Contact,
     NotFound,
     Posts,
-} from '../pages'
+    Mui,
+} from "../pages";
 
 const Router = () => {
     return (
@@ -20,6 +21,7 @@ const Router = () => {
             <Route element={<PublicLayout />}>
                 <Route index element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
+                <Route exact path="/mui" element={<Mui />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/contact" element={<Contact />} />
                 <Route exact path="/posts/:postId" element={<Post />} />
@@ -36,7 +38,7 @@ const Router = () => {
                 <Route exact path="/dashboard/posts" element={<Posts />} />
             </Route>
         </Routes>
-    )
-}
+    );
+};
 
-export default Router
+export default Router;
