@@ -94,10 +94,6 @@ const DashboardTask = ({
     const setUpdateTask = (e) => {
         if (e.key === "Enter") {
             setIsEdit(false);
-
-            /* let newTasks = tasks.slice();
-      newTasks[editTask.id] = editTask;
-      setTasks(newTasks)*/
         }
 
         if (e.key === "Escape") {
