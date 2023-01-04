@@ -5,6 +5,11 @@ export const headerData = {
     logoUrl: LogoImg,
     headerNavItems: [
         {
+            id: 99,
+            name: "MUI",
+            link: "/mui",
+        },
+        {
             id: 0,
             name: "Home",
             link: "/",
