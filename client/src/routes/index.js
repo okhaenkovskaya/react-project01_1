@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { PrivateLayout, PublicLayout } from "../layout";
+
 import {
     Home,
     Register,
