@@ -1,6 +1,6 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 
-import { PrivateLayout, PublicLayout } from '../layout'
+import { PrivateLayout, PublicLayout } from "../layout";
 import {
     Home,
     Register,
@@ -12,13 +12,15 @@ import {
     Contact,
     NotFound,
     Posts,
-} from '../pages'
+    BootstrapPage,
+} from "../pages";
 
 const Router = () => {
     return (
         <Routes>
             <Route element={<PublicLayout />}>
                 <Route index element={<Home />} />
+                <Route exact path="/bootstrap" element={<BootstrapPage />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/contact" element={<Contact />} />
@@ -36,7 +38,7 @@ const Router = () => {
                 <Route exact path="/dashboard/posts" element={<Posts />} />
             </Route>
         </Routes>
-    )
-}
+    );
+};
 
-export default Router
+export default Router;
