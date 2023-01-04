@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useTheme } from "@mui/material/styles";
 
 import { avatarData } from "../../data/AvatarData";
 
@@ -36,11 +35,9 @@ const Author = styled.h2`
 
 const Avatar = () => {
     const { fullName, author, image } = avatarData;
-    const theme = useTheme();
 
     return (
         <Container>
-            {JSON.stringify(theme.palette)}
             <Image src={image} alt={fullName} />
             <Title>{fullName}</Title>
             <Author>{author}</Author>

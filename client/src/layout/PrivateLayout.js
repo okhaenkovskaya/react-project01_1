@@ -6,36 +6,36 @@ import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 
 const Container = styled.div`
-  max-width: 1600px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 `;
 
 const ContentWrap = styled.div`
-  width: calc(100% - 490px);
-  background: #262835;
-  border-radius: 20px;
-  padding: 30px;
+    width: calc(100% - 490px);
+    background: #262835;
+    border-radius: 20px;
+    padding: 30px;
 `;
 
 const PrivateLayout = () => {
-  return (
-    <>
-      <Header />
+    return (
+        <>
+            <Header />
 
-      <Container>
-        <Sidebar />
+            <Container>
+                <Sidebar />
 
-        <ContentWrap>
-          <Outlet />
-        </ContentWrap>
-      </Container>
+                <ContentWrap>
+                    <Outlet />
+                </ContentWrap>
+            </Container>
 
-      <Footer />
-    </>
-  );
+            <Footer />
+        </>
+    );
 };
 
 export default PrivateLayout;

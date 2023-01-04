@@ -4,42 +4,42 @@ import Button from "../../components/Link";
 import { notFoundImageData } from "../../data/NotFoundData";
 
 const NotFoundContainer = styled.div`
-  background-image: url(${notFoundImageData.src});
-  background-position: 50%;
-  background-size: cover;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  height: 513px;
+    background-image: url(${notFoundImageData.src});
+    background-position: 50%;
+    background-size: cover;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 513px;
 
-  > div {
-    padding: 50px;
-    text-align: center;
-    opacity: 0.82;
-  }
+    > div {
+        padding: 50px;
+        text-align: center;
+        opacity: 0.82;
+    }
 
-  a {
-    margin: 10px auto;
-    min-width: 171px;
-  }
+    a {
+        margin: 10px auto;
+        min-width: 171px;
+    }
 `;
 
 const Title = styled.h1`
-  font-style: normal;
-  font-weight: 300;
-  font-size: 72px;
-  line-height: 90px;
-  color: #ffffff;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 90px;
+    color: #ffffff;
 `;
 
 const NotFound = () => {
-  return (
-    <NotFoundContainer>
-      <Title>404</Title>
-      <Button url={"/"}>Go to Homepage</Button>
-    </NotFoundContainer>
-  );
+    return (
+        <NotFoundContainer>
+            <Title>404</Title>
+            <Button url={"/"}>Go to Homepage</Button>
+        </NotFoundContainer>
+    );
 };
 
 export default NotFound;

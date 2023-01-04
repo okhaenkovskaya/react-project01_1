@@ -4,15 +4,15 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const PublicLayout = () => {
-  return (
-    <>
-      <Header />
+    return (
+        <>
+            <Header />
 
-      <Outlet />
+            <Outlet />
 
-      <Footer />
-    </>
-  );
+            <Footer />
+        </>
+    );
 };
 
 export default PublicLayout;
