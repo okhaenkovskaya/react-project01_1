@@ -1,5 +1,8 @@
-import styled from 'styled-components'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { AuthContext } from '../../context/auth'
+import styled from 'styled-components'
 import { accountData } from '../../data/AccountData'
 
 const Container = styled.div`
@@ -29,6 +32,19 @@ const Container = styled.div`
     }
 `
 
+const Form = styled.form`
+    padding: 50px 125px;
+    position: relative;
+    z-index: 2;
+    background: #191a1d;
+    border-radius: 10px;
+    width: 804px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    display: block;
+`
+
 const Title = styled.h2`
     font-style: normal;
     font-weight: 500;
@@ -54,49 +70,88 @@ const Input = styled.input`
     width: 100%;
 `
 
+const Button = styled.button`
+    height: 51px;
+    background: rgba(48, 48, 51, 0.7);
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 23px;
+    padding: 0 15px;
+    margin: 0 auto 40px;
+    border: 0;
+    display: block;
+    width: 233px;
+    width: 100%;
+
+    &:disabled {
+        opacity: 0.2;
+    }
+`
+
 const LoginPage = () => {
     const { loginTitle, bgTitle } = accountData
+    const context = useContext(AuthContext)
+    const navigate = useNavigate()
 
-    const BASE_URL = 'http://localhost:5010/user/login'
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const result = await (
-            await fetch(BASE_URL, {
+            await fetch('http://localhost:5010/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: 'test@example.com',
-                    password: 123,
+                    email: userData.email,
+                    password: userData.password,
                 }),
             })
         ).json()
+
         if (result) {
-            console.log(result, 'result')
+            context.login(result)
+            navigate('/dashboard')
         } else {
-            console.log('nothing')
+            console.log('error')
         }
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setUserData({ ...userData, [name]: value })
     }
 
     return (
         <Container>
             <img src={bgTitle} alt={loginTitle} />
 
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Title>{loginTitle}</Title>
-                <Input type="email" placeholder="Email" />
+                <Input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={userData.email}
+                    onChange={handleChange}
+                />
                 <Input
                     type="password"
                     placeholder="Password"
-                    autocomplete="on"
+                    name="password"
+                    value={userData.password}
+                    onChange={handleChange}
                 />
-                <button onClick={() => console.log('click')} type="submit">
-                    Send
-                </button>
-            </form>
+
+                <Button type="submit">Send</Button>
+            </Form>
         </Container>
     )
 }

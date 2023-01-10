@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import styled from 'styled-components'
 
 import { accountData } from '../../data/AccountData'
@@ -35,6 +37,7 @@ const Title = styled.h2`
     font-style: normal;
     font-weight: 500;
     font-size: 42px;
+    font-size: 22px;
     line-height: 53px;
     margin: 0 0 20px;
     color: #fff;
@@ -70,6 +73,7 @@ const Button = styled.button`
     border: 0;
     display: block;
     width: 233px;
+    width: 100%;
 
     &:disabled {
         opacity: 0.2;
@@ -78,55 +82,97 @@ const Button = styled.button`
 
 const RegisterPage = () => {
     const { registerTitle, bgTitle } = accountData
-    const BASE_URL = 'http://localhost:5010/user/login'
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        tel: '',
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const result = await fetch(BASE_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                firstName: firstNameRef.current.value,
-                lastName: lastNameRef.current.value,
-                email: emailRef.current.value,
-                password: passwordRef.current.value,
-                confirmPassword: confirmPasswordRef.current.value,
-            }),
-        }).then((response) => {
-            return response
-                .json()
-                .then((data) => {
-                    if (!data.message) {
-                        console.log(data)
-                    } else {
-                        console.log(data.message)
-                    }
-                    return data
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        })
+        const result = await (
+            await fetch('http://localhost:5010/user/registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    tel: userData.tel,
+                    password: userData.password,
+                    confirmPassword: userData.confirmPassword,
+                }),
+            })
+        ).json()
+
+        if (result) {
+            console.log(result)
+        } else {
+            console.log('error')
+        }
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setUserData({ ...userData, [name]: value })
     }
 
     return (
         <Container>
             <img src={bgTitle} alt={registerTitle} />
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Title>{registerTitle}</Title>
-                <Input type="text" placeholder="First Name" />
-                <Input type="text" placeholder="Last Name" />
-                <Input type="email" placeholder="Email" />
-                <Input type="tel" placeholder="Phone" />
-                <Input type="password" placeholder="Password" />
-                <Input type="password" placeholder="Confirm Password" />
-                <Button type="button" onClick={handleSubmit}>
-                    Send
-                </Button>
+                <Input
+                    type="text"
+                    placeholder="First Name"
+                    name="firstName"
+                    value={userData.firstName}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="text"
+                    placeholder="Last Name"
+                    name="lastName"
+                    value={userData.lastName}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={userData.email}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="tel"
+                    placeholder="Phone"
+                    name="tel"
+                    value={userData.tel}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={userData.password}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    value={userData.confirmPassword}
+                    onChange={handleChange}
+                />
+                <br />
+                <Button type="submit">Send</Button>
             </Form>
         </Container>
     )
