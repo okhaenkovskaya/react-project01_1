@@ -1,127 +1,64 @@
-import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-import styled from 'styled-components'
-
-import { accountData } from '../../data/AccountData'
-
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-    position: relative;
-
-    img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-`
-
-const Form = styled.form`
-    padding: 50px 125px;
-    position: relative;
-    z-index: 2;
-    background: #191a1d;
-    border-radius: 10px;
-    width: 804px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-`
-
-const Title = styled.h2`
-    font-style: normal;
-    font-weight: 500;
-    font-size: 42px;
-    font-size: 22px;
-    line-height: 53px;
-    margin: 0 0 20px;
-    color: #fff;
-    text-align: center;
-    width: 100%;
-`
-
-const Input = styled.input`
-    height: 63px;
-    background: rgba(48, 48, 51, 0.7);
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0 15px;
-    margin: 0 10px 40px;
-    border: 0;
-    display: block;
-    width: calc(50% - 20px);
-`
-
-const Button = styled.button`
-    height: 51px;
-    background: rgba(48, 48, 51, 0.7);
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0 15px;
-    margin: 0 auto 40px;
-    border: 0;
-    display: block;
-    width: 233px;
-    width: 100%;
-
-    &:disabled {
-        opacity: 0.2;
-    }
-`
+import { accountData } from "../../data/AccountData";
+import {
+    Container,
+    Button,
+    Input,
+    Title,
+    Form,
+} from "../../components/Form/form";
 
 const RegisterPage = () => {
-    const { registerTitle, bgTitle } = accountData
+    const { registerTitle, bgTitle } = accountData;
+    const navigate = useNavigate();
+    const [isError, setIsError] = useState(null);
     const [userData, setUserData] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        firstName: '',
-        lastName: '',
-        tel: '',
-    })
+        email: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+        tel: "",
+    });
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const result = await (
-            await fetch('http://localhost:5010/user/registration', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    email: userData.email,
-                    tel: userData.tel,
-                    password: userData.password,
-                    confirmPassword: userData.confirmPassword,
-                }),
+        await fetch("http://localhost:5010/user/registration", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                tel: userData.tel,
+                password: userData.password,
+                confirmPassword: userData.confirmPassword,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data, "data");
+                if ("result" in data) {
+                    navigate("/dashboard");
+                } else {
+                    setIsError(data.message);
+                }
             })
-        ).json()
-
-        if (result) {
-            console.log(result)
-        } else {
-            console.log('error')
-        }
-    }
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    };
 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setUserData({ ...userData, [name]: value })
-    }
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+        setIsError(null);
+    };
 
     return (
         <Container>
@@ -129,10 +66,13 @@ const RegisterPage = () => {
 
             <Form onSubmit={handleSubmit}>
                 <Title>{registerTitle}</Title>
+                {isError && <mark>{isError}</mark>}
+
                 <Input
                     type="text"
                     placeholder="First Name"
                     name="firstName"
+                    required
                     value={userData.firstName}
                     onChange={handleChange}
                 />
@@ -147,6 +87,7 @@ const RegisterPage = () => {
                     type="email"
                     placeholder="Email"
                     name="email"
+                    required
                     value={userData.email}
                     onChange={handleChange}
                 />
@@ -161,6 +102,7 @@ const RegisterPage = () => {
                     type="password"
                     placeholder="Password"
                     name="password"
+                    required
                     value={userData.password}
                     onChange={handleChange}
                 />
@@ -168,6 +110,7 @@ const RegisterPage = () => {
                     type="password"
                     placeholder="Confirm Password"
                     name="confirmPassword"
+                    required
                     value={userData.confirmPassword}
                     onChange={handleChange}
                 />
@@ -175,7 +118,7 @@ const RegisterPage = () => {
                 <Button type="submit">Send</Button>
             </Form>
         </Container>
-    )
-}
+    );
+};
 
-export default RegisterPage
+export default RegisterPage;
