@@ -1,17 +1,18 @@
-import React, { useReducer, createContext } from 'react'
-import jwtDecode from 'jwt-decode'
+import React, { useReducer, createContext } from "react";
+import jwtDecode from "jwt-decode";
 
 const initialState = {
     user: null,
-}
+};
 
-if (localStorage.getItem('jwtDecode')) {
-    const decodedToken = jwtDecode(localStorage.getItem('jwtDecode'))
+if (localStorage.getItem("jwtDecode")) {
+    const decodedToken = jwtDecode(localStorage.getItem("jwtDecode"));
 
     if (decodedToken.exp * 1000 < Date.now()) {
-        localStorage.removeItem('jwtDecode')
+        localStorage.removeItem("jwtDecode");
+        initialState.user = null;
     } else {
-        initialState.user = decodedToken
+        initialState.user = decodedToken;
     }
 }
 
@@ -19,39 +20,39 @@ const AuthContext = createContext({
     user: null,
     login: (userData) => {},
     logout: () => {},
-})
+});
 
 function authReducer(state, action) {
     switch (action.type) {
-        case 'LOGIN':
+        case "LOGIN":
             return {
                 ...state,
                 user: action.payload,
-            }
-        case 'LOGOUT':
+            };
+        case "LOGOUT":
             return {
                 ...state,
                 user: null,
-            }
+            };
         default:
-            return state
+            return state;
     }
 }
 
 function AuthProvider(props) {
-    const [state, dispatch] = useReducer(authReducer, initialState)
+    const [state, dispatch] = useReducer(authReducer, initialState);
 
     function login(userData) {
-        localStorage.setItem('jwtDecode', userData.token)
+        localStorage.setItem("jwtDecode", userData.token);
         dispatch({
-            type: 'LOGIN',
+            type: "LOGIN",
             payload: userData,
-        })
+        });
     }
 
     function logout() {
-        localStorage.removeItem('jwtDecode')
-        dispatch({ type: 'LOGOUT' })
+        localStorage.removeItem("jwtDecode");
+        dispatch({ type: "LOGOUT" });
     }
 
     return (
@@ -59,7 +60,7 @@ function AuthProvider(props) {
             value={{ user: state.user, login, logout }}
             {...props}
         />
-    )
+    );
 }
 
-export { AuthContext, AuthProvider }
+export { AuthContext, AuthProvider };

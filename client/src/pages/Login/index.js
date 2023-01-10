@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { AuthContext } from '../../context/auth'
-import styled from 'styled-components'
-import { accountData } from '../../data/AccountData'
+import { AuthContext } from "../../context/auth";
+import styled from "styled-components";
+import { accountData } from "../../data/AccountData";
 
 const Container = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ const Container = styled.div`
         width: 804px;
         margin: 0 auto;
     }
-`
+`;
 
 const Form = styled.form`
     padding: 50px 125px;
@@ -43,7 +43,7 @@ const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
     display: block;
-`
+`;
 
 const Title = styled.h2`
     font-style: normal;
@@ -53,7 +53,7 @@ const Title = styled.h2`
     margin: 0 0 20px;
     color: #fff;
     text-align: center;
-`
+`;
 
 const Input = styled.input`
     height: 63px;
@@ -68,7 +68,7 @@ const Input = styled.input`
     border: 0;
     display: block;
     width: 100%;
-`
+`;
 
 const Button = styled.button`
     height: 51px;
@@ -88,46 +88,46 @@ const Button = styled.button`
     &:disabled {
         opacity: 0.2;
     }
-`
+`;
 
 const LoginPage = () => {
-    const { loginTitle, bgTitle } = accountData
-    const context = useContext(AuthContext)
-    const navigate = useNavigate()
+    const { loginTitle, bgTitle } = accountData;
+    const context = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
-        email: '',
-        password: '',
-    })
+        email: "",
+        password: "",
+    });
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const result = await (
-            await fetch('http://localhost:5010/user/login', {
-                method: 'POST',
+            await fetch("http://localhost:5010/user/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email: userData.email,
                     password: userData.password,
                 }),
             })
-        ).json()
+        ).json();
 
         if (result) {
-            context.login(result)
-            navigate('/dashboard')
+            context.login(result.result);
+            navigate("/dashboard");
         } else {
-            console.log('error')
+            console.log("error");
         }
-    }
+    };
 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setUserData({ ...userData, [name]: value })
-    }
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+    };
 
     return (
         <Container>
@@ -153,7 +153,7 @@ const LoginPage = () => {
                 <Button type="submit">Send</Button>
             </Form>
         </Container>
-    )
-}
+    );
+};
 
-export default LoginPage
+export default LoginPage;
