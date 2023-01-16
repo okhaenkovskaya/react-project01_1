@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Input, Textarea, Button } from "../Form";
+import { Input, Textarea } from "../Form";
 
 const ContactFormContainer = styled.div`
     max-width: 1168px;
@@ -34,6 +34,25 @@ const Title = styled.h2`
     line-height: 53px;
     color: #fff;
     text-align: center;
+`;
+
+const ButtonStyle = styled.button`
+    height: 51px;
+    background: #000;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 23px;
+    padding: 0 15px;
+    margin: 0 auto 40px;
+    border: 0;
+    display: block;
+    width: 233px;
+
+    &:disabled {
+        opacity: 0.2;
+    }
 `;
 
 const ContactForm = () => {
@@ -172,9 +191,9 @@ const ContactForm = () => {
                     value={data.message}
                 />
 
-                <Button ref={buttonRef} isDisabled={true}>
+                <ButtonStyle ref={buttonRef} isDisabled={true}>
                     Send
-                </Button>
+                </ButtonStyle>
                 <ToastContainer />
             </Form>
         </ContactFormContainer>

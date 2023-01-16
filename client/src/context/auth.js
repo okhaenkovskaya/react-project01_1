@@ -43,6 +43,8 @@ function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     function login(userData) {
+        console.log(userData, "userData");
+
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
             type: "LOGIN",
