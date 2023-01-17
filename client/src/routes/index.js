@@ -1,9 +1,9 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 
-import PrivateRouter from './PrivateRouter'
-import CheckUserAuth from './CheckUserAuth'
-import { PrivateLayout, PublicLayout } from '../layout'
-import { AuthProvider } from '../context/auth'
+import PrivateRouter from "./PrivateRouter";
+import CheckUserAuth from "./CheckUserAuth";
+import { PrivateLayout, PublicLayout } from "../layout";
+import { AuthProvider } from "../context/auth";
 
 import {
     Home,
@@ -18,7 +18,7 @@ import {
     Posts,
     ProfilePage,
     PrivacyPolicy,
-} from '../pages'
+} from "../pages";
 
 const Router = () => {
     return (
@@ -37,6 +37,7 @@ const Router = () => {
                         element={<Archive />}
                     />
                     <Route exact path="*" element={<NotFound />} />
+                    <Route exact path="/dashboard/posts" element={<Posts />} />
                 </Route>
                 <Route element={<PrivateRouter />}>
                     <Route element={<PrivateLayout />}>
@@ -71,7 +72,7 @@ const Router = () => {
                 </Route>
             </Routes>
         </AuthProvider>
-    )
-}
+    );
+};
 
-export default Router
+export default Router;
