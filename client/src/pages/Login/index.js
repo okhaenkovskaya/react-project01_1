@@ -37,9 +37,8 @@ const LoginPage = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data, "data");
                 if ("result" in data) {
-                    context.login(data.result);
+                    context.login(data);
                     navigate("/dashboard");
                 } else {
                     setIsError(data.message);

@@ -105,19 +105,12 @@ const CloseButton = styled.button`
     width: 50px;
 `;
 
-const DashboardFormPopup = ({
-    setShowNewPopup,
-    setPostsDB,
-    /*    setPosts,
-    posts,
-    newPost,
-    setNewPost,
-    emptyPost,*/
-}) => {
+const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
     const [newPost, setNewPost] = useState({
         title: "",
         body: "",
         name: "",
+        status: "",
     });
 
     const handleSubmit = (e) => {
@@ -130,7 +123,7 @@ const DashboardFormPopup = ({
             body: JSON.stringify(newPost),
         })
             .then((res) => res.json())
-            .then((data) => setPostsDB(data.data))
+            .then((data) => setPostsDB([...postsDB, data]))
             .then(() => setShowNewPopup(false));
     };
 
@@ -142,8 +135,6 @@ const DashboardFormPopup = ({
     return (
         <Popup className="popup">
             <Title>Create a Post</Title>
-
-            {JSON.stringify(newPost)}
 
             <CloseButton type="button" onClick={() => setShowNewPopup(false)}>
                 Close
@@ -163,27 +154,19 @@ const DashboardFormPopup = ({
                     placeholder="author"
                     value={newPost.author}
                 />
+                <Select onChange={handleChange} name="status">
+                    <option>status</option>
+                    <option value="Publish">Publish</option>
+                    <option value="Future">Future</option>
+                    <option value="Draft">Draft</option>
+                </Select>
+
                 <Textarea
                     onChange={handleChange}
                     name="body"
                     placeholder="body"
                     value={newPost.body}
                 ></Textarea>
-                {/*
-        <Select onChange={handleChange} name="status">
-          <option>status</option>
-          <option value="Publish">Publish</option>
-          <option value="Future">Future</option>
-          <option value="Draft">Draft</option>
-        </Select>*/}
-
-                {/*        <Input
-          onChange={handleChange}
-          name="data"
-          type="text"
-          placeholder="data"
-          value={newPost.data}
-        />*/}
 
                 <Button>Submit</Button>
             </Form>

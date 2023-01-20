@@ -37,7 +37,6 @@ const Router = () => {
                         element={<Archive />}
                     />
                     <Route exact path="*" element={<NotFound />} />
-                    <Route exact path="/dashboard/posts" element={<Posts />} />
                 </Route>
                 <Route element={<PrivateRouter />}>
                     <Route element={<PrivateLayout />}>
@@ -50,6 +49,11 @@ const Router = () => {
                             exact
                             path="/dashboard/tasks"
                             element={<Tasks />}
+                        />
+                        <Route
+                            exact
+                            path="/dashboard/posts"
+                            element={<Posts />}
                         />
                         <Route
                             exact
