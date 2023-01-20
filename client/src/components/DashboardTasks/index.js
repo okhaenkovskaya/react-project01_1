@@ -7,17 +7,19 @@ const Tasks = styled.div`
     flex-wrap: nowrap;
 `;
 
-const DashboardTasks = ({ tasks, setTasks, setEditTask, editTask }) => {
+const DashboardTasks = ({ tasks, setTasks, deleteTask, updateTask }) => {
     return (
         <Tasks>
             {tasks.map((item) => (
                 <DashboardTask
-                    key={item.id}
+                    key={item._id}
                     item={item}
                     tasks={tasks}
-                    setEditTask={setEditTask}
-                    editTask={editTask}
+                    //     setEditTask={setEditTask}
+                    //    editTask={editTask}
                     setTasks={setTasks}
+                    deleteTask={deleteTask}
+                    updateTask={updateTask}
                 />
             ))}
         </Tasks>

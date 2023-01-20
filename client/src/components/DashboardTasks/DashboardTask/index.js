@@ -57,43 +57,26 @@ const IconButton = styled.button`
     height: 40px;
 `;
 
-const DashboardTask = ({
-    item: { id, title, completed, pinned },
-    setTasks,
-    tasks,
-}) => {
+const DashboardTask = ({ item, setTasks, tasks, deleteTask, updateTask }) => {
     const [isEdit, setIsEdit] = useState(false);
 
-    const deleteTask = (id) => {
-        setTasks(tasks.filter((item) => item.id !== id));
-    };
+    const [updatedTask, setUpdatedTask] = useState(item);
 
-    const toggleValue = (e, itemId) => {
+    const toggleValue = (e) => {
         const value = e.target.closest("button").getAttribute("name");
 
-        setTasks(
-            tasks.map((item) => {
-                if (item.id === itemId) {
-                    return { ...item, [value]: !item[value] };
-                }
-                return item;
-            })
-        );
+        setUpdatedTask({ ...updatedTask, [value]: !item[value] });
+
+        updateTask(e, updatedTask);
     };
 
-    const updateTask = (e, itemId) => {
-        setTasks(
-            tasks.map((item) => {
-                if (item.id === itemId) {
-                    return { ...item, [e.target.name]: e.target.value };
-                }
-                return item;
-            })
-        );
+    const updateTaskValue = (e) => {
+        setUpdatedTask({ ...updatedTask, [e.target.name]: e.target.value });
     };
 
     const setUpdateTask = (e) => {
         if (e.key === "Enter") {
+            updateTask(e, updatedTask);
             setIsEdit(false);
         }
 
@@ -103,32 +86,32 @@ const DashboardTask = ({
     };
 
     return (
-        <Task isCompleted={completed} isPinned={pinned}>
+        <Task isCompleted={item.completed} isPinned={item.pinned}>
             <IconButton
                 name="completed"
                 type="button"
-                onClick={(e) => toggleValue(e, id)}
+                onClick={(e) => toggleValue(e)}
             >
-                {completed ? <IconStarRed /> : <IconStar />}
+                {item.completed ? <IconStarRed /> : <IconStar />}
             </IconButton>
 
             {isEdit ? (
                 <Input
-                    id={id}
-                    name={"title"}
-                    placeholder={title}
+                    id={item._id}
+                    name="task"
+                    placeholder={item.task}
                     onKeyDown={setUpdateTask}
-                    value={title}
-                    onChange={(e) => updateTask(e, id)}
+                    value={updatedTask.task}
+                    onChange={(e) => updateTaskValue(e)}
                 />
             ) : (
-                <Title>{title}</Title>
+                <Title>{item.task}</Title>
             )}
 
             <IconButton
                 name="pinned"
                 type="button"
-                onClick={(e) => toggleValue(e, id)}
+                onClick={(e) => toggleValue(e)}
             >
                 <IconPin />
             </IconButton>
@@ -137,7 +120,7 @@ const DashboardTask = ({
                 <IconPencil />
             </IconButton>
 
-            <IconButton type="button" onClick={() => deleteTask(id)}>
+            <IconButton type="button" onClick={(e) => deleteTask(e, item._id)}>
                 <IconDelete />
             </IconButton>
         </Task>

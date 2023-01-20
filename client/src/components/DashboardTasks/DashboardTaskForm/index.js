@@ -36,22 +36,40 @@ const Button = styled.button`
     }
 `;
 
-const DashboardTaskForm = ({
-    setNewTask,
-    newTask,
-    emptyTask,
-    setTasks,
-    tasks,
-}) => {
+const DashboardTaskForm = ({ setTasks, tasks }) => {
+    const emptyTask = {
+        task: "",
+    };
     const [isValid, setIsValid] = useState(false);
     const button = useRef(null);
+
+    const [newTask, setNewTask] = useState({
+        task: "",
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (isValid) {
-            setTasks(tasks.concat(newTask));
+            //setTasks(tasks.concat(newTask));
+
+            console.log(newTask, "newTask");
+
+            fetch("http://localhost:5010/task", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newTask),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setTasks([...tasks, data]);
+                    console.log(data, "TASK data");
+                });
+
             setNewTask(emptyTask);
+
             toast.success("🦄🦄🦄 Form submitted successfully.", {
                 theme: "dark",
             });
@@ -72,17 +90,17 @@ const DashboardTaskForm = ({
             button.current.disabled = true;
             toast.warn("You must fill at least 3 letters");
         }
-        setNewTask({ ...newTask, [name]: value, id: tasks.length + 1 });
+        setNewTask({ ...newTask, [name]: value });
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <Input
                 onChange={handleChange}
-                name="title"
+                name="task"
                 type="text"
                 placeholder="Type here..."
-                value={newTask.title}
+                value={newTask.task}
             />
             <Button ref={button} disabled>
                 SUBMIT
