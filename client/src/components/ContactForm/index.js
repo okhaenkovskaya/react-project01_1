@@ -59,6 +59,7 @@ const ContactForm = () => {
     const [isValid, setIsValid] = useState(false);
     const formRef = useRef(null);
     const buttonRef = useRef(null);
+    const toastId = useRef(null);
     const [data, setData] = useState({
         firstName: "",
         lastName: "",
@@ -72,11 +73,17 @@ const ContactForm = () => {
 
         if (isValid) {
             buttonRef.current.style.backgroundColor = "pink";
-            toast.success("🦄🦄🦄 Form submitted successfully.", {
-                theme: "dark",
-            });
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.success(
+                    "🦄🦄🦄 Form submitted successfully."
+                );
+            }
         } else {
-            toast.error("Please fill out the form correctly.");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error(
+                    "Please fill out the form correctly."
+                );
+            }
         }
     };
 
@@ -98,7 +105,9 @@ const ContactForm = () => {
         if (/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(input_str)) {
             return true;
         } else {
-            toast.error("Write 10 numbers");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error("Write 10 numbers");
+            }
             return false;
         }
     };
@@ -107,7 +116,12 @@ const ContactForm = () => {
         if (value.length >= 3) {
             return true;
         } else {
-            toast.warn("You must fill at least 3 letters");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.warn(
+                    "You must fill at least 3 letters"
+                );
+            }
+
             return false;
         }
     };
@@ -120,7 +134,9 @@ const ContactForm = () => {
         ) {
             return true;
         } else {
-            toast.error("Not valid Email");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error("Not valid Email");
+            }
             return false;
         }
     };
