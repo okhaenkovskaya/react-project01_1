@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import { Navigate, Outlet } from 'react-router'
-import { AuthContext } from '../context/auth'
+import React, { useContext } from "react";
+import { Navigate, Outlet } from "react-router";
+import { AuthContext } from "../context/auth";
 
-const PublicRouter = ({ redirectPath = '/login' }) => {
-    const { user } = useContext(AuthContext)
+const PublicRouter = ({ redirectPath = "/login" }) => {
+    const { user } = useContext(AuthContext);
     if (user) {
-        return <Navigate to={redirectPath} />
+        return <Navigate to={redirectPath} />;
     }
 
-    return <Outlet />
-}
+    return <Outlet />;
+};
 
-export default PublicRouter
+export default PublicRouter;

@@ -1,7 +1,6 @@
 import React, { useState, Suspense, useEffect } from "react";
 import styled from "styled-components";
 
-import { TasksData } from "../../data/TasksData";
 import Loader from "../../components/Loader";
 const DashboardTasks = React.lazy(() =>
     import("../../components/DashboardTasks")
@@ -38,9 +37,7 @@ const Tasks = () => {
             .then((data) => getTasks());
     };
 
-    const updateTask = (e, task) => {
-        console.log("654654654546544654");
-
+    const updateTask = (id, task) => {
         fetch(`http://localhost:5010/task/${task._id}`, {
             method: "PATCH",
             headers: {
@@ -54,28 +51,16 @@ const Tasks = () => {
 
     const [tasks, setTasks] = useState([]);
 
-    //  const [newTask, setNewTask] = useState(emptyTask);
-    // const [editTask, setEditTask] = useState(emptyTask);
-
     return (
         <Suspense fallback={<Loader />}>
             <Title>Tasks</Title>
             <DashboardTasks
                 tasks={tasks}
-                setTasks={setTasks}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
-                // editTask={editTask}
-                // setEditTask={setEditTask}
             />
 
-            <DashboardTaskForm
-                tasks={tasks}
-                setTasks={setTasks}
-                //  newTask={newTask}
-                // setNewTask={setNewTask}
-                // emptyTask={emptyTask}
-            />
+            <DashboardTaskForm tasks={tasks} setTasks={setTasks} />
         </Suspense>
     );
 };

@@ -19,6 +19,10 @@ const Task = styled.div`
     align-items: center;
     justify-content: center;
     color: red;
+
+    &.pinned button[name="completed"] {
+        pointer-events: none;
+    }
 `;
 
 const Title = styled.h2`
@@ -57,18 +61,10 @@ const IconButton = styled.button`
     height: 40px;
 `;
 
-const DashboardTask = ({ item, setTasks, tasks, deleteTask, updateTask }) => {
+const DashboardTask = ({ item, deleteTask, updateTask }) => {
     const [isEdit, setIsEdit] = useState(false);
 
     const [updatedTask, setUpdatedTask] = useState(item);
-
-    const toggleValue = (e) => {
-        const value = e.target.closest("button").getAttribute("name");
-
-        setUpdatedTask({ ...updatedTask, [value]: !item[value] });
-
-        updateTask(e, updatedTask);
-    };
 
     const updateTaskValue = (e) => {
         setUpdatedTask({ ...updatedTask, [e.target.name]: e.target.value });
@@ -86,11 +82,20 @@ const DashboardTask = ({ item, setTasks, tasks, deleteTask, updateTask }) => {
     };
 
     return (
-        <Task isCompleted={item.completed} isPinned={item.pinned}>
+        <Task
+            isCompleted={item.completed}
+            isPinned={item.pinned}
+            className={item.pinned ? "pinned" : ""}
+        >
             <IconButton
                 name="completed"
                 type="button"
-                onClick={(e) => toggleValue(e)}
+                onClick={(e) =>
+                    updateTask(e, {
+                        ...item,
+                        completed: !item.completed,
+                    })
+                }
             >
                 {item.completed ? <IconStarRed /> : <IconStar />}
             </IconButton>
@@ -111,7 +116,13 @@ const DashboardTask = ({ item, setTasks, tasks, deleteTask, updateTask }) => {
             <IconButton
                 name="pinned"
                 type="button"
-                onClick={(e) => toggleValue(e)}
+                onClick={(e) =>
+                    updateTask(e, {
+                        ...item,
+                        pinned: !item.pinned,
+                        completed: false,
+                    })
+                }
             >
                 <IconPin />
             </IconButton>
