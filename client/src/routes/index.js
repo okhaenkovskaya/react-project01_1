@@ -18,6 +18,7 @@ import {
     Posts,
     ProfilePage,
     PrivacyPolicy,
+    UserList,
 } from "../pages";
 
 const Router = () => {
@@ -65,6 +66,7 @@ const Router = () => {
                             path="/profile"
                             element={<ProfilePage />}
                         />
+                        <Route exact path="/user-list" element={<UserList />} />
                     </Route>
                 </Route>
                 <Route element={<CheckUserAuth />}>

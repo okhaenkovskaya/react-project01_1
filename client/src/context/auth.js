@@ -13,6 +13,8 @@ if (localStorage.getItem("jwtDecode")) {
         initialState.user = null;
     } else {
         initialState.user = decodedToken;
+
+        console.log(initialState.user, "initialState.user");
     }
 }
 
@@ -25,6 +27,11 @@ const AuthContext = createContext({
 function authReducer(state, action) {
     switch (action.type) {
         case "LOGIN":
+            return {
+                ...state,
+                user: action.payload,
+            };
+        case "UPDATE":
             return {
                 ...state,
                 user: action.payload,
@@ -42,13 +49,19 @@ function authReducer(state, action) {
 function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    function login(userData) {
-        console.log(userData, "userData");
+    function update(userData) {
+        //localStorage.setItem("jwtDecode", userData.token);
+        dispatch({
+            type: "UPDATE",
+            payload: userData,
+        });
+    }
 
+    function login(userData) {
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
             type: "LOGIN",
-            payload: userData,
+            payload: userData.result,
         });
     }
 
@@ -59,7 +72,7 @@ function AuthProvider(props) {
 
     return (
         <AuthContext.Provider
-            value={{ user: state.user, login, logout }}
+            value={{ user: state.user, login, logout, update }}
             {...props}
         />
     );

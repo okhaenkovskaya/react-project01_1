@@ -22,7 +22,11 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credentials" });
 
     const token = jwt.sign(
-      { email: existingUser.email, id: existingUser._id },
+      {
+        email: existingUser.email,
+        id: existingUser._id,
+        fullName: existingUser.fullName,
+      },
       "some very secret key",
       { expiresIn: "1h" }
     );

@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { avatarData } from "../../data/AvatarData";
+import { AuthContext } from "../../context/auth";
 
 const Container = styled.div`
     margin: 0 auto 30px;
@@ -8,6 +11,10 @@ const Container = styled.div`
     background: #bdb2ff;
     border-radius: 12px;
     position: relative;
+
+    a {
+        text-decoration: none;
+    }
 
     ${({ bigImage }) =>
         bigImage &&
@@ -29,7 +36,10 @@ const Container = styled.div`
         padding: 15px;
         min-width: 250px;
     }
-
+    
+    h2 {
+        color:white;
+    }
   `}
 `;
 
@@ -57,15 +67,19 @@ const Author = styled.h2`
 `;
 
 const Avatar = ({ bigImage }) => {
-    const { fullName, author, image } = avatarData;
+    const context = useContext(AuthContext);
+    const user = context.user;
+
+    const { image } = avatarData;
+    const { fullName, email } = user;
 
     return (
         <Container bigImage={bigImage}>
             <Image src={image} alt={fullName} />
-            <div>
+            <Link to="/profile">
                 <Title>{fullName}</Title>
-                <Author>{author}</Author>
-            </div>
+                <Author>{email}</Author>
+            </Link>
         </Container>
     );
 };
