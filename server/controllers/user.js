@@ -91,6 +91,7 @@ export const deleteUser = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
   const { id: _id } = req.params;
   const profile = req.body;
+  const email = profile.email;
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("User not found");
   const updatedProfile = await User.findByIdAndUpdate(
@@ -98,7 +99,18 @@ export const updateUserProfile = async (req, res) => {
     { ...profile, _id },
     { new: true }
   );
-  res.json(updatedProfile);
+
+  const existingUser = await User.findOne({ email });
+  const token = jwt.sign(
+    {
+      email: existingUser.email,
+      id: existingUser._id,
+      fullName: existingUser.fullName,
+    },
+    "some very secret key",
+    { expiresIn: "1h" }
+  );
+  res.json({ data: updatedProfile, token: token });
 };
 
 export const getUser = async (req, res) => {

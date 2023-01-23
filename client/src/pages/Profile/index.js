@@ -83,6 +83,9 @@ const ProfilePage = () => {
                 console.log(data, "data");
                 context.update(data);
                 setIsOpenForm(false);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 

@@ -50,10 +50,10 @@ function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     function update(userData) {
-        //localStorage.setItem("jwtDecode", userData.token);
+        localStorage.setItem("jwtDecode", userData.token);
         dispatch({
             type: "UPDATE",
-            payload: userData,
+            payload: userData.data,
         });
     }
 
