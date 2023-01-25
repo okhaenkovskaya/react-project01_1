@@ -13,8 +13,6 @@ if (localStorage.getItem("jwtDecode")) {
         initialState.user = null;
     } else {
         initialState.user = decodedToken;
-
-        console.log(initialState.user, "initialState.user");
     }
 }
 

@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import mongoose from "mongoose";
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import { MultiSelect } from "react-multi-select-component";
+
+import { AuthContext } from "../../../context/auth";
 
 const Popup = styled.div`
     position: fixed;
@@ -12,6 +17,7 @@ const Popup = styled.div`
     border-radius: 20px;
     transform: translateX(-50%) translateY(-50%);
     padding: 50px;
+    z-index: 10;
 `;
 
 const Title = styled.h2`
@@ -105,55 +111,108 @@ const CloseButton = styled.button`
     width: 50px;
 `;
 
+const SelectWrap = styled(MultiSelect)`
+    display: block;
+    width: calc(50% - 38px);
+    margin: 0 19px 40px;
+
+    .dropdown-container {
+        background: none;
+        border: 0;
+    }
+
+    .dropdown-heading {
+        background: #bdb2ff;
+        border-radius: 10px;
+        height: 63px !important;
+    }
+`;
+
 const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
-    /*
-  userID: String,
-  tag: [{ type: String }],
-  categories: [{ type: String }],
-  slug: { type: String },
-  thumbnail: { type: String },
-  comments: [
-    {
-      text: { type: String, required: true },
-      userId: { type: mongoose.Types.ObjectId, ref: "User" },
-      likes: { type: Number, default: 0 },
-      replies: [{ type: String }],
-    },
-  ],
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  views: {
-    type: Number,
-    default: 0,
-  }
-    * */
+    const context = useContext(AuthContext);
+    const user = context.user;
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    let tags = [];
+    let categories = [];
+
+    /*    const [editorState, setEditorState] = React.useState(() =>
+        EditorState.createEmpty()
+    );*/
+
+    const optionsTags = [
+        { label: "tag01 🍇", value: "tag01" },
+        { label: "tag02 🥭", value: "tag02" },
+        { label: "tag03 🍓", value: "tag03" },
+    ];
+
+    const optionsCategories = [
+        { label: "Category01 🍉", value: "Category01" },
+        { label: "Category02 🍐", value: "Category02" },
+        { label: "Category03 🍎", value: "Category03" },
+    ];
 
     const [newPost, setNewPost] = useState({
         title: "",
         body: "",
         name: "",
         status: "",
+        userID: user.id,
+        tag: tags,
+        categories: categories,
+        thumbnail: "",
+        slug: "",
     });
 
-    const handleSubmit = (e) => {
+    function convertToSlug(Text) {
+        return Text.toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[^\w-]+/g, "");
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch("http://localhost:5010/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPost),
-        })
-            .then((res) => res.json())
-            .then((data) => setPostsDB([...postsDB, data]))
-            .then(() => setShowNewPopup(false));
+
+        try {
+            const formData = new FormData();
+            tags = selectedTags.map((item) => item.value);
+            categories = selectedCategories.map((item) => item.value);
+
+            formData.append("title", newPost.title);
+            formData.append("body", newPost.body);
+            formData.append("name", newPost.name);
+            formData.append("status", newPost.status);
+            formData.append("thumbnail", newPost.thumbnail);
+            formData.append("slug", convertToSlug(newPost.title));
+            formData.append("tag", tags);
+            formData.append("categories", categories);
+
+            const res = await axios.post(
+                "http://localhost:5010/posts",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            setPostsDB([...postsDB, res.data]);
+            setShowNewPopup(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewPost({ ...newPost, [name]: value });
+    };
+
+    const handleFileChange = (e) => {
+        setNewPost({
+            ...newPost,
+            [e.target.name]: e.target.files[0],
+        });
     };
 
     return (
@@ -178,6 +237,27 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
                     placeholder="author"
                     value={newPost.author}
                 />
+
+                <Input
+                    onChange={handleFileChange}
+                    name="thumbnail"
+                    type="file"
+                />
+
+                <SelectWrap
+                    options={optionsTags}
+                    value={selectedTags}
+                    onChange={setSelectedTags}
+                    labelledBy="Select Tags"
+                />
+
+                <SelectWrap
+                    options={optionsCategories}
+                    value={selectedCategories}
+                    onChange={setSelectedCategories}
+                    labelledBy="Select Category"
+                />
+
                 <Select onChange={handleChange} name="status">
                     <option>status</option>
                     <option value="Publish">Publish</option>

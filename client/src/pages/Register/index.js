@@ -42,7 +42,6 @@ const RegisterPage = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data, "data");
                 if ("result" in data) {
                     navigate("/dashboard");
                 } else {

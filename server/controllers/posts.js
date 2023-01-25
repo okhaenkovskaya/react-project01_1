@@ -4,7 +4,7 @@ dotenv.config();
 import Post from "../models/post.js";
 import User from "../models/user.js";
 
-const PORT = process.env.PORT || 3010;
+const PORT = process.env.PORT || 5010;
 
 export const getPost = async (req, res) => {
   const { id } = req.params;
@@ -43,7 +43,7 @@ export const createPost = async (req, res) => {
     return res.json({ message: "Error: No File Selected!" });
   }
 
-  const { title, body, tag, categories, slug } = req.body;
+  const { title, body, tag, categories, slug, status } = req.body;
   const fullUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
 
   const post = new Post({
@@ -52,6 +52,7 @@ export const createPost = async (req, res) => {
     tag,
     categories,
     slug,
+    status,
     thumbnail: fullUrl,
   });
 

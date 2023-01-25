@@ -48,23 +48,17 @@ const Holder = styled.div`
     align-items: center;
 `;
 
-const Post = ({ post: { id, name, description, image_url } }) => {
-    let slicedText = description;
-    if (description.length > 40) {
-        slicedText = description.slice(0, 39);
-        slicedText += "...";
-    }
-
+const Post = ({ post: { _id, title, body, thumbnail } }) => {
     return (
         <Container>
             <Image>
-                <img src={image_url} alt={name} />
+                <img src={thumbnail} alt={title} />
             </Image>
             <TextWrap>
-                <Title>{name}</Title>
-                <Text>{slicedText}</Text>
+                <Title>{title}</Title>
+                <Text>{body}</Text>
                 <Holder>
-                    <Button url={`/posts/${id}`}>
+                    <Button url={`/posts/${_id}`}>
                         Read more
                         <IconArrow />
                     </Button>

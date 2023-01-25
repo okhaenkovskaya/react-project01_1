@@ -80,7 +80,6 @@ const ProfilePage = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data, "data");
                 context.update(data);
                 setIsOpenForm(false);
             })

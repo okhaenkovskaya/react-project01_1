@@ -50,21 +50,21 @@ const Holder = styled.div`
     align-items: center;
 `;
 
-const FeaturedPost = ({ beer: { id, name, description, image_url } }) => {
+const FeaturedPost = ({ post: { _id, title, body, thumbnail } }) => {
     return (
         <Container>
             <TextWrap>
-                <Title>{name}</Title>
-                <Text>{description}</Text>
+                <Title>{title}</Title>
+                <Text>{body}</Text>
                 <Holder>
-                    <Button url={`/posts/${id}`}>
+                    <Button url={`/posts/${_id}`}>
                         Read more
                         <IconArrow />
                     </Button>
                 </Holder>
             </TextWrap>
             <Image>
-                <img src={image_url} alt={name} />
+                <img src={thumbnail} alt={title} />
             </Image>
         </Container>
     );

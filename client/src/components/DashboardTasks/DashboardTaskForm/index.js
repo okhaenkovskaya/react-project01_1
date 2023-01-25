@@ -51,10 +51,6 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
         e.preventDefault();
 
         if (isValid) {
-            //setTasks(tasks.concat(newTask));
-
-            console.log(newTask, "newTask");
-
             fetch("http://localhost:5010/task", {
                 method: "POST",
                 headers: {
@@ -65,7 +61,6 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
                 .then((res) => res.json())
                 .then((data) => {
                     setTasks([...tasks, data]);
-                    console.log(data, "TASK data");
                 });
 
             setNewTask(emptyTask);

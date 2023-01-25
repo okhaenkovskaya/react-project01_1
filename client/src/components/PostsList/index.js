@@ -29,28 +29,28 @@ const Button = styled.button`
 `;
 
 const PostsList = ({
-    beers,
-    newBeersLoading,
+    posts,
+    newPostsLoading,
     page,
-    onRequestBeers,
-    setNewBeersLoading,
+    getPosts,
+    setNewPostsLoading,
     isCompleted,
 }) => {
     return (
         <>
             <PostsListContainer>
-                {beers.map((post) => (
-                    <Post key={post.id} post={post} />
+                {posts.map((post) => (
+                    <Post key={post._id} post={post} />
                 ))}
             </PostsListContainer>
 
-            {newBeersLoading && <Loader />}
+            {newPostsLoading && <Loader />}
 
-            {beers.length > 0 && !isCompleted ? (
+            {posts.length > 0 && !isCompleted ? (
                 <Button
                     onClick={() => {
-                        onRequestBeers(page);
-                        setNewBeersLoading(true);
+                        getPosts(page);
+                        setNewPostsLoading(true);
                     }}
                 >
                     Load more

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const Popup = styled.div`
     position: fixed;
@@ -110,8 +111,40 @@ const DashboardFormEditPopup = ({
     setShowEditPopup,
     setEditedPostDB,
 }) => {
+    console.log(editedPostDB, "editedPostDB");
+
+    function loadURLToInputFiled(url) {
+        getImgURL(url, (imgBlob) => {
+            // Load img blob to input
+            // WIP: UTF8 character error
+            let fileName = "hasFilename.jpg";
+            let file = new File(
+                [imgBlob],
+                fileName,
+                { type: "image/jpeg", lastModified: new Date().getTime() },
+                "utf-8"
+            );
+            let container = new DataTransfer();
+            container.items.add(file);
+            document.querySelector("#file_input").files = container.files;
+        });
+    }
+    // xmlHTTP return blob respond
+    function getImgURL(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            callback(xhr.response);
+        };
+        xhr.open("GET", url);
+        xhr.responseType = "blob";
+        xhr.send();
+    }
+
     const handleSubmitEdit = (e) => {
         e.preventDefault();
+
+        console.log(editedPostDB, "editedPostDB");
+
         updatePost(e, editedPostDB);
         setShowEditPopup(false);
     };
@@ -119,6 +152,13 @@ const DashboardFormEditPopup = ({
     const handleChangeEdit = (e) => {
         const { name, value } = e.target;
         setEditedPostDB({ ...editedPostDB, [name]: value });
+    };
+
+    const handleFileChange = (e) => {
+        setEditedPostDB({
+            ...editedPostDB,
+            [e.target.name]: e.target.files[0],
+        });
     };
 
     return (
@@ -142,6 +182,13 @@ const DashboardFormEditPopup = ({
                     placeholder="author"
                     value={editedPostDB.name}
                 />
+
+                <Input
+                    onChange={handleFileChange}
+                    name="thumbnail"
+                    type="file"
+                />
+
                 <Select onChange={handleChangeEdit} name="status">
                     <option>{editedPostDB.status}</option>
                     <option value="Publish">Publish</option>
