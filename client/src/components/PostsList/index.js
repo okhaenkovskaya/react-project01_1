@@ -46,7 +46,7 @@ const PostsList = ({
 
             {newPostsLoading && <Loader />}
 
-            {posts.length > 0 && !isCompleted ? (
+            {/* {posts.length > 0 && !isCompleted ? (
                 <Button
                     onClick={() => {
                         getPosts(page);
@@ -57,7 +57,7 @@ const PostsList = ({
                 </Button>
             ) : (
                 ""
-            )}
+            )}*/}
         </>
     );
 };

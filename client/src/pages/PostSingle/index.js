@@ -32,9 +32,11 @@ const Intro = styled.div`
 const PostPage = () => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
+    const [view, setView] = useState(0);
 
     useEffect(() => {
         getPost();
+        fetchView();
     }, []);
 
     const getPost = () => {
@@ -48,7 +50,41 @@ const PostPage = () => {
             });
     };
 
-    const { title, body, thumbnail } = post;
+    const fetchView = () => {
+        axios
+            .patch(`http://localhost:5010/posts/${postId}/viewcount`)
+            .then((res) => {
+                setView(res.data.views);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const addLike = () => {
+        axios
+            .put(`http://localhost:5010/posts/${postId}/like`)
+            .then((res) => {
+                setPost(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const removeLike = () => {
+        axios
+            .delete(`http://localhost:5010/posts/${postId}/like`)
+            .then((res) => {
+                setPost(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const { title, body, thumbnail, createdAt, likes } = post;
+    const date = new Date(Date(createdAt));
 
     return (
         <Suspense fallback={<Loader />}>
@@ -57,8 +93,14 @@ const PostPage = () => {
                     <img src={thumbnail} alt={title} />
                     <h1>{title}</h1>
                 </Intro>
+                <h1>view {view}</h1>
+                <button onClick={addLike}>Add Like</button> ---> {likes}{" "}
+                &lt;---- <button onClick={removeLike}>Remove Like</button>
+                <br />
+                {date.toLocaleDateString()}
+                <br />
                 {body}
-                <PostComment />
+                <PostComment postId={post._id} />
             </Container>
         </Suspense>
     );
