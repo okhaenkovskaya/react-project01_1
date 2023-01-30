@@ -16,17 +16,18 @@ const LikeComponent = styled.button`
         display: inline-block;
         vertical-align: top;
         margin: 3px 5px 0 0;
+        transform: rotate(180deg);
     }
 `;
 
-const Like = ({ likes, addLike }) => {
+const Dislike = ({ likes, removeLike }) => {
     return (
-        <LikeComponent onClick={addLike}>
+        <LikeComponent onClick={removeLike}>
             <IconLike />
-            Add Like
+            Remove Like
             {likes}
         </LikeComponent>
     );
 };
 
-export default Like;
+export default Dislike;

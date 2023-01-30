@@ -8,6 +8,14 @@ import { AuthContext } from "../../context/auth";
 import { ReactComponent as IconUserMan } from "../../assets/icons/user-man.svg";
 import UserDropInfo from "../Header/UserDropInfo";
 import { ReactComponent as IconLogin } from "../../assets/icons/icon-login.svg";
+import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
+
+const CommentsContainer = styled.div`
+    &.hide-form form {
+        height: 0;
+        overflow: hidden;
+    }
+`;
 
 const FirstCommentContainer = styled.div`
     margin: 50px 0 30px;
@@ -19,7 +27,7 @@ const FirstCommentContainer = styled.div`
 
 const FirstComment = styled.div`
     margin: 0 0 30px;
-    padding: 50px 30px;
+    padding: 30px;
     font-size: 14px;
     line-height: 21px;
     color: #fff;
@@ -29,7 +37,7 @@ const FirstComment = styled.div`
 `;
 
 const SecondCommentContainer = styled.div`
-    margin: 0 50px 30px;
+    margin: 0 30px 30px;
     display: flex;
 
     .holder {
@@ -78,7 +86,7 @@ const Avator = styled.div`
 
 const SecondComment = styled.div`
     margin: 0 0 30px;
-    padding: 50px 30px;
+    padding: 30px;
     font-size: 14px;
     line-height: 21px;
     color: #fff;
@@ -87,20 +95,37 @@ const SecondComment = styled.div`
     border-radius: 40px;
 `;
 
-/*
-   *  {
-     text: { type: String, required: true },
-     userId: { type: mongoose.Types.ObjectId, ref: "User" },
-     likes: { type: Number, default: 0 },
-     replies: [{ type: String }],
-   },*/
+const Button = styled.button`
+    margin: 0 10px 10px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    font-weight: 400;
+    background: none;
+    padding: 8px 15px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+`;
+
+const Textarea = styled.textarea`
+    width: 500px;
+    margin: 0 10px 10px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    font-weight: 400;
+    background: none;
+    padding: 8px 15px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: block;
+    resize: none;
+`;
 
 const PostComment = ({ postId }) => {
     const context = useContext(AuthContext);
     const user = context.user;
-    const [isLoad, setIsLoad] = useState(false);
     const [comments, setComments] = useState({});
-    const [commentLikes, setCommentLike] = useState(0);
     const [newComment, setNewComment] = useState("");
 
     const getComments = async () => {
@@ -156,14 +181,8 @@ const PostComment = ({ postId }) => {
     };
 
     const ShowReplyForm = (e) => {
-        console.log(e, "ShowReplyForm");
-        const formReplyHolder = e.target.parentNode;
-
-        if (formReplyHolder.classList.contains("hide-form")) {
-            formReplyHolder.classList.remove("hide-form");
-        } else {
-            formReplyHolder.classList.add("hide-form");
-        }
+        const formReplyHolder = e.target.parentNode.parentNode.parentNode;
+        formReplyHolder.classList.toggle("hide-form");
     };
 
     const handleReply = async (e, commentId, text) => {
@@ -185,13 +204,13 @@ const PostComment = ({ postId }) => {
         <>
             {user ? (
                 <form onSubmit={handleSubmit}>
-                    <textarea
+                    <Textarea
                         onChange={(e) => setNewComment(e.target.value)}
                         name="text"
                         placeholder="TExt"
                         value={newComment}
-                    ></textarea>
-                    <button>Add Comment</button>
+                    ></Textarea>
+                    <Button>Add Comment</Button>
                 </form>
             ) : (
                 <p>You must to LoG In</p>
@@ -199,21 +218,29 @@ const PostComment = ({ postId }) => {
 
             {comments.length > 0 &&
                 comments.map((comment) => (
-                    <li key={comment._id} className="hide-form">
-                        <h1>{comment.userId} ---UserID</h1>
-                        <p>{comment.text}</p>
-                        <p>{comment.likes} ---- likes</p>
-                        <h2>{JSON.stringify(comment.replies)}</h2>
-                        <button
-                            type="button"
-                            onClick={() => AddLikeComment(comment._id)}
-                        >
-                            Add like to comment
-                        </button>
-                        <br />
-                        <button type="button" onClick={(e) => ShowReplyForm(e)}>
-                            Reply
-                        </button>
+                    <CommentsContainer key={comment._id} className="hide-form">
+                        <FirstCommentContainer>
+                            <FirstComment>
+                                <p>{comment.text}</p>
+                            </FirstComment>
+
+                            <div className="frame">
+                                <Button
+                                    type="button"
+                                    onClick={() => AddLikeComment(comment._id)}
+                                >
+                                    <IconLike />
+                                    &nbsp; Add Like&nbsp;
+                                    {comment.likes}
+                                </Button>
+                                <Button
+                                    type="button"
+                                    onClick={(e) => ShowReplyForm(e)}
+                                >
+                                    Reply
+                                </Button>
+                            </div>
+                        </FirstCommentContainer>
 
                         <form
                             onSubmit={(e) =>
@@ -224,59 +251,25 @@ const PostComment = ({ postId }) => {
                                 )
                             }
                         >
-                            <textarea
+                            <Textarea
                                 name="reply"
                                 placeholder="Reply...."
-                            ></textarea>
-                            <button>Add Comment Reply</button>
+                            ></Textarea>
+                            <Button>Add Comment Reply</Button>
                         </form>
-                    </li>
+
+                        {comment.replies.map((innerComment) => (
+                            <SecondCommentContainer>
+                                <Avator>User</Avator>
+                                <div className="holder">
+                                    <SecondComment>
+                                        <p>{innerComment}</p>
+                                    </SecondComment>
+                                </div>
+                            </SecondCommentContainer>
+                        ))}
+                    </CommentsContainer>
                 ))}
-
-            {/*            {comments.map((comment) => (
-                <>
-                    <h1>{comment.userId}</h1>
-                    <p>{comment.text}</p>
-                </>
-            ))}*/}
-
-            {/*            <FirstCommentContainer>
-                <FirstComment>
-                    <h2>First Name Last Name</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Aut cum delectus ex ipsum itaque iusto maiores
-                        molestias mollitia nam natus non pariatur perferendis
-                        quae quam, sequi sunt temporibus. Facilis, officiis?
-                    </p>
-                </FirstComment>
-
-                <div className="frame">
-                    <Comments>120</Comments>
-                    <Like>77</Like>
-                </div>
-            </FirstCommentContainer>
-            <SecondCommentContainer>
-                <Avator>FL</Avator>
-                <div className="holder">
-                    <SecondComment>
-                        <h2>First Name Last Name</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Adipisci aliquam, architecto aut corporis,
-                            cumque dicta doloremque dolorum eius ex excepturi
-                            illum nihil officia perspiciatis quia quisquam quod
-                            similique tenetur totam!
-                        </p>
-                    </SecondComment>
-                    <ul>
-                        <li>Reply</li>
-                        <li>React</li>
-                        <li>47 min ago</li>
-                    </ul>
-                    <em>Show 37 more replies</em>
-                </div>
-            </SecondCommentContainer>*/}
         </>
     );
 };
