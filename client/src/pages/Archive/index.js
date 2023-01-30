@@ -1,27 +1,28 @@
-import { useParams } from 'react-router-dom'
-import React, { useEffect, useState, Suspense } from 'react'
-import styled from 'styled-components'
-import axios from 'axios'
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState, Suspense } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { Helmet } from "react-helmet";
 
-import Loader from '../../components/Loader'
-const PostsList = React.lazy(() => import('../../components/PostsList'))
-const PageHeader = React.lazy(() => import('../../components/PageHeader'))
+import Loader from "../../components/Loader";
+const PostsList = React.lazy(() => import("../../components/PostsList"));
+const PageHeader = React.lazy(() => import("../../components/PageHeader"));
 
 const Container = styled.div`
     margin: 0 auto;
     max-width: 1250px;
     padding: 0 30px;
-`
+`;
 
 const ArchivePage = () => {
-    const { filter, param } = useParams()
-    const filterParamReady = param.replace('-', ' ')
+    const { filter, param } = useParams();
+    const filterParamReady = param.replace("-", " ");
 
-    const BASE_URL = 'https://api.punkapi.com/v2/beers'
-    const [beers, setBeers] = useState([])
-    const [page, setPage] = useState(1)
-    const [isCompleted, setIsCompleted] = useState(false)
-    const [newBeersLoading, setNewBeersLoading] = useState(false)
+    const BASE_URL = "https://api.punkapi.com/v2/beers";
+    const [beers, setBeers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [newBeersLoading, setNewBeersLoading] = useState(false);
 
     const onLoadPage = (page) => {
         axios
@@ -33,21 +34,21 @@ const ArchivePage = () => {
                 },
             })
             .then((res) => {
-                setBeers([...res.data])
-                setPage((page) => page + 1)
-                setNewBeersLoading(false)
+                setBeers([...res.data]);
+                setPage((page) => page + 1);
+                setNewBeersLoading(false);
                 res.data.length < 30
                     ? setIsCompleted(true)
-                    : setIsCompleted(false)
+                    : setIsCompleted(false);
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }
+                console.log(error);
+            });
+    };
 
     useEffect(() => {
-        onLoadPage(page)
-    }, [param])
+        onLoadPage(page);
+    }, [param]);
 
     const onRequestBeers = (page) => {
         axios
@@ -59,20 +60,23 @@ const ArchivePage = () => {
                 },
             })
             .then((res) => {
-                setBeers([...beers, ...res.data])
-                setPage((page) => page + 1)
-                setNewBeersLoading(false)
+                setBeers([...beers, ...res.data]);
+                setPage((page) => page + 1);
+                setNewBeersLoading(false);
                 res.data.length < 30
                     ? setIsCompleted(true)
-                    : setIsCompleted(false)
+                    : setIsCompleted(false);
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }
+                console.log(error);
+            });
+    };
 
     return (
         <Suspense fallback={<Loader />}>
+            <Helmet>
+                <title>Archive Page</title>
+            </Helmet>
             <Container>
                 <PageHeader>
                     Archive {filter}: {filterParamReady}
@@ -89,7 +93,7 @@ const ArchivePage = () => {
                 )}
             </Container>
         </Suspense>
-    )
-}
+    );
+};
 
-export default ArchivePage
+export default ArchivePage;

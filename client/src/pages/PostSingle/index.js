@@ -2,8 +2,11 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState, Suspense } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 import Loader from "../../components/Loader";
+import Like from "../../components/Like";
+import Dislike from "../../components/Dislike";
 const PostComment = React.lazy(() => import("../../components/PostComments"));
 
 const Container = styled.div`
@@ -21,11 +24,18 @@ const Intro = styled.div`
     flex-wrap: nowrap;
     align-items: center;
     margin: 0 0 30px;
+    position: relative;
 
     img {
         max-height: 200px;
         width: auto;
         margin: 0 30px 0 0;
+    }
+
+    span {
+        position: absolute;
+        right: 0;
+        top: 0;
     }
 `;
 
@@ -88,18 +98,23 @@ const PostPage = () => {
 
     return (
         <Suspense fallback={<Loader />}>
+            <Helmet>
+                <title>Single Post</title>
+            </Helmet>
             <Container>
                 <Intro>
                     <img src={thumbnail} alt={title} />
                     <h1>{title}</h1>
+
+                    <span>views -> {view}</span>
                 </Intro>
-                <h1>view {view}</h1>
-                <button onClick={addLike}>Add Like</button> ---> {likes}{" "}
-                &lt;---- <button onClick={removeLike}>Remove Like</button>
+                {body}
+                <br />
+                <Like addLike={addLike} likes={likes} />
+                <Dislike removeLike={removeLike} likes={likes} />
                 <br />
                 {date.toLocaleDateString()}
                 <br />
-                {body}
                 <PostComment postId={post._id} />
             </Container>
         </Suspense>

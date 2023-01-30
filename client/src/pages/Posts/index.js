@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DataTable from "react-data-table-component";
+import { Helmet } from "react-helmet";
 
 import { ReactComponent as IconNewPosts } from "../../assets/icons/new_post.svg";
 import Loader from "../../components/Loader";
@@ -121,6 +122,9 @@ const Posts = () => {
     const [showNewPopup, setShowNewPopup] = useState(false);
     return (
         <Suspense fallback={<Loader />}>
+            <Helmet>
+                <title>Posts Page</title>
+            </Helmet>
             <Head>
                 <Title>Posts</Title>
                 <AddNewButton

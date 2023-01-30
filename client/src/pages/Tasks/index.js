@@ -1,5 +1,6 @@
 import React, { useState, Suspense, useEffect } from "react";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 
 import Loader from "../../components/Loader";
 const DashboardTasks = React.lazy(() =>
@@ -53,6 +54,9 @@ const Tasks = () => {
 
     return (
         <Suspense fallback={<Loader />}>
+            <Helmet>
+                <title>Tasks Page</title>
+            </Helmet>
             <Title>Tasks</Title>
             <DashboardTasks
                 tasks={tasks}

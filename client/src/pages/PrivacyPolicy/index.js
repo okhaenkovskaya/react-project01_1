@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { Helmet } from "react-helmet";
 
-import { AuthContext } from '../../context/auth'
-import { fullImageData, pageData } from '../../data/PolicyData'
-import FullWidthImageWithTitle from '../../components/FullWidthImageWithTitle'
+import { AuthContext } from "../../context/auth";
+import { fullImageData, pageData } from "../../data/PolicyData";
+import FullWidthImageWithTitle from "../../components/FullWidthImageWithTitle";
 
 const Title = styled.div`
     margin: 0 0 30px;
@@ -13,18 +14,21 @@ const Title = styled.div`
     line-height: 39px;
     letter-spacing: -0.02em;
     color: #c1c6db;
-`
+`;
 
 const Container = styled.div`
     margin: 0 auto;
     max-width: 1250px;
-    padding: ${(props) => (props.user ? '0' : '30px')};
-`
+    padding: ${(props) => (props.user ? "0" : "30px")};
+`;
 
 const PrivacyPolicy = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     return (
         <>
+            <Helmet>
+                <title>PrivacyPolicy Page</title>
+            </Helmet>
             {!user ? (
                 <FullWidthImageWithTitle
                     fullImageData={fullImageData}
@@ -68,7 +72,7 @@ const PrivacyPolicy = () => {
                 </p>
             </Container>
         </>
-    )
-}
+    );
+};
 
-export default PrivacyPolicy
+export default PrivacyPolicy;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 
 import { fullImageData } from "../../data/HomeData";
 import Loader from "../../components/Loader";
@@ -83,28 +84,33 @@ const HomePage = () => {
     };
 
     return (
-        <Suspense fallback={<Loader />}>
-            <FullWidthImage fullImageData={fullImageData} />
+        <>
+            <Suspense fallback={<Loader />}>
+                <Helmet>
+                    <title>Home PAge Title</title>
+                </Helmet>
+                <FullWidthImage fullImageData={fullImageData} />
 
-            <Container>
-                {/*    <FilterBar onSearchBeer={onSearchBeer} onFilter={onFilter} />*/}
+                <Container>
+                    {/*    <FilterBar onSearchBeer={onSearchBeer} onFilter={onFilter} />*/}
 
-                {posts.length === 0 && <NotFound />}
+                    {posts.length === 0 && <NotFound />}
 
-                {posts.length > 0 && <FeaturedPost post={posts[0]} />}
+                    {posts.length > 0 && <FeaturedPost post={posts[0]} />}
 
-                {posts.length > 0 && (
-                    <PostsList
-                        posts={posts}
-                        page={page}
-                        getPosts={getPosts}
-                        isCompleted={isCompleted}
-                        newPostsLoading={newPostsLoading}
-                        setNewPostsLoading={setNewPostsLoading}
-                    />
-                )}
-            </Container>
-        </Suspense>
+                    {posts.length > 0 && (
+                        <PostsList
+                            posts={posts}
+                            page={page}
+                            getPosts={getPosts}
+                            isCompleted={isCompleted}
+                            newPostsLoading={newPostsLoading}
+                            setNewPostsLoading={setNewPostsLoading}
+                        />
+                    )}
+                </Container>
+            </Suspense>
+        </>
     );
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 
 const Title = styled.h2`
     font-weight: 600;
@@ -54,6 +54,9 @@ const UserList = () => {
 
     return (
         <>
+            <Helmet>
+                <title>User list Page</title>
+            </Helmet>
             <Title>User list</Title>
             <DataTable columns={columns} data={users} />
         </>
