@@ -1,13 +1,8 @@
 import styled from "styled-components";
 
-import Comments from "../Comments";
-import Like from "../Like";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
-import { ReactComponent as IconUserMan } from "../../assets/icons/user-man.svg";
-import UserDropInfo from "../Header/UserDropInfo";
-import { ReactComponent as IconLogin } from "../../assets/icons/icon-login.svg";
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
 
 const CommentsContainer = styled.div`

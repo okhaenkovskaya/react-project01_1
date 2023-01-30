@@ -1,9 +1,8 @@
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 
 import Button from "../../components/Link";
 import { notFoundImageData } from "../../data/NotFoundData";
-import { Helmet } from "react-helmet";
-import React from "react";
 
 const NotFoundContainer = styled.div`
     background-image: url(${notFoundImageData.src});

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
-import React from "react";
 
 const LikeComponent = styled.button`
     margin: 0 0 0 10px;
