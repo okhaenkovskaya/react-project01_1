@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -55,6 +55,12 @@ const LoginPage = () => {
         setUserData({ ...userData, [name]: value });
         setIsError(null);
     };
+
+    useEffect(() => {
+        <Helmet>
+            <title>Login Page</title>
+        </Helmet>;
+    }, []);
 
     return (
         <Container>
