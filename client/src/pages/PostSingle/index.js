@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState, Suspense } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Helmet } from "react-helmet";
 
 import Loader from "../../components/Loader";
 import Like from "../../components/Like";
@@ -98,9 +97,6 @@ const PostPage = () => {
 
     return (
         <Suspense fallback={<Loader />}>
-            <Helmet>
-                <title>Single Post</title>
-            </Helmet>
             <Container>
                 <Intro>
                     <img src={thumbnail} alt={title} />

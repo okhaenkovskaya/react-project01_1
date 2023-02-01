@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import { AuthContext } from "../../context/auth";
 import { accountData } from "../../data/AccountData";
@@ -56,17 +55,8 @@ const LoginPage = () => {
         setIsError(null);
     };
 
-    useEffect(() => {
-        <Helmet>
-            <title>Login Page</title>
-        </Helmet>;
-    }, []);
-
     return (
         <Container>
-            <Helmet>
-                <title>Login Page</title>
-            </Helmet>
             <img src={bgTitle} alt={loginTitle} />
 
             <Form onSubmit={handleSubmit}>

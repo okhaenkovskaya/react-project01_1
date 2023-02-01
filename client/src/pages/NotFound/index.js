@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import styled from "styled-components";
 
 import Button from "../../components/Link";
@@ -37,9 +36,6 @@ const Title = styled.h1`
 const NotFound = () => {
     return (
         <NotFoundContainer>
-            <Helmet>
-                <title>404 Page</title>
-            </Helmet>
             <Title>404</Title>
             <Button url={"/"}>Go to Homepage</Button>
         </NotFoundContainer>

@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { Helmet } from "react-helmet";
-import React from "react";
 
 import DashboardPlaceholderPie from "../../components/PieChart";
 import DashboardPlaceholderLine from "../../components/LineChart";
@@ -22,9 +20,6 @@ const Diagrams = styled.div`
 const Dashboard = () => {
     return (
         <>
-            <Helmet>
-                <title>Dashboard Page</title>
-            </Helmet>
             <Title>Dashboard</Title>
 
             <Diagrams>

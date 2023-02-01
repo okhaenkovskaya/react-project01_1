@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import Avatar from "../../components/Avatar";
 import BG from "../../assets/images/avatar-bg.png";
@@ -99,9 +98,6 @@ const ProfilePage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Profile Page</title>
-            </Helmet>
             <Head>
                 <Title>Profile</Title>
                 <LinkWrap to="/user-list">User List -></LinkWrap>

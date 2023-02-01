@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Helmet } from "react-helmet";
 
 import { fullImageData } from "../../data/HomeData";
 import Loader from "../../components/Loader";
@@ -26,10 +25,6 @@ const HomePage = () => {
     const [newPostsLoading, setNewPostsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        getPosts(page);
-    }, []);
 
     /*
     const onFilter = (filterObj) => {
@@ -86,9 +81,6 @@ const HomePage = () => {
     return (
         <>
             <Suspense fallback={<Loader />}>
-                <Helmet>
-                    <title>Home PAge Title</title>
-                </Helmet>
                 <FullWidthImage fullImageData={fullImageData} />
 
                 <Container>

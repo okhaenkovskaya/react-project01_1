@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import PrivateRouter from "./PrivateRouter";
 import CheckUserAuth from "./CheckUserAuth";
@@ -21,7 +22,22 @@ import {
     UserList,
 } from "../pages";
 
+const titles = {
+    "/": "Home",
+    "/Contact": "Contact",
+    "/dashboard": "Dashboard",
+    "/login": "Login",
+    "/Register": "Register",
+    "/privacy-policy": "PrivacyPolicy",
+};
+
 const Router = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        document.title = titles[location.pathname] ?? "My super app";
+    }, [location]);
+
     return (
         <AuthProvider>
             <Routes>

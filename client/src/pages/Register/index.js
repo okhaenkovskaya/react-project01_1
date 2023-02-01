@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { Helmet } from "react-helmet";
 
 import { accountData } from "../../data/AccountData";
 import {
@@ -62,10 +61,6 @@ const RegisterPage = () => {
 
     return (
         <Container>
-            <Helmet>
-                <title>Register Page</title>
-            </Helmet>
-
             <img src={bgTitle} alt={registerTitle} />
 
             <Form onSubmit={handleSubmit}>

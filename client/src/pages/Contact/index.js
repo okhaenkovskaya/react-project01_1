@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import styled from "styled-components";
-import { Helmet } from "react-helmet";
 
 import {
     fullImageData,
@@ -25,9 +24,6 @@ const Container = styled.div`
 const Contact = () => {
     return (
         <Suspense fallback={<Loader />}>
-            <Helmet>
-                <title>Contact Page</title>
-            </Helmet>
             <FullWidthImageWithTitle
                 fullImageData={fullImageData}
                 title={pageData.title}

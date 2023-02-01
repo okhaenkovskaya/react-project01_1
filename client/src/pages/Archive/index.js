@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState, Suspense } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Helmet } from "react-helmet";
 
 import Loader from "../../components/Loader";
 const PostsList = React.lazy(() => import("../../components/PostsList"));
@@ -74,9 +73,6 @@ const ArchivePage = () => {
 
     return (
         <Suspense fallback={<Loader />}>
-            <Helmet>
-                <title>Archive Page</title>
-            </Helmet>
             <Container>
                 <PageHeader>
                     Archive {filter}: {filterParamReady}
