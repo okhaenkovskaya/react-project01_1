@@ -45,7 +45,6 @@ const Router = () => {
                     <Route index element={<Home />} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/register" element={<Register />} />
-
                     <Route exact path="/contact" element={<Contact />} />
                     <Route exact path="/posts/:postId" element={<Post />} />
                     <Route
