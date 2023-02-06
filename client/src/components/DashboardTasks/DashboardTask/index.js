@@ -6,6 +6,7 @@ import { ReactComponent as IconStarRed } from "../../../assets/icons/icon-star-r
 import { ReactComponent as IconPin } from "../../../assets/icons/icon-pin.svg";
 import { ReactComponent as IconPencil } from "../../../assets/icons/icon-pencil.svg";
 import { ReactComponent as IconDelete } from "../../../assets/icons/plus_circle_icon.svg";
+import { IconButton } from "../../Form";
 
 const Task = styled.div`
     background: white;
@@ -48,19 +49,6 @@ const Input = styled.input`
     width: calc(100% - 200px);
 `;
 
-const IconButton = styled.button`
-    background: none;
-    border: 0;
-    padding: 0;
-    margin: 0 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    width: 40px;
-    height: 40px;
-`;
-
 const DashboardTask = ({ item, deleteTask, updateTask }) => {
     const [isEdit, setIsEdit] = useState(false);
 
@@ -88,9 +76,8 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
             className={item.pinned ? "pinned" : ""}
         >
             <IconButton
-                name="completed"
-                type="button"
-                onClick={(e) =>
+                name={"completed"}
+                clickFunction={(e) =>
                     updateTask(e, {
                         ...item,
                         completed: !item.completed,
@@ -114,9 +101,8 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
             )}
 
             <IconButton
-                name="pinned"
-                type="button"
-                onClick={(e) =>
+                name={"pinned"}
+                clickFunction={(e) =>
                     updateTask(e, {
                         ...item,
                         pinned: !item.pinned,
@@ -127,11 +113,11 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
                 <IconPin />
             </IconButton>
 
-            <IconButton type="button" onClick={() => setIsEdit(!isEdit)}>
+            <IconButton clickFunction={() => setIsEdit(!isEdit)}>
                 <IconPencil />
             </IconButton>
 
-            <IconButton type="button" onClick={(e) => deleteTask(e, item._id)}>
+            <IconButton clickFunction={(e) => deleteTask(e, item._id)}>
                 <IconDelete />
             </IconButton>
         </Task>

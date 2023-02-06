@@ -123,6 +123,7 @@ const Posts = () => {
         <Suspense fallback={<Loader />}>
             <Head>
                 <Title>Posts</Title>
+
                 <AddNewButton
                     onClick={() => {
                         setShowNewPopup(true);

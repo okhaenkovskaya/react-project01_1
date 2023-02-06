@@ -28,6 +28,7 @@ const Contact = () => {
                 fullImageData={fullImageData}
                 title={pageData.title}
             />
+
             <Container>
                 <ContactForm />
                 <SocialNetwork socialNetworkData={socialNetworkData} />

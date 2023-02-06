@@ -1,7 +1,8 @@
 import React, { useState, Suspense, useEffect } from "react";
-import styled from "styled-components";
 
 import Loader from "../../components/Loader";
+import PageTitle from "../../components/PageTitle";
+import { BASE_URL_TASK } from "../../data/Constans";
 const DashboardTasks = React.lazy(() =>
     import("../../components/DashboardTasks")
 );
@@ -9,28 +10,19 @@ const DashboardTaskForm = React.lazy(() =>
     import("../../components/DashboardTasks/DashboardTaskForm")
 );
 
-const Title = styled.h2`
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    letter-spacing: -0.02em;
-    color: #c1c6db;
-    margin: 0 0 30px;
-`;
-
 const Tasks = () => {
     useEffect(() => {
         getTasks();
     }, []);
 
     const getTasks = () => {
-        fetch("http://localhost:5010/task")
+        fetch(`${BASE_URL_TASK}`)
             .then((res) => res.json())
             .then((data) => setTasks(data));
     };
 
     const deleteTask = (e, id) => {
-        fetch(`http://localhost:5010/task/${id}`, {
+        fetch(`${BASE_URL_TASK}/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
@@ -38,7 +30,7 @@ const Tasks = () => {
     };
 
     const updateTask = (id, task) => {
-        fetch(`http://localhost:5010/task/${task._id}`, {
+        fetch(`${BASE_URL_TASK}/${task._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +45,7 @@ const Tasks = () => {
 
     return (
         <Suspense fallback={<Loader />}>
-            <Title>Tasks</Title>
+            <PageTitle>Tasks</PageTitle>
             <DashboardTasks
                 tasks={tasks}
                 deleteTask={deleteTask}

@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import DataTable from "react-data-table-component";
-import styled from "styled-components";
 
-const Title = styled.h2`
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    letter-spacing: -0.02em;
-    color: #c1c6db;
-    margin: 0;
-`;
+import { BASE_URL_USER } from "../../data/Constans";
+import PageTitle from "../../components/PageTitle";
+import Button from "../../components/Form/Button";
+import Loader from "../../components/Loader";
 
 const UserList = () => {
     const columns = [
@@ -24,9 +19,13 @@ const UserList = () => {
         {
             name: "BUTTONS",
             selector: (row) => (
-                <button type="button" onClick={(e) => deleteUser(e, row._id)}>
-                    Dalete
-                </button>
+                <Button
+                    type={"button"}
+                    classes={"small-button"}
+                    clickFunction={(e) => deleteUser(e, row._id)}
+                >
+                    Delete
+                </Button>
             ),
         },
     ];
@@ -36,13 +35,13 @@ const UserList = () => {
     }, []);
 
     const getUsers = () => {
-        fetch("http://localhost:5010/user/list")
+        fetch(`${BASE_URL_USER}/list`)
             .then((res) => res.json())
             .then((data) => setUsers(data));
     };
 
     const deleteUser = (e, id) => {
-        fetch(`http://localhost:5010/user/${id}`, {
+        fetch(`${BASE_URL_USER}/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
@@ -52,10 +51,10 @@ const UserList = () => {
     const [users, setUsers] = useState([]);
 
     return (
-        <>
-            <Title>User list</Title>
+        <Suspense fallback={<Loader />}>
+            <PageTitle>User list</PageTitle>
             <DataTable columns={columns} data={users} />
-        </>
+        </Suspense>
     );
 };
 

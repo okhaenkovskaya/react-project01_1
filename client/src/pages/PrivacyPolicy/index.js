@@ -1,25 +1,10 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 
 import { AuthContext } from "../../context/auth";
 import { fullImageData, pageData } from "../../data/PolicyData";
 import FullWidthImageWithTitle from "../../components/FullWidthImageWithTitle";
-
-const Title = styled.div`
-    margin: 0 0 30px;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    letter-spacing: -0.02em;
-    color: #c1c6db;
-`;
-
-const Container = styled.div`
-    margin: 0 auto;
-    max-width: 1250px;
-    padding: ${(props) => (props.user ? "0" : "30px")};
-`;
+import PageTitle from "../../components/PageTitle";
+import Container from "../../components/Container";
 
 const PrivacyPolicy = () => {
     const { user } = useContext(AuthContext);
@@ -31,7 +16,7 @@ const PrivacyPolicy = () => {
                     title={pageData.title}
                 />
             ) : (
-                <Title>{pageData.title}</Title>
+                <PageTitle>{pageData.title}</PageTitle>
             )}
 
             <Container user={user}>

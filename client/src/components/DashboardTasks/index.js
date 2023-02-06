@@ -1,5 +1,6 @@
-import DashboardTask from "./DashboardTask";
 import styled from "styled-components";
+
+import DashboardTask from "./DashboardTask";
 
 const Tasks = styled.div`
     display: flex;

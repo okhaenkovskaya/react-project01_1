@@ -3,6 +3,9 @@ import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { BASE_URL_TASK } from "../../../data/Constans";
+import { Button } from "../../Form";
+
 const Input = styled.input`
     font-weight: 700;
     font-size: 14px;
@@ -19,30 +22,13 @@ const Input = styled.input`
     border-radius: 8px;
 `;
 
-const Button = styled.button`
-    background: #bdb2ff;
-    border: 1px solid #bdb2ff;
-    border-radius: 8px;
-    border: 0;
-    padding: 10px;
-    height: 50px;
-    width: 192px;
-    margin: 0;
-    letter-spacing: -0.5px;
-    color: #262835;
-
-    &:disabled {
-        opacity: 0.5;
-    }
-`;
-
 const DashboardTaskForm = ({ setTasks, tasks }) => {
     const emptyTask = {
         task: "",
     };
+    const toastId = useRef(null);
     const [isValid, setIsValid] = useState(false);
     const button = useRef(null);
-
     const [newTask, setNewTask] = useState({
         task: "",
     });
@@ -51,7 +37,7 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
         e.preventDefault();
 
         if (isValid) {
-            fetch("http://localhost:5010/task", {
+            fetch(`${BASE_URL_TASK}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -64,13 +50,16 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
                 });
 
             setNewTask(emptyTask);
-
-            toast.success("🦄🦄🦄 Form submitted successfully.", {
-                theme: "dark",
-            });
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.success("Form submitted successfully.");
+            }
             button.current.disabled = true;
         } else {
-            toast.error("Please fill out the form correctly.");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error(
+                    "Please fill out the form correctly."
+                );
+            }
         }
     };
 
@@ -83,7 +72,11 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
         } else {
             setIsValid(false);
             button.current.disabled = true;
-            toast.warn("You must fill at least 3 letters");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.warn(
+                    "You must fill at least 3 letters"
+                );
+            }
         }
         setNewTask({ ...newTask, [name]: value });
     };
@@ -97,7 +90,7 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
                 placeholder="Type here..."
                 value={newTask.task}
             />
-            <Button ref={button} disabled>
+            <Button ref={button} isDisabled={true} classes={"task-button"}>
                 SUBMIT
             </Button>
             <ToastContainer />

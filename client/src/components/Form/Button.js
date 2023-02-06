@@ -23,6 +23,25 @@ const ButtonStyle = styled.button`
         opacity: 0.8;
     }
 
+    &.small-inline-button {
+        display: inline-block;
+        vertical-align: top;
+        font-family: "Mulish";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        color: #fff;
+        text-decoration: none;
+        background: #999;
+        border: 0;
+        padding: 10px;
+        margin: 0 15px 0 0;
+        border-radius: 10px;
+        cursor: pointer;
+        width: auto;
+    }
+
     &.small-button {
         margin: 0;
         width: auto;
