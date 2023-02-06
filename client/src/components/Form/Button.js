@@ -17,12 +17,53 @@ const ButtonStyle = styled.button`
     &:disabled {
         opacity: 0.2;
     }
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    &.small-button {
+        margin: 0;
+        width: auto;
+        height: 30px;
+        padding: 5px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    &.task-button {
+        background: #bdb2ff;
+        border: 1px solid #bdb2ff;
+        border-radius: 8px;
+        padding: 10px;
+        height: 50px;
+        width: 192px;
+        margin: 0;
+        letter-spacing: -0.5px;
+        color: #262835;
+        display: inline-block;
+        vertical-align: top;
+    }
 `;
 
-const Button = ({ children, ref, isDisabled }) => {
+const Button = ({
+    children,
+    ref,
+    isDisabled,
+    clickFunction,
+    type,
+    classes,
+}) => {
     return (
         <>
-            <ButtonStyle ref={ref} disabled={isDisabled ? isDisabled : false}>
+            <ButtonStyle
+                className={classes}
+                type={type}
+                ref={ref}
+                disabled={isDisabled ? isDisabled : false}
+                onClick={clickFunction}
+            >
                 {children}
             </ButtonStyle>
         </>

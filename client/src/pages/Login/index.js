@@ -1,15 +1,12 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../context/auth";
 import { accountData } from "../../data/AccountData";
-import {
-    Container,
-    Button,
-    Input,
-    Title,
-    Form,
-} from "../../components/Form/form";
+import { BASE_URL_USER } from "../../data/Constans";
+import { Button, Form, Input } from "../../components/Form";
+import PageTitle from "../../components/PageTitle";
+import ContainerWithBG from "../../components/ContainerWithBG";
 
 const LoginPage = () => {
     const [isError, setIsError] = useState(null);
@@ -25,7 +22,7 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch("http://localhost:5010/user/login", {
+        await fetch(`${BASE_URL_USER}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -56,29 +53,29 @@ const LoginPage = () => {
     };
 
     return (
-        <Container>
-            <img src={bgTitle} alt={loginTitle} />
-
-            <Form onSubmit={handleSubmit}>
-                <Title>{loginTitle}</Title>
+        <ContainerWithBG imgSrc={bgTitle} imgAlt={loginTitle}>
+            <Form submitFunction={handleSubmit}>
+                <PageTitle>{loginTitle}</PageTitle>
                 {isError && <mark>{isError}</mark>}
                 <Input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
+                    type={"email"}
+                    placeholder={"Email"}
+                    name={"email"}
                     value={userData.email}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
+                    type={"password"}
+                    placeholder={"Password"}
+                    name={"password"}
                     value={userData.password}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
-                <Button type="submit">Send</Button>
+                <Button type={"submit"}>Login</Button>
             </Form>
-        </Container>
+        </ContainerWithBG>
     );
 };
 

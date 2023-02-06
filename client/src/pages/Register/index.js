@@ -1,14 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { accountData } from "../../data/AccountData";
-import {
-    Container,
-    Button,
-    Input,
-    Title,
-    Form,
-} from "../../components/Form/form";
+import { BASE_URL_USER } from "../../data/Constans";
+import { Button, Input, Form } from "../../components/Form";
+import PageTitle from "../../components/PageTitle";
+import ContainerWithBG from "../../components/ContainerWithBG";
 
 const RegisterPage = () => {
     const { registerTitle, bgTitle } = accountData;
@@ -26,7 +23,7 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch("http://localhost:5010/user/registration", {
+        await fetch(`${BASE_URL_USER}/registration`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -60,63 +57,67 @@ const RegisterPage = () => {
     };
 
     return (
-        <Container>
-            <img src={bgTitle} alt={registerTitle} />
+        <ContainerWithBG imgSrc={bgTitle} imgAlt={registerTitle}>
+            <Form submitFunction={handleSubmit}>
+                <PageTitle>{registerTitle}</PageTitle>
 
-            <Form onSubmit={handleSubmit}>
-                <Title>{registerTitle}</Title>
                 {isError && <mark>{isError}</mark>}
 
                 <Input
-                    type="text"
-                    placeholder="First Name"
-                    name="firstName"
-                    required
+                    type={"text"}
+                    placeholder={"First Name"}
+                    name={"firstName"}
+                    required={true}
                     value={userData.firstName}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="text"
-                    placeholder="Last Name"
-                    name="lastName"
+                    type={"text"}
+                    placeholder={"Last Name"}
+                    name={"lastName"}
                     value={userData.lastName}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    required
+                    type={"email"}
+                    placeholder={"Email"}
+                    name={"email"}
+                    required={true}
                     value={userData.email}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="tel"
-                    placeholder="Phone"
-                    name="tel"
+                    type={"tel"}
+                    placeholder={"Phone"}
+                    name={"tel"}
                     value={userData.tel}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    required
+                    type={"password"}
+                    placeholder={"Password"}
+                    name={"password"}
+                    required={true}
                     value={userData.password}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
                 <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    required
+                    type={"password"}
+                    placeholder={"Confirm Password"}
+                    name={"confirmPassword"}
+                    required={true}
                     value={userData.confirmPassword}
-                    onChange={handleChange}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
                 />
-                <br />
-                <Button type="submit">Send</Button>
+                <Button type={"submit"}>Send</Button>
             </Form>
-        </Container>
+        </ContainerWithBG>
     );
 };
 

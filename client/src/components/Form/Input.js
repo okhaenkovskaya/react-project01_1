@@ -13,14 +13,28 @@ const InputStyle = styled.input`
     display: block;
     margin: 0 19px 40px;
     width: calc(50% - 38px);
+
+    &.input--long {
+        width: 100%;
+        margin: 0 0 40px;
+    }
 `;
 
-const Input = ({ type, name, placeholder, value, isRequired, onChange }) => {
+const Input = ({
+    type,
+    name,
+    placeholder,
+    value,
+    isRequired,
+    changeFunction,
+    classes,
+}) => {
     return (
         <>
             <InputStyle
+                className={classes}
                 type={type ? type : "text"}
-                onChange={onChange}
+                onChange={changeFunction}
                 name={name}
                 required={isRequired ? isRequired : false}
                 placeholder={placeholder ? placeholder : ""}
