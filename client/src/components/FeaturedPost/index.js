@@ -55,7 +55,7 @@ const FeaturedPost = ({ post: { _id, title, body, thumbnail } }) => {
         <Container>
             <TextWrap>
                 <Title>{title}</Title>
-                <Text>{body}</Text>
+                <Text>{body.slice(0, 50)}</Text>
                 <Holder>
                     <Button url={`/posts/${_id}`}>
                         Read more

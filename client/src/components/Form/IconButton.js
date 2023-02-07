@@ -9,9 +9,21 @@ const IconButtonStyle = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: red;
     width: 40px;
     height: 40px;
+    color: #fff;
+
+    &.like--button {
+        width: 60px;
+        border: 1px solid #fff;
+        padding: 0 10px;
+
+        svg {
+            display: inline-block;
+            vertical-align: top;
+            margin: 3px 5px 0 0;
+        }
+    }
 `;
 
 const IconButton = ({ children, isDisabled, clickFunction, classes, name }) => {

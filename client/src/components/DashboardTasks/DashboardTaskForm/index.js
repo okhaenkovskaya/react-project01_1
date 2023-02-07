@@ -1,26 +1,9 @@
-import styled from "styled-components";
 import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BASE_URL_TASK } from "../../../data/Constans";
-import { Button } from "../../Form";
-
-const Input = styled.input`
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 140%;
-    letter-spacing: -0.5px;
-    color: rgba(24, 24, 25, 0.9);
-    margin: 0 20px 0 0;
-    padding: 0 10px;
-    border: 1px solid red;
-    height: 50px;
-    width: 520px;
-    background: #ffffff;
-    border: 1px solid #e6e7e9;
-    border-radius: 8px;
-`;
+import { Button, Input } from "../../Form";
 
 const DashboardTaskForm = ({ setTasks, tasks }) => {
     const emptyTask = {
@@ -28,7 +11,7 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
     };
     const toastId = useRef(null);
     const [isValid, setIsValid] = useState(false);
-    const button = useRef(null);
+    const buttonRef = useRef(null);
     const [newTask, setNewTask] = useState({
         task: "",
     });
@@ -53,7 +36,7 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.success("Form submitted successfully.");
             }
-            button.current.disabled = true;
+            buttonRef.current.disabled = true;
         } else {
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.error(
@@ -68,10 +51,10 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
 
         if (value.length > 3) {
             setIsValid(true);
-            button.current.disabled = false;
+            buttonRef.current.disabled = false;
         } else {
             setIsValid(false);
-            button.current.disabled = true;
+            buttonRef.current.disabled = true;
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.warn(
                     "You must fill at least 3 letters"
@@ -84,13 +67,18 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
     return (
         <form onSubmit={handleSubmit}>
             <Input
-                onChange={handleChange}
-                name="task"
-                type="text"
-                placeholder="Type here..."
+                changeFunction={handleChange}
+                name={"task"}
+                type={"text"}
+                placeholder={"Type here..."}
                 value={newTask.task}
+                classes={"task-create-input"}
             />
-            <Button ref={button} isDisabled={true} classes={"task-button"}>
+            <Button
+                innerRef={buttonRef}
+                isDisabled={true}
+                classes={"task-button"}
+            >
                 SUBMIT
             </Button>
             <ToastContainer />

@@ -6,17 +6,11 @@ import axios from "axios";
 import Loader from "../../components/Loader";
 import Like from "../../components/Like";
 import Dislike from "../../components/Dislike";
-const PostComment = React.lazy(() => import("../../components/PostComments"));
+import Container from "../../components/Container";
+import View from "../../components/View";
+import { BASE_URL_POST } from "../../data/Constans";
 
-const Container = styled.div`
-    margin: 0 auto;
-    max-width: 1250px;
-    padding: 50px 30px;
-    font-size: 28px;
-    line-height: 42px;
-    color: #fff;
-    font-weight: 300;
-`;
+const PostComment = React.lazy(() => import("../../components/PostComments"));
 
 const Intro = styled.div`
     display: flex;
@@ -31,7 +25,7 @@ const Intro = styled.div`
         margin: 0 30px 0 0;
     }
 
-    span {
+    div {
         position: absolute;
         right: 0;
         top: 0;
@@ -42,6 +36,8 @@ const PostPage = () => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
     const [view, setView] = useState(0);
+    const { title, body, thumbnail, createdAt, likes } = post;
+    const date = new Date(Date(createdAt));
 
     useEffect(() => {
         getPost();
@@ -50,50 +46,31 @@ const PostPage = () => {
 
     const getPost = () => {
         axios
-            .get(`http://localhost:5010/posts/${postId}`)
-            .then((res) => {
-                setPost(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .get(`${BASE_URL_POST}/${postId}`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
     };
 
     const fetchView = () => {
         axios
-            .patch(`http://localhost:5010/posts/${postId}/viewcount`)
-            .then((res) => {
-                setView(res.data.views);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .patch(`${BASE_URL_POST}/${postId}/viewcount`)
+            .then((res) => setView(res.data.views))
+            .catch((error) => console.log(error));
     };
 
     const addLike = () => {
         axios
-            .put(`http://localhost:5010/posts/${postId}/like`)
-            .then((res) => {
-                setPost(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .put(`${BASE_URL_POST}/${postId}/like`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
     };
 
     const removeLike = () => {
         axios
-            .delete(`http://localhost:5010/posts/${postId}/like`)
-            .then((res) => {
-                setPost(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .delete(`${BASE_URL_POST}/${postId}/like`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
     };
-
-    const { title, body, thumbnail, createdAt, likes } = post;
-    const date = new Date(Date(createdAt));
 
     return (
         <Suspense fallback={<Loader />}>
@@ -101,15 +78,14 @@ const PostPage = () => {
                 <Intro>
                     <img src={thumbnail} alt={title} />
                     <h1>{title}</h1>
-
-                    <span>views -> {view}</span>
+                    <View>{view}</View>
                 </Intro>
                 {body}
-                <br />
+                <span style={{ textAlign: "right", display: "block" }}>
+                    {date.toLocaleDateString()}
+                </span>
                 <Like addLike={addLike} likes={likes} />
                 <Dislike removeLike={removeLike} likes={likes} />
-                <br />
-                {date.toLocaleDateString()}
                 <br />
                 <PostComment postId={post._id} />
             </Container>

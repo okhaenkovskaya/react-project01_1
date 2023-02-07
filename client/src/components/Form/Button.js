@@ -68,7 +68,7 @@ const ButtonStyle = styled.button`
 
 const Button = ({
     children,
-    ref,
+    innerRef,
     isDisabled,
     clickFunction,
     type,
@@ -79,7 +79,7 @@ const Button = ({
             <ButtonStyle
                 className={classes}
                 type={type}
-                ref={ref}
+                ref={innerRef}
                 disabled={isDisabled ? isDisabled : false}
                 onClick={clickFunction}
             >

@@ -1,4 +1,4 @@
-import { ReactComponent as IconView } from "../../assets/icons/view.svg";
+import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";
 import styled from "styled-components";
 
 const ViewComponent = styled.div`
@@ -8,16 +8,18 @@ const ViewComponent = styled.div`
     color: #fff;
 
     svg {
+        width: 30px;
+        height: 30px;
         display: inline-block;
         vertical-align: top;
-        margin: 3px 5px 0 0;
+        margin: -2px 5px 0 0;
     }
 `;
 
 const View = ({ children }) => {
     return (
         <ViewComponent>
-            <IconView />
+            <IconEye />
             {children}
         </ViewComponent>
     );

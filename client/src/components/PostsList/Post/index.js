@@ -56,7 +56,7 @@ const Post = ({ post: { _id, title, body, thumbnail } }) => {
             </Image>
             <TextWrap>
                 <Title>{title}</Title>
-                <Text>{body}</Text>
+                <Text>{body.slice(0, 122)}...</Text>
                 <Holder>
                     <Button url={`/posts/${_id}`}>
                         Read more
