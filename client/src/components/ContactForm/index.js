@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Input, Textarea } from "../Form";
+import { Input, Textarea, Button, Form } from "../Form";
+import PageTitle from "../PageTitle";
 
 const ContactFormContainer = styled.div`
     max-width: 1168px;
@@ -11,47 +12,10 @@ const ContactFormContainer = styled.div`
     padding: 30px;
     background: #191a1d;
     border-radius: 20px;
+    text-align: center;
 
     input.error {
         background: red;
-    }
-`;
-
-const Form = styled.form`
-    max-width: 790px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-`;
-
-const Title = styled.h2`
-    margin: 0 0 30px;
-    font-family: "Mulish";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 42px;
-    line-height: 53px;
-    color: #fff;
-    text-align: center;
-`;
-
-const ButtonStyle = styled.button`
-    height: 51px;
-    background: #000;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0 15px;
-    margin: 0 auto 40px;
-    border: 0;
-    display: block;
-    width: 233px;
-
-    &:disabled {
-        opacity: 0.2;
     }
 `;
 
@@ -164,52 +128,56 @@ const ContactForm = () => {
 
     return (
         <ContactFormContainer>
-            <Title>Contact Form</Title>
-            <Form ref={formRef} onSubmit={handleSubmit}>
+            <PageTitle>Contact Form</PageTitle>
+            <Form innerRef={formRef} submitFunction={handleSubmit}>
                 <Input
-                    onChange={handleChange}
+                    changeFunction={handleChange}
                     isRequired={true}
                     name={"firstName"}
                     type={"text"}
                     placeholder={"First Name"}
                     value={data.firstName}
+                    classes={"input--long"}
                 />
 
                 <Input
-                    onChange={handleChange}
+                    changeFunction={handleChange}
                     name={"lastName"}
                     placeholder={"Last Name"}
                     value={data.lastName}
+                    classes={"input--long"}
                 />
 
                 <Input
-                    onChange={handleChange}
+                    changeFunction={handleChange}
                     isRequired={true}
                     name={"email"}
                     type={"email"}
                     placeholder={"Email"}
                     value={data.email}
+                    classes={"input--long"}
                 />
 
                 <Input
-                    onChange={handleChange}
+                    changeFunction={handleChange}
                     isRequired={true}
                     name={"phone"}
                     type={"tel"}
                     placeholder={"Phone"}
                     value={data.phone}
+                    classes={"input--long"}
                 />
 
                 <Textarea
-                    onChange={handleChange}
+                    changeFunction={handleChange}
                     name={"message"}
                     placeholder={"Message"}
                     value={data.message}
                 />
 
-                <ButtonStyle ref={buttonRef} isDisabled={true}>
+                <Button innerRef={buttonRef} isDisabled={true}>
                     Send
-                </ButtonStyle>
+                </Button>
                 <ToastContainer />
             </Form>
         </ContactFormContainer>

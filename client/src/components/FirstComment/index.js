@@ -1,4 +1,3 @@
-import React from "react";
 import IconButton from "../Form/IconButton";
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
 import styled from "styled-components";

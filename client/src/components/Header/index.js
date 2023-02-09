@@ -84,7 +84,12 @@ const Header = () => {
                 {user ? (
                     <UserWrapDrop>
                         <DropOpener
-                            onClick={() => setIsPopupOpen(!isPopupOpen)}
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                console.log("11111");
+                                setIsPopupOpen(true);
+                            }}
                         >
                             <IconUserMan />
                             {user.fullName}

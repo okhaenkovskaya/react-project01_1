@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PageTitle from "../PageTitle";
 
 const Container = styled.div`
     text-align: center;
-`;
-
-const Title = styled.h2`
-    margin: 0 0 30px;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 26px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #fff;
 `;
 
 const SocialList = styled.ul`
@@ -42,7 +33,7 @@ const SocialList = styled.ul`
 const SocialNetwork = ({ socialNetworkData: { title, items } }) => {
     return (
         <Container>
-            <Title>{title}</Title>
+            <PageTitle classes={"small-title"}>{title}</PageTitle>
             <SocialList>
                 {items.map((item, index) => (
                     <li key={index}>

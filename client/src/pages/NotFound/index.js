@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import Button from "../../components/Link";
 import { notFoundImageData } from "../../data/NotFoundData";
+import PageTitle from "../../components/PageTitle";
 
 const NotFoundContainer = styled.div`
     background-image: url(${notFoundImageData.src});
@@ -25,18 +26,10 @@ const NotFoundContainer = styled.div`
     }
 `;
 
-const Title = styled.h1`
-    font-style: normal;
-    font-weight: 300;
-    font-size: 72px;
-    line-height: 90px;
-    color: #ffffff;
-`;
-
 const NotFound = () => {
     return (
         <NotFoundContainer>
-            <Title>404</Title>
+            <PageTitle>404</PageTitle>
             <Button url={"/"}>Go to Homepage</Button>
         </NotFoundContainer>
     );

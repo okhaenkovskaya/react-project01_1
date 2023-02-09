@@ -13,8 +13,12 @@ const FormStyle = styled.form`
     display: block;
 `;
 
-const Form = ({ children, submitFunction }) => {
-    return <FormStyle onSubmit={submitFunction}>{children}</FormStyle>;
+const Form = ({ children, submitFunction, innerRef }) => {
+    return (
+        <FormStyle ref={innerRef} onSubmit={submitFunction}>
+            {children}
+        </FormStyle>
+    );
 };
 
 export default Form;

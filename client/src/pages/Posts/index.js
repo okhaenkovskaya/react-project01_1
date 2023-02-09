@@ -4,10 +4,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DataTable from "react-data-table-component";
 
+import { BASE_URL_POST } from "../../data/Constans";
 import { ReactComponent as IconNewPosts } from "../../assets/icons/new_post.svg";
 import Loader from "../../components/Loader";
 import DashboardPostStatus from "../../components/DashboardPosts/DashboardPostStatus";
 import DashboardPostEditButtonsPopup from "../../components/DashboardPosts/DashboardPostEditButtonsPopup";
+import PageTitle from "../../components/PageTitle";
+import IconButton from "../../components/Form/IconButton";
 
 const DashboardFormPopup = React.lazy(() =>
     import("../../components/DashboardPosts/DashboardFormPopup")
@@ -24,34 +27,6 @@ const Head = styled.div`
     margin: 0 0 20px;
 `;
 
-const Title = styled.h2`
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    letter-spacing: -0.02em;
-    color: #c1c6db;
-    margin: 0;
-`;
-
-const AddNewButton = styled.button`
-    width: 48px;
-    height: 48px;
-    background: #fff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    position: relative;
-
-    svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-    }
-`;
-
 const Posts = () => {
     const columns = [
         {
@@ -61,10 +36,6 @@ const Posts = () => {
         {
             name: "Date",
             selector: (row) => row.createdAt,
-        },
-        {
-            name: "Name",
-            selector: (row) => row.name,
         },
         {
             name: "Status",
@@ -93,13 +64,13 @@ const Posts = () => {
     }, []);
 
     const getPosts = () => {
-        fetch("http://localhost:5010/posts")
+        fetch(`${BASE_URL_POST}`)
             .then((res) => res.json())
             .then((data) => setPostsDB(data.data));
     };
 
     const deletePost = (e, id) => {
-        fetch(`http://localhost:5010/posts/${id}`, {
+        fetch(`${BASE_URL_POST}/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
@@ -107,7 +78,7 @@ const Posts = () => {
     };
 
     const updatePost = (e, post) => {
-        fetch(`http://localhost:5010/posts/${post._id}`, {
+        fetch(`${BASE_URL_POST}/${post._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -122,22 +93,11 @@ const Posts = () => {
     return (
         <Suspense fallback={<Loader />}>
             <Head>
-                <Title>Posts</Title>
+                <PageTitle>Posts</PageTitle>
 
-                <AddNewButton
-                    onClick={() => {
-                        setShowNewPopup(true);
-                    }}
-                    type="button"
-                >
+                <IconButton clickFunction={() => setShowNewPopup(true)}>
                     <IconNewPosts />
-                </AddNewButton>
-
-                {/*            {checkedPosts.length > 0 && (
-                    <button onClick={deletePosts} type="button">
-                        Remove Items
-                    </button>
-                )}*/}
+                </IconButton>
             </Head>
             <ToastContainer />
             <DataTable columns={columns} data={postsDB} />

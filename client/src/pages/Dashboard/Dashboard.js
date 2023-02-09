@@ -2,15 +2,7 @@ import styled from "styled-components";
 
 import DashboardPlaceholderPie from "../../components/PieChart";
 import DashboardPlaceholderLine from "../../components/LineChart";
-
-const Title = styled.h2`
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    letter-spacing: -0.02em;
-    color: #c1c6db;
-    margin: 0 0 10px;
-`;
+import PageTitle from "../../components/PageTitle";
 
 const Diagrams = styled.div`
     display: flex;
@@ -20,7 +12,7 @@ const Diagrams = styled.div`
 const Dashboard = () => {
     return (
         <>
-            <Title>Dashboard</Title>
+            <PageTitle>Dashboard</PageTitle>
 
             <Diagrams>
                 <DashboardPlaceholderPie />
