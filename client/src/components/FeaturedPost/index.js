@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 import Button from "../Link";
 import { ReactComponent as IconArrow } from "../../assets/icons/arrow.svg";
+import Like from "../Like";
+import Dislike from "../Dislike";
+import React, { useState } from "react";
+import axios from "axios";
+import { BASE_URL_POST } from "../../data/Constans";
 
 const Container = styled.div`
     font-size: 16px;
@@ -50,7 +55,23 @@ const Holder = styled.div`
     align-items: center;
 `;
 
-const FeaturedPost = ({ post: { _id, title, body, thumbnail } }) => {
+const FeaturedPost = ({ post: { _id, title, body, thumbnail, likes } }) => {
+    const [updatedLikes, setUpdatedLikes] = useState(likes);
+
+    const addLike = () => {
+        axios
+            .put(`${BASE_URL_POST}/${_id}/like`)
+            .then((res) => setUpdatedLikes(res.data.likes))
+            .catch((error) => console.log(error));
+    };
+
+    const removeLike = () => {
+        axios
+            .delete(`${BASE_URL_POST}/${_id}/like`)
+            .then((res) => setUpdatedLikes(res.data.likes))
+            .catch((error) => console.log(error));
+    };
+
     return (
         <Container>
             <TextWrap>
@@ -62,6 +83,8 @@ const FeaturedPost = ({ post: { _id, title, body, thumbnail } }) => {
                         <IconArrow />
                     </Button>
                 </Holder>
+                <Like addLike={addLike} likes={updatedLikes} />
+                <Dislike removeLike={removeLike} likes={updatedLikes} />
             </TextWrap>
             <Image>
                 <img src={thumbnail} alt={title} />

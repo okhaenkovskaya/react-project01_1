@@ -1,6 +1,7 @@
+import styled from "styled-components";
+
 import IconButton from "../Form/IconButton";
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
-import styled from "styled-components";
 
 const FirstCommentContainer = styled.div`
     margin: 50px 0 30px;

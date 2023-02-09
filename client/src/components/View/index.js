@@ -1,5 +1,6 @@
-import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";
 import styled from "styled-components";
+
+import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";
 
 const ViewComponent = styled.div`
     margin: 0 0 0 10px;

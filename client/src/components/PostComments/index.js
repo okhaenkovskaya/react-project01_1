@@ -34,20 +34,15 @@ const PostComment = ({ postId }) => {
         try {
             axios
                 .get(`${BASE_URL_POST}/${postId}/comments`)
-                .then((res) => {
-                    setComments(res.data);
-                    //   setIsLoad(true);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+                .then((res) => setComments(res.data))
+                .catch((error) => console.log(error));
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        if (postId != undefined) {
+        if (postId !== undefined) {
             getComments();
         }
     }, [postId]);
@@ -122,14 +117,15 @@ const PostComment = ({ postId }) => {
                             ShowReplyForm={ShowReplyForm}
                             comment={comment}
                         />
-
                         <PostCommentFormReply
                             handleReply={handleReply}
                             comment={comment}
                         />
-
-                        {comment.replies.map((innerComment) => (
-                            <SecondComment innerComment={innerComment} />
+                        {comment.replies.map((innerComment, i) => (
+                            <SecondComment
+                                key={i}
+                                innerComment={innerComment}
+                            />
                         ))}
                     </CommentsContainer>
                 ))}

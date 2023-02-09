@@ -31,9 +31,7 @@ const HomePage = () => {
                 setPage((page) => page + 1);
                 setNewPostsLoading(false);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => console.log(error));
     };
 
     return (

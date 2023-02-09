@@ -11,11 +11,26 @@ const FormStyle = styled.form`
     display: flex;
     flex-wrap: wrap;
     display: block;
+
+    &.popup-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        background: none;
+        border-radius: 0;
+        width: auto;
+        padding: 0;
+
+        h2 {
+            text-align: center;
+            margin: 0 0 20px;
+        }
+    }
 `;
 
-const Form = ({ children, submitFunction, innerRef }) => {
+const Form = ({ children, submitFunction, innerRef, classes }) => {
     return (
-        <FormStyle ref={innerRef} onSubmit={submitFunction}>
+        <FormStyle className={classes} ref={innerRef} onSubmit={submitFunction}>
             {children}
         </FormStyle>
     );
