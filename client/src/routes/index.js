@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import PrivateRouter from "./PrivateRouter";
+import PublicRouter from "./PublicRouter";
 import CheckUserAuth from "./CheckUserAuth";
 import { PrivateLayout, PublicLayout } from "../layout";
 import { AuthProvider } from "../context/auth";
@@ -42,17 +43,19 @@ const Router = () => {
         <AuthProvider>
             <Routes>
                 <Route element={<PublicLayout />}>
-                    <Route index element={<Home />} />
-                    <Route exact path="/login" element={<Login />} />
-                    <Route exact path="/register" element={<Register />} />
-                    <Route exact path="/contact" element={<Contact />} />
-                    <Route exact path="/posts/:postId" element={<Post />} />
-                    <Route
-                        exact
-                        path="/archive/:filter/:param"
-                        element={<Archive />}
-                    />
-                    <Route exact path="*" element={<NotFound />} />
+                    <Route element={<PublicRouter />}>
+                        <Route index element={<Home />} />
+                        <Route exact path="/login" element={<Login />} />
+                        <Route exact path="/register" element={<Register />} />
+                        <Route exact path="/contact" element={<Contact />} />
+                        <Route exact path="/posts/:postId" element={<Post />} />
+                        <Route
+                            exact
+                            path="/archive/:filter/:param"
+                            element={<Archive />}
+                        />
+                        <Route exact path="*" element={<NotFound />} />
+                    </Route>
                 </Route>
                 <Route element={<PrivateRouter />}>
                     <Route element={<PrivateLayout />}>
@@ -84,6 +87,7 @@ const Router = () => {
                         <Route exact path="/user-list" element={<UserList />} />
                     </Route>
                 </Route>
+
                 <Route element={<CheckUserAuth />}>
                     <Route
                         exact

@@ -73,16 +73,14 @@ const Header = () => {
 
             <NavigationWrap>
                 <NavList>
-                    {headerNavItems.map((item) => (
-                        <>
-                            {user && item.link == "/Register" ? null : (
-                                <NavItem key={item.id} url={item.link}>
-                                    {item.svg}
-                                    {item.name}
-                                </NavItem>
-                            )}
-                        </>
-                    ))}
+                    {headerNavItems.map((item) =>
+                        user && item.link == "/Register" ? null : (
+                            <NavItem key={item.id} url={item.link}>
+                                {item.svg}
+                                {item.name}
+                            </NavItem>
+                        )
+                    )}
                 </NavList>
 
                 {user ? (

@@ -1,14 +1,18 @@
-import { useContext } from "react";
-import { Navigate, Outlet } from "react-router";
+import React, { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
 import { AuthContext } from "../context/auth";
 
-const PrivateRouter = ({ redirectPath = "/login" }) => {
+function PrivateRouter({ redirectPath = "/" }) {
     const { user } = useContext(AuthContext);
     if (!user) {
         return <Navigate to={redirectPath} />;
     }
-    return <Outlet />;
-};
+    return (
+        <div className="container">
+            <Outlet />
+        </div>
+    );
+}
 
 export default PrivateRouter;
