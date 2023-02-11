@@ -49,8 +49,7 @@ const UserInfo = styled.div`
 `;
 
 const UserDropInfo = () => {
-    const context = useContext(AuthContext);
-    const user = context.user;
+    const { user, logout } = useContext(AuthContext);
 
     return (
         <NavigationDrop>
@@ -61,7 +60,9 @@ const UserDropInfo = () => {
             </UserInfo>
             <LinkButton to="/dashboard">Dashboard</LinkButton>
             <LinkButton to="/profile">Profile</LinkButton>
-            <LinkButton onClick={() => context.logout()}>LogOut</LinkButton>
+            <LinkButton to="/" onClick={logout}>
+                LogOut
+            </LinkButton>
         </NavigationDrop>
     );
 };
