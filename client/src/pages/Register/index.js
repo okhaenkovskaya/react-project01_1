@@ -1,100 +1,124 @@
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { accountData } from "../../data/AccountData";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 50px;
-  position: relative;
-
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const Form = styled.form`
-  padding: 50px 125px;
-  position: relative;
-  z-index: 2;
-  background: #191a1d;
-  border-radius: 10px;
-  width: 804px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Title = styled.h2`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 42px;
-  line-height: 53px;
-  margin: 0 0 20px;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  height: 63px;
-  background: rgba(48, 48, 51, 0.7);
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 23px;
-  padding: 0 15px;
-  margin: 0 10px 40px;
-  border: 0;
-  display: block;
-  width: calc(50% - 20px);
-`;
-
-const Button = styled.button`
-  height: 51px;
-  background: rgba(48, 48, 51, 0.7);
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 23px;
-  padding: 0 15px;
-  margin: 0 auto 40px;
-  border: 0;
-  display: block;
-  width: 233px;
-
-  &:disabled {
-    opacity: 0.2;
-  }
-`;
+import { BASE_URL_USER } from "../../data/Constans";
+import { Button, Input, Form } from "../../components/Form";
+import PageTitle from "../../components/PageTitle";
+import ContainerWithBG from "../../components/ContainerWithBG";
 
 const RegisterPage = () => {
-  const { registerTitle, bgTitle } = accountData;
+    const { registerTitle, bgTitle } = accountData;
+    const navigate = useNavigate();
+    const [isError, setIsError] = useState(null);
+    const [userData, setUserData] = useState({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+        tel: "",
+    });
 
-  return (
-    <Container>
-      <img src={bgTitle} alt={registerTitle} />
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-      <Form>
-        <Title>{registerTitle}</Title>
-        <Input type="text" placeholder="First Name" />
-        <Input type="text" placeholder="Last Name" />
-        <Input type="email" placeholder="Email" />
-        <Input type="tel" placeholder="Phone" />
-        <Input type="password" placeholder="Password" />
-        <Input type="password" placeholder="Confirm Password" />
-        <Button type="button">Send</Button>
-      </Form>
-    </Container>
-  );
+        await fetch(`${BASE_URL_USER}/registration`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                tel: userData.tel,
+                password: userData.password,
+                confirmPassword: userData.confirmPassword,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if ("result" in data) {
+                    navigate("/dashboard");
+                } else {
+                    setIsError(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+        setIsError(null);
+    };
+
+    return (
+        <ContainerWithBG imgSrc={bgTitle} imgAlt={registerTitle}>
+            <Form submitFunction={handleSubmit}>
+                <PageTitle>{registerTitle}</PageTitle>
+
+                {isError && <mark>{isError}</mark>}
+
+                <Input
+                    type={"text"}
+                    placeholder={"First Name"}
+                    name={"firstName"}
+                    required={true}
+                    value={userData.firstName}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Input
+                    type={"text"}
+                    placeholder={"Last Name"}
+                    name={"lastName"}
+                    value={userData.lastName}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Input
+                    type={"email"}
+                    placeholder={"Email"}
+                    name={"email"}
+                    required={true}
+                    value={userData.email}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Input
+                    type={"tel"}
+                    placeholder={"Phone"}
+                    name={"tel"}
+                    value={userData.tel}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Input
+                    type={"password"}
+                    placeholder={"Password"}
+                    name={"password"}
+                    required={true}
+                    value={userData.password}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Input
+                    type={"password"}
+                    placeholder={"Confirm Password"}
+                    name={"confirmPassword"}
+                    required={true}
+                    value={userData.confirmPassword}
+                    changeFunction={handleChange}
+                    classes={"input--long"}
+                />
+                <Button type={"submit"}>Send</Button>
+            </Form>
+        </ContainerWithBG>
+    );
 };
 
 export default RegisterPage;

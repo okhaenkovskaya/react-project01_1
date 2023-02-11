@@ -1,56 +1,60 @@
-import React, { useState, Suspense } from "react";
-import styled from "styled-components";
+import React, { useState, Suspense, useEffect } from "react";
 
-import { TasksData } from "../../data/TasksData";
 import Loader from "../../components/Loader";
+import PageTitle from "../../components/PageTitle";
+import { BASE_URL_TASK } from "../../data/Constans";
 const DashboardTasks = React.lazy(() =>
-  import("../../components/DashboardTasks")
+    import("../../components/DashboardTasks")
 );
 const DashboardTaskForm = React.lazy(() =>
-  import("../../components/DashboardTasks/DashboardTaskForm")
+    import("../../components/DashboardTasks/DashboardTaskForm")
 );
 
-const Title = styled.h2`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  letter-spacing: -0.02em;
-  color: #c1c6db;
-  margin: 0 0 30px;
-`;
-
 const Tasks = () => {
-  const [tasks, setTasks] = useState(TasksData);
-  const emptyTask = {
-    id: tasks.length + 1,
-    title: "",
-    completed: false,
-    pinned: false,
-  };
+    useEffect(() => {
+        getTasks();
+    }, []);
 
-  const [newTask, setNewTask] = useState(emptyTask);
-  const [editTask, setEditTask] = useState(emptyTask);
+    const getTasks = () => {
+        fetch(`${BASE_URL_TASK}`)
+            .then((res) => res.json())
+            .then((data) => setTasks(data));
+    };
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <Title>Tasks</Title>
+    const deleteTask = (e, id) => {
+        fetch(`${BASE_URL_TASK}/${id}`, {
+            method: "DELETE",
+        })
+            .then((res) => res.json())
+            .then((data) => getTasks());
+    };
 
-      <DashboardTasks
-        tasks={tasks}
-        setTasks={setTasks}
-        editTask={editTask}
-        setEditTask={setEditTask}
-      />
+    const updateTask = (id, task) => {
+        fetch(`${BASE_URL_TASK}/${task._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(task),
+        })
+            .then((res) => res.json())
+            .then((data) => getTasks());
+    };
 
-      <DashboardTaskForm
-        tasks={tasks}
-        setTasks={setTasks}
-        newTask={newTask}
-        setNewTask={setNewTask}
-        emptyTask={emptyTask}
-      />
-    </Suspense>
-  );
+    const [tasks, setTasks] = useState([]);
+
+    return (
+        <Suspense fallback={<Loader />}>
+            <PageTitle>Tasks</PageTitle>
+            <DashboardTasks
+                tasks={tasks}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+            />
+
+            <DashboardTaskForm tasks={tasks} setTasks={setTasks} />
+        </Suspense>
+    );
 };
 
 export default Tasks;

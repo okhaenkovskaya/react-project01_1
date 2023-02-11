@@ -4,61 +4,93 @@ import styled from "styled-components";
 import axios from "axios";
 
 import Loader from "../../components/Loader";
+import Like from "../../components/Like";
+import Dislike from "../../components/Dislike";
+import Container from "../../components/Container";
+import View from "../../components/View";
+import { BASE_URL_POST } from "../../data/Constans";
+
 const PostComment = React.lazy(() => import("../../components/PostComments"));
 
-const Container = styled.div`
-  margin: 0 auto;
-  max-width: 1250px;
-  padding: 50px 30px;
-  font-size: 28px;
-  line-height: 42px;
-  color: #fff;
-  font-weight: 300;
-`;
-
 const Intro = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  margin: 0 0 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 0 30px;
+    position: relative;
 
-  img {
-    max-height: 200px;
-    width: auto;
-    margin: 0 30px 0 0;
-  }
+    img {
+        max-height: 200px;
+        width: auto;
+        margin: 0 30px 0 0;
+    }
+
+    div {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 `;
 
 const PostPage = () => {
-  const { postId } = useParams();
-  const [beer, setBeer] = useState({});
+    const { postId } = useParams();
+    const [post, setPost] = useState({});
+    const [view, setView] = useState(0);
+    const { title, body, thumbnail, createdAt, likes } = post;
+    const date = new Date(Date(createdAt));
 
-  useEffect(() => {
-    onRequestbeer();
-  }, []);
+    useEffect(() => {
+        getPost();
+        fetchView();
+    }, []);
 
-  const onRequestbeer = () => {
-    axios.get(`https://api.punkapi.com/v2/beers/${postId}`).then((res) => {
-      setBeer(res.data[0]);
-    });
-  };
+    const getPost = () => {
+        axios
+            .get(`${BASE_URL_POST}/${postId}`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
+    };
 
-  const { name, description, image_url } = beer;
+    const fetchView = () => {
+        axios
+            .patch(`${BASE_URL_POST}/${postId}/viewcount`)
+            .then((res) => setView(res.data.views))
+            .catch((error) => console.log(error));
+    };
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <Container>
-        <Intro>
-          <img src={image_url} alt={name} />
-          <h1>{name}</h1>
-        </Intro>
+    const addLike = () => {
+        axios
+            .put(`${BASE_URL_POST}/${postId}/like`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
+    };
 
-        {description}
+    const removeLike = () => {
+        axios
+            .delete(`${BASE_URL_POST}/${postId}/like`)
+            .then((res) => setPost(res.data))
+            .catch((error) => console.log(error));
+    };
 
-        <PostComment />
-      </Container>
-    </Suspense>
-  );
+    return (
+        <Suspense fallback={<Loader />}>
+            <Container>
+                <Intro>
+                    <img src={thumbnail} alt={title} />
+                    <h1>{title}</h1>
+                    <View>{view}</View>
+                </Intro>
+                {body}
+                <span style={{ textAlign: "right", display: "block" }}>
+                    {date.toLocaleDateString()}
+                </span>
+                <Like addLike={addLike} likes={likes} />
+                <Dislike removeLike={removeLike} likes={likes} />
+                <br />
+                <PostComment postId={post._id} />
+            </Container>
+        </Suspense>
+    );
 };
 
 export default PostPage;

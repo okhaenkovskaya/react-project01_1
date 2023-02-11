@@ -1,27 +1,13 @@
-import styled from "styled-components";
-
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
+import IconButton from "../Form/IconButton";
 
-const LikeComponent = styled.div`
-  margin: 0 0 0 10px;
-  font-size: 12px;
-  line-height: 2;
-  color: #fff;
-
-  svg {
-    display: inline-block;
-    vertical-align: top;
-    margin: 3px 5px 0 0;
-  }
-`;
-
-const Like = ({ children }) => {
-  return (
-    <LikeComponent>
-      <IconLike />
-      {children}
-    </LikeComponent>
-  );
+const Like = ({ likes, addLike }) => {
+    return (
+        <IconButton clickFunction={addLike} classes={"like--button"}>
+            <IconLike />
+            {likes}
+        </IconButton>
+    );
 };
 
 export default Like;

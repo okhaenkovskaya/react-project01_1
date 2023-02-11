@@ -1,166 +1,124 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DataTable from "react-data-table-component";
 
+import { BASE_URL_POST } from "../../data/Constans";
 import { ReactComponent as IconNewPosts } from "../../assets/icons/new_post.svg";
-import { PostsData } from "../../data/PostsData";
-import DashboardPostsHead from "../../components/DashboardPostsHead";
-import DashboardNoPosts from "../../components/DashboardPosts/DashboardNoPosts";
 import Loader from "../../components/Loader";
+import DashboardPostStatus from "../../components/DashboardPosts/DashboardPostStatus";
+import DashboardPostEditButtonsPopup from "../../components/DashboardPosts/DashboardPostEditButtonsPopup";
+import PageTitle from "../../components/PageTitle";
+import IconButton from "../../components/Form/IconButton";
 
-const DashboardPosts = React.lazy(() =>
-  import("../../components/DashboardPosts")
-);
 const DashboardFormPopup = React.lazy(() =>
-  import("../../components/DashboardPosts/DashboardFormPopup")
+    import("../../components/DashboardPosts/DashboardFormPopup")
 );
 const DashboardFormEditPopup = React.lazy(() =>
-  import("../../components/DashboardPosts/DashboardFormEditPopup")
+    import("../../components/DashboardPosts/DashboardFormEditPopup")
 );
 
 const Head = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 20px;
-`;
-
-const Title = styled.h2`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  letter-spacing: -0.02em;
-  color: #c1c6db;
-  margin: 0;
-`;
-
-const AddNewButton = styled.button`
-  width: 48px;
-  height: 48px;
-  background: #fff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  position: relative;
-
-  svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-  }
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 20px;
 `;
 
 const Posts = () => {
-  let editedPost = {
-    id: "",
-    title: "",
-    author: "",
-    status: "",
-    data: "",
-    body: "",
-  };
-  const [posts, setPosts] = useState(PostsData);
-  const [postId, setPostId] = useState(posts.length);
-  const [isCheckedAllPosts, setIsCheckedAllPosts] = useState(false);
-  const [checkedPosts, setCheckedPosts] = useState([]);
-  const [showNewPopup, setShowNewPopup] = useState(false);
-  const [showEditPopup, setShowEditPopup] = useState(false);
-  const [editPostData, setEditPostData] = useState(editedPost);
-  const emptyPost = {
-    id: postId,
-    title: "",
-    author: "",
-    status: "",
-    data: "",
-    body: "",
-  };
-  const [newPost, setNewPost] = useState(emptyPost);
+    const columns = [
+        {
+            name: "Title",
+            selector: (row) => row.title,
+        },
+        {
+            name: "Date",
+            selector: (row) => row.createdAt,
+        },
+        {
+            name: "Status",
+            selector: (row) => <DashboardPostStatus status={row.status} />,
+        },
+        {
+            name: " ",
+            selector: (row) => (
+                <DashboardPostEditButtonsPopup
+                    deletePost={deletePost}
+                    setEditedPostDB={setEditedPostDB}
+                    setShowEditPopup={setShowEditPopup}
+                    showEditPopup={showEditPopup}
+                    row={row}
+                />
+            ),
+        },
+    ];
 
-  const deletePosts = () => {
-    const filteredPosts = posts.filter((item) => {
-      return !checkedPosts.includes(item.id);
-    });
-    setPosts(filteredPosts);
-    setIsCheckedAllPosts(false);
-    setCheckedPosts([]);
-    toast.success("🦄🦄🦄 Wow, I've got something", {
-      theme: "dark",
-    });
-  };
+    const [postsDB, setPostsDB] = useState([]);
+    const [editedPostDB, setEditedPostDB] = useState({});
+    const [showEditPopup, setShowEditPopup] = useState(false);
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <Head>
-        <Title>Posts</Title>
-        <AddNewButton
-          onClick={() => {
-            setShowNewPopup(true);
-            setPostId((postId) => postId + 1);
-          }}
-          type="button"
-        >
-          <IconNewPosts />
-        </AddNewButton>
+    useEffect(() => {
+        getPosts();
+    }, []);
 
-        {checkedPosts.length > 0 && (
-          <button onClick={deletePosts} type="button">
-            Remove Items
-          </button>
-        )}
-      </Head>
-      <ToastContainer />
+    const getPosts = () => {
+        fetch(`${BASE_URL_POST}`)
+            .then((res) => res.json())
+            .then((data) => setPostsDB(data.data));
+    };
 
-      {posts.length === 0 && <DashboardNoPosts />}
+    const deletePost = (e, id) => {
+        fetch(`${BASE_URL_POST}/${id}`, {
+            method: "DELETE",
+        })
+            .then((res) => res.json())
+            .then((data) => getPosts());
+    };
 
-      {posts.length > 0 && (
-        <DashboardPostsHead
-          posts={posts}
-          checkedPosts={checkedPosts}
-          setIsCheckedAllPosts={setIsCheckedAllPosts}
-          isCheckedAllPosts={isCheckedAllPosts}
-          setCheckedPosts={setCheckedPosts}
-        />
-      )}
+    const updatePost = (e, post) => {
+        fetch(`${BASE_URL_POST}/${post._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post),
+        })
+            .then((res) => res.json())
+            .then((data) => getPosts());
+    };
 
-      {posts.length > 0 && (
-        <DashboardPosts
-          posts={posts}
-          checkedPosts={checkedPosts}
-          setCheckedPosts={setCheckedPosts}
-          setEditPostData={setEditPostData}
-          setShowEditPopup={setShowEditPopup}
-          setPosts={setPosts}
-        />
-      )}
+    const [showNewPopup, setShowNewPopup] = useState(false);
+    return (
+        <Suspense fallback={<Loader />}>
+            <Head>
+                <PageTitle>Posts</PageTitle>
 
-      {showNewPopup ? (
-        <DashboardFormPopup
-          setShowNewPopup={setShowNewPopup}
-          setPosts={setPosts}
-          setNewPost={setNewPost}
-          posts={posts}
-          newPost={newPost}
-          emptyPost={emptyPost}
-        />
-      ) : null}
+                <IconButton clickFunction={() => setShowNewPopup(true)}>
+                    <IconNewPosts />
+                </IconButton>
+            </Head>
+            <ToastContainer />
+            <DataTable columns={columns} data={postsDB} />
 
-      {showEditPopup ? (
-        <DashboardFormEditPopup
-          editPostData={editPostData}
-          setPosts={setPosts}
-          posts={posts}
-          setShowEditPopup={setShowEditPopup}
-          setEditPostData={setEditPostData}
-        />
-      ) : null}
-    </Suspense>
-  );
+            {showNewPopup ? (
+                <DashboardFormPopup
+                    setShowNewPopup={setShowNewPopup}
+                    setPostsDB={setPostsDB}
+                    postsDB={postsDB}
+                />
+            ) : null}
+            {showEditPopup ? (
+                <DashboardFormEditPopup
+                    editedPostDB={editedPostDB}
+                    updatePost={updatePost}
+                    setShowEditPopup={setShowEditPopup}
+                    setEditedPostDB={setEditedPostDB}
+                />
+            ) : null}
+        </Suspense>
+    );
 };
 
 export default Posts;

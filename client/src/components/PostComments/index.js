@@ -1,128 +1,137 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
-import Comments from "../Comments";
-import Like from "../Like";
+import { AuthContext } from "../../context/auth";
+import { BASE_URL_POST } from "../../data/Constans";
+import PostCommentForm from "../PostCommentForm";
+import PostCommentFormReply from "../PostCommentFormReply";
+import FirstComment from "../FirstComment";
+import SecondComment from "../SecondComment";
 
-const FirstCommentContainer = styled.div`
-  margin: 50px 0 30px;
+const CommentsContainer = styled.div`
+    form {
+        visibility: visible;
+        pointer-events: auto;
+        padding: 0;
+    }
 
-  .frame {
-    display: flex;
-  }
+    &.hide-form form {
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+    }
 `;
 
-const FirstComment = styled.div`
-  margin: 0 0 30px;
-  padding: 50px 30px;
-  font-size: 14px;
-  line-height: 21px;
-  color: #fff;
-  font-weight: 400;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
-`;
+const PostComment = ({ postId }) => {
+    const context = useContext(AuthContext);
+    const user = context.user;
+    const [comments, setComments] = useState({});
+    const [newComment, setNewComment] = useState("");
 
-const SecondCommentContainer = styled.div`
-  margin: 0 50px 30px;
-  display: flex;
+    const getComments = async () => {
+        try {
+            axios
+                .get(`${BASE_URL_POST}/${postId}/comments`)
+                .then((res) => {
+                    setComments(res.data);
+                })
+                .catch((error) => console.log(error));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  .holder {
-    max-width: 507px;
-  }
+    useEffect(() => {
+        if (postId !== undefined) {
+            getComments();
+        }
+    }, [postId]);
 
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    font-weight: 900;
-    font-size: 12px;
-    line-height: 16px;
-  }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  li {
-    margin: 0 10px 10px 0;
-  }
+        try {
+            const res = await axios.post(
+                `${BASE_URL_POST}/${postId}/comments`,
+                {
+                    text: newComment,
+                    userId: user.id,
+                }
+            );
+            setComments(res.data.comments);
+            setNewComment("");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  em {
-    font-weight: 900;
-    font-size: 12px;
-    line-height: 16px;
-    font-style: normal;
-    color: #fff;
-    opacity: 0.6;
-  }
-`;
+    const AddLikeComment = async (commentId) => {
+        try {
+            const res = await axios.patch(
+                `${BASE_URL_POST}/${postId}/comments/${commentId}/like`
+            );
+            setComments(res.data.comments);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-const Avator = styled.div`
-  background: #2f80ed;
-  width: 50px;
-  height: 50px;
-  border-radius: 40px;
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  color: #fff;
-  justify-content: center;
-`;
+    const ShowReplyForm = (e) => {
+        const formReplyHolder = e.target.parentNode.parentNode.parentNode;
+        formReplyHolder.classList.toggle("hide-form");
+    };
 
-const SecondComment = styled.div`
-  margin: 0 0 30px;
-  padding: 50px 30px;
-  font-size: 14px;
-  line-height: 21px;
-  color: #fff;
-  font-weight: 400;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
-`;
+    const handleReply = async (e, commentId, text) => {
+        e.preventDefault();
 
-const PostComment = () => {
-  return (
-    <>
-      <FirstCommentContainer>
-        <FirstComment>
-          <h2>First Name Last Name</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut cum
-            delectus ex ipsum itaque iusto maiores molestias mollitia nam natus
-            non pariatur perferendis quae quam, sequi sunt temporibus. Facilis,
-            officiis?
-          </p>
-        </FirstComment>
+        try {
+            const res = await axios.patch(
+                `${BASE_URL_POST}/${postId}/comments/${commentId}/reply`,
+                { text }
+            );
+            setComments(res.data.comments);
+            e.target.reply.value = "";
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-        <div className="frame">
-          <Comments>120</Comments>
-          <Like>77</Like>
-        </div>
-      </FirstCommentContainer>
+    return (
+        <>
+            {user ? (
+                <PostCommentForm
+                    handleSubmit={handleSubmit}
+                    setNewComment={setNewComment}
+                    newComment={newComment}
+                />
+            ) : (
+                <h1>You must to LoG In</h1>
+            )}
 
-      <SecondCommentContainer>
-        <Avator>FL</Avator>
-        <div className="holder">
-          <SecondComment>
-            <h2>First Name Last Name</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci
-              aliquam, architecto aut corporis, cumque dicta doloremque dolorum
-              eius ex excepturi illum nihil officia perspiciatis quia quisquam
-              quod similique tenetur totam!
-            </p>
-          </SecondComment>
-          <ul>
-            <li>Reply</li>
-            <li>React</li>
-            <li>47 min ago</li>
-          </ul>
-          <em>Show 37 more replies</em>
-        </div>
-      </SecondCommentContainer>
-    </>
-  );
+            {comments.length > 0 &&
+                comments.map((comment) => (
+                    <CommentsContainer key={comment._id} className="hide-form">
+                        <FirstComment
+                            AddLikeComment={AddLikeComment}
+                            ShowReplyForm={ShowReplyForm}
+                            comment={comment}
+                        />
+                        <PostCommentFormReply
+                            handleReply={handleReply}
+                            comment={comment}
+                        />
+                        {comment.replies.map((innerComment, i) => (
+                            <SecondComment
+                                key={i}
+                                innerComment={innerComment}
+                            />
+                        ))}
+                    </CommentsContainer>
+                ))}
+        </>
+    );
 };
 
 export default PostComment;
