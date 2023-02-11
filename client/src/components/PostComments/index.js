@@ -34,7 +34,9 @@ const PostComment = ({ postId }) => {
         try {
             axios
                 .get(`${BASE_URL_POST}/${postId}/comments`)
-                .then((res) => setComments(res.data))
+                .then((res) => {
+                    setComments(res.data);
+                })
                 .catch((error) => console.log(error));
         } catch (error) {
             console.log(error);
@@ -58,7 +60,6 @@ const PostComment = ({ postId }) => {
                     userId: user.id,
                 }
             );
-
             setComments(res.data.comments);
             setNewComment("");
         } catch (error) {

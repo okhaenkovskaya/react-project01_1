@@ -16,6 +16,14 @@ const MultiSelectStyle = styled(MultiSelect)`
         border-radius: 10px;
         height: 63px !important;
     }
+
+    .dropdown-content .panel-content {
+        background: #bdb2ff !important;
+    }
+
+    .select-item {
+        color: #000 !important;
+    }
 `;
 
 const MultiSelectWrap = ({ options, value, changeFunction, labelledBy }) => {

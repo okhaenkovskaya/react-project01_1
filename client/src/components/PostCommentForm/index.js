@@ -6,7 +6,7 @@ const PostCommentForm = ({ handleSubmit, setNewComment, newComment }) => {
         <Form submitFunction={handleSubmit}>
             <PageTitle>Add Comment</PageTitle>
             <Textarea
-                onChange={(e) => setNewComment(e.target.value)}
+                changeFunction={(e) => setNewComment(e.target.value)}
                 name={"text"}
                 placeholder={"Text...."}
                 value={newComment}

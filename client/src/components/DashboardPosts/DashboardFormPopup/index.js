@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
+import { ToastContainer, toast } from "react-toastify";
 
 import { AuthContext } from "../../../context/auth";
 import { BASE_URL_POST } from "../../../data/Constans";
@@ -37,9 +38,14 @@ const Popup = styled.div`
     .rmsc .dropdown-container {
         background: none !important;
         border: 0 !important;
+        z-index: 20;
     }
     .rmsc .gray {
         color: #262835 !important;
+    }
+
+    input.error {
+        background: red !important;
     }
 `;
 
@@ -62,6 +68,7 @@ const Textarea = styled.div`
 const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
     const context = useContext(AuthContext);
     const user = context.user;
+    const toastId = useRef(null);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     let tags = [];
@@ -119,6 +126,7 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
             setPostsDB([...postsDB, res.data]);
             setShowNewPopup(false);
         } catch (error) {
@@ -126,8 +134,27 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
         }
     };
 
+    const isValidField = (value) => {
+        if (value.length >= 3) {
+            return true;
+        } else {
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.warn(
+                    "You must fill at least 3 letters"
+                );
+            }
+
+            return false;
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        isValidField(value)
+            ? e.target.classList.remove("error")
+            : e.target.classList.add("error");
+
         setNewPost({ ...newPost, [name]: value });
     };
 
@@ -200,6 +227,7 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }) => {
                     name={"thumbnail"}
                     type={"file"}
                     classes={"popup-input"}
+                    isRequired={true}
                 />
 
                 <MultiSelectWrap

@@ -74,10 +74,14 @@ const Header = () => {
             <NavigationWrap>
                 <NavList>
                     {headerNavItems.map((item) => (
-                        <NavItem key={item.id} url={item.link}>
-                            {item.svg}
-                            {item.name}
-                        </NavItem>
+                        <>
+                            {user && item.link == "/Register" ? null : (
+                                <NavItem key={item.id} url={item.link}>
+                                    {item.svg}
+                                    {item.name}
+                                </NavItem>
+                            )}
+                        </>
                     ))}
                 </NavList>
 
@@ -87,7 +91,6 @@ const Header = () => {
                             type="button"
                             onClick={(e) => {
                                 e.preventDefault();
-                                console.log("11111");
                                 setIsPopupOpen(true);
                             }}
                         >

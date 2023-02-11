@@ -17,12 +17,13 @@ const TextareaStyle = styled.textarea`
     width: calc(100% - 38px);
 `;
 
-const Textarea = ({ name, placeholder, value, isRequired }) => {
+const Textarea = ({ name, placeholder, value, isRequired, changeFunction }) => {
     return (
         <>
             <TextareaStyle
                 required={isRequired ? isRequired : false}
                 placeholder={placeholder ? placeholder : ""}
+                onChange={changeFunction}
                 name={name}
                 defaultValue={value}
             />
