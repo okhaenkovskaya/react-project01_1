@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router";
 
 import { AuthContext } from "../context/auth";
 
-const PublicRouter = ({ redirectPath = "/login" }) => {
+const PublicRouter = ({ redirectPath = "/dashboard" }) => {
     const { user } = useContext(AuthContext);
     if (user) {
         return <Navigate to={redirectPath} />;

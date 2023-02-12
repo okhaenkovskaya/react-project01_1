@@ -43,19 +43,19 @@ const Router = () => {
         <AuthProvider>
             <Routes>
                 <Route element={<PublicLayout />}>
+                    <Route index element={<Home />} />
                     <Route element={<PublicRouter />}>
-                        <Route index element={<Home />} />
                         <Route exact path="/login" element={<Login />} />
                         <Route exact path="/register" element={<Register />} />
-                        <Route exact path="/contact" element={<Contact />} />
-                        <Route exact path="/posts/:postId" element={<Post />} />
-                        <Route
-                            exact
-                            path="/archive/:filter/:param"
-                            element={<Archive />}
-                        />
-                        <Route exact path="*" element={<NotFound />} />
                     </Route>
+                    <Route exact path="/contact" element={<Contact />} />
+                    <Route exact path="/posts/:postId" element={<Post />} />
+                    <Route
+                        exact
+                        path="/archive/:filter/:param"
+                        element={<Archive />}
+                    />
+                    <Route exact path="*" element={<NotFound />} />
                 </Route>
                 <Route element={<PrivateRouter />}>
                     <Route element={<PrivateLayout />}>
