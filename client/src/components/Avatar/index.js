@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import { avatarData } from "../../data/AvatarData";
 import { AuthContext } from "../../context/auth";
@@ -83,6 +84,10 @@ const Avatar = ({ bigImage }) => {
             </Link>
         </Container>
     );
+};
+
+Avatar.propTypes = {
+    bigImage: PropTypes.string,
 };
 
 export default Avatar;

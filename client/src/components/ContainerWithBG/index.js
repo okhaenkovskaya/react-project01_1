@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const ContainerWithBGStyle = styled.div`
     display: flex;
@@ -25,6 +26,12 @@ const ContainerWithBG = ({ children, imgSrc, imgAlt }) => {
             {children}
         </ContainerWithBGStyle>
     );
+};
+
+ContainerWithBG.propTypes = {
+    children: PropTypes.node.isRequired,
+    imgSrc: PropTypes.string.isRequired,
+    imgAlt: PropTypes.string.isRequired,
 };
 
 export default ContainerWithBG;

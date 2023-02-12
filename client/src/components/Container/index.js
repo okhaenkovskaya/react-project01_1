@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const ContainerStyle = styled.div`
     margin: 0 auto;
@@ -15,6 +16,11 @@ const ContainerStyle = styled.div`
 
 const Container = ({ children, user }) => {
     return <ContainerStyle user={user}>{children}</ContainerStyle>;
+};
+
+Container.propTypes = {
+    children: PropTypes.node.isRequired,
+    user: PropTypes.object,
 };
 
 export default Container;

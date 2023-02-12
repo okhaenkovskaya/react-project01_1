@@ -74,7 +74,7 @@ const Posts = () => {
             method: "DELETE",
         })
             .then((res) => res.json())
-            .then((data) => getPosts());
+            .then(() => getPosts());
     };
 
     const updatePost = (e, post) => {
@@ -86,7 +86,7 @@ const Posts = () => {
             body: JSON.stringify(post),
         })
             .then((res) => res.json())
-            .then((data) => getPosts());
+            .then(() => getPosts());
     };
 
     const [showNewPopup, setShowNewPopup] = useState(false);

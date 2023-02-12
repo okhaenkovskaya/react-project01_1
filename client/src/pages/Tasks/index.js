@@ -26,7 +26,7 @@ const Tasks = () => {
             method: "DELETE",
         })
             .then((res) => res.json())
-            .then((data) => getTasks());
+            .then(() => getTasks());
     };
 
     const updateTask = (id, task) => {
@@ -38,7 +38,7 @@ const Tasks = () => {
             body: JSON.stringify(task),
         })
             .then((res) => res.json())
-            .then((data) => getTasks());
+            .then(() => getTasks());
     };
 
     const [tasks, setTasks] = useState([]);

@@ -45,7 +45,7 @@ const UserList = () => {
             method: "DELETE",
         })
             .then((res) => res.json())
-            .then((data) => getUsers());
+            .then(() => getUsers());
     };
 
     const [users, setUsers] = useState([]);

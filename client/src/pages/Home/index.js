@@ -14,21 +14,19 @@ const PostsList = React.lazy(() => import("../../components/PostsList"));
 const FeaturedPost = React.lazy(() => import("../../components/FeaturedPost"));
 
 const HomePage = () => {
-    const [page, setPage] = useState(1);
     const [newPostsLoading, setNewPostsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        getPosts(page);
+        getPosts();
     }, []);
 
-    const getPosts = (page) => {
+    const getPosts = () => {
         axios
             .get(`${BASE_URL_POST}`)
             .then((res) => {
                 setPosts([...posts, ...res.data.data]);
-                setPage((page) => page + 1);
                 setNewPostsLoading(false);
             })
             .catch((error) => console.log(error));

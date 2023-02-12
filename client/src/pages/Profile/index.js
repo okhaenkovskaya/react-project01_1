@@ -46,14 +46,14 @@ const ProfilePage = () => {
             method: "DELETE",
         })
             .then((res) => res.json())
-            .then((data) => context.logout());
+            .then(() => context.logout());
     };
 
     return (
         <>
             <Head>
                 <PageTitle>Profile</PageTitle>
-                <LinkWrap to="/user-list">User List -></LinkWrap>
+                <LinkWrap to="/user-list">User List -&gt;</LinkWrap>
             </Head>
             <Container>
                 <Avatar bigImage={true} />

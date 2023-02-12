@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";
 
@@ -25,6 +26,10 @@ const View = ({ children }) => {
             {children}
         </ViewComponent>
     );
+};
+
+View.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default View;
