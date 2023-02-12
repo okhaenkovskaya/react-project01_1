@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";

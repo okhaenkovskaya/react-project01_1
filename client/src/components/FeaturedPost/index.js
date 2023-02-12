@@ -1,11 +1,11 @@
+import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 import Button from "../Link";
 import { ReactComponent as IconArrow } from "../../assets/icons/arrow.svg";
 import Like from "../Like";
 import Dislike from "../Dislike";
-import React, { useState } from "react";
-import axios from "axios";
 import { BASE_URL_POST } from "../../data/Constans";
 
 const Container = styled.div`

@@ -1,3 +1,4 @@
+import React from "react";
 import { ResponsiveContainer, PieChart, Pie } from "recharts";
 
 const DashboardPlaceholderPie = () => {

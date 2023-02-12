@@ -1,3 +1,4 @@
+import React from "react";
 import { MultiSelect } from "react-multi-select-component";
 import styled from "styled-components";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import DashboardPost from "./DashboardPost";
 
 const DashboardPosts = ({
