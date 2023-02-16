@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactComponent as IconLike } from "../../assets/icons/like.svg";
 import IconButton from "../Form/IconButton";
 

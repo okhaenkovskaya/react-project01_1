@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as IconStar } from "../../../assets/icons/icon-star.svg";

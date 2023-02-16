@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Logo from "./Logo";
 import { headerData } from "../../data/HeaderData";
@@ -74,7 +74,7 @@ const Header = () => {
             <NavigationWrap>
                 <NavList>
                     {headerNavItems.map((item) =>
-                        user && item.link == "/Register" ? null : (
+                        user && item.link === "/Register" ? null : (
                             <NavItem key={item.id} url={item.link}>
                                 {item.svg}
                                 {item.name}

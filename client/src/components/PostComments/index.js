@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../../context/auth";
 import { BASE_URL_POST } from "../../data/Constans";

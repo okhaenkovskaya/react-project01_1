@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactComponent as IconDisLike } from "../../assets/icons/dislike.svg";
 import IconButton from "../Form/IconButton";
 

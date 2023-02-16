@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { AuthContext } from "../../../context/auth";
 import { BASE_URL_POST } from "../../../data/Constans";
