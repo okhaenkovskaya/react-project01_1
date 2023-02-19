@@ -15,7 +15,12 @@ const Title = styled.h2`
     }
 `;
 
-const PageTitle = ({ children, classes }) => {
+type Props = {
+    children: React.ReactNode;
+    classes?: string;
+};
+
+const PageTitle = ({ children, classes }: Props) => {
     return <Title className={classes}>{children}</Title>;
 };
 
