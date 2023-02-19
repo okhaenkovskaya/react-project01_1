@@ -18,12 +18,13 @@
     "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "./tsconfig.json",
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
+        "allowTernary": 0,
         "react/prop-types": "off",
         "import/extensions": [
             "error",
@@ -61,7 +62,6 @@
                 }
             }
         ],
-        "arrow-body-style": "off",
         "react/jsx-props-no-spreading": "off"
     }
 }

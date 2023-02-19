@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -42,12 +42,10 @@ const ContactForm = () => {
                     "🦄🦄🦄 Form submitted successfully."
                 );
             }
-        } else {
-            if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error(
-                    "Please fill out the form correctly."
-                );
-            }
+        } else if(!toast.isActive(toastId.current)) {
+            toastId.current = toast.error(
+                "Please fill out the form correctly."
+            );
         }
     };
 
@@ -68,26 +66,22 @@ const ContactForm = () => {
     const isValidPhoneNumber = (input_str) => {
         if (/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(input_str)) {
             return true;
-        } else {
-            if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error("Write 10 numbers");
-            }
-            return false;
         }
+        if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error("Write 10 numbers");
+        }
+        return false;
     };
 
     const isValidField = (value) => {
         if (value.length >= 3) {
             return true;
-        } else {
-            if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.warn(
-                    "You must fill at least 3 letters"
-                );
-            }
-
-            return false;
         }
+        if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.warn("You must fill at least 3 letters")
+        }
+
+        return false;
     };
 
     const isValidEmail = (email) => {
@@ -97,12 +91,11 @@ const ContactForm = () => {
             )
         ) {
             return true;
-        } else {
-            if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error("Not valid Email");
-            }
-            return false;
         }
+        if (!toast.isActive(toastId.current)) {
+            toastId.current = toast.error("Not valid Email");
+        }
+        return false;
     };
 
     const handleChange = (e) => {
@@ -132,50 +125,50 @@ const ContactForm = () => {
             <Form innerRef={formRef} submitFunction={handleSubmit}>
                 <Input
                     changeFunction={handleChange}
-                    isRequired={true}
-                    name={"firstName"}
-                    type={"text"}
-                    placeholder={"First Name"}
+                    isRequired
+                    name="firstName"
+                    type="text"
+                    placeholder="First Name"
                     value={data.firstName}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
 
                 <Input
                     changeFunction={handleChange}
-                    name={"lastName"}
-                    placeholder={"Last Name"}
+                    name="lastName"
+                    placeholder="Last Name"
                     value={data.lastName}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
 
                 <Input
                     changeFunction={handleChange}
-                    isRequired={true}
-                    name={"email"}
-                    type={"email"}
-                    placeholder={"Email"}
+                    isRequired
+                    name="email"
+                    type="email"
+                    placeholder="Email"
                     value={data.email}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
 
                 <Input
                     changeFunction={handleChange}
-                    isRequired={true}
-                    name={"phone"}
-                    type={"tel"}
-                    placeholder={"Phone"}
+                    isRequired
+                    name="phone"
+                    type="tel"
+                    placeholder="Phone"
                     value={data.phone}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
 
                 <Textarea
                     changeFunction={handleChange}
-                    name={"message"}
-                    placeholder={"Message"}
+                    name="message"
+                    placeholder="Message"
                     value={data.message}
                 />
 
-                <Button innerRef={buttonRef} isDisabled={true}>
+                <Button innerRef={buttonRef} isDisabled>
                     Send
                 </Button>
                 <ToastContainer />

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -69,7 +68,7 @@ const Author = styled.h2`
 
 const Avatar = ({ bigImage }) => {
     const context = useContext(AuthContext);
-    const user = context.user;
+    const { user } = context;
 
     const { image } = avatarData;
     const { fullName, email } = user;

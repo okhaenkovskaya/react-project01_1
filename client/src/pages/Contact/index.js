@@ -6,7 +6,9 @@ import {
     pageData,
     socialNetworkData,
 } from "../../data/ContactData";
+
 import Loader from "../../components/Loader";
+
 const FullWidthImageWithTitle = React.lazy(() =>
     import("../../components/FullWidthImageWithTitle")
 );
@@ -21,8 +23,7 @@ const Container = styled.div`
     padding: 0 30px;
 `;
 
-const Contact = () => {
-    return (
+const Contact = () => (
         <Suspense fallback={<Loader />}>
             <FullWidthImageWithTitle
                 fullImageData={fullImageData}
@@ -35,6 +36,6 @@ const Contact = () => {
             </Container>
         </Suspense>
     );
-};
 
 export default Contact;
+

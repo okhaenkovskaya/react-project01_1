@@ -53,7 +53,7 @@ const ProfilePage = () => {
         <>
             <Head>
                 <PageTitle>Profile</PageTitle>
-                <LinkWrap to="/user-list">User List -></LinkWrap>
+                <LinkWrap to="/user-list">User List</LinkWrap>
             </Head>
             <Container>
                 <Avatar bigImage={true} />

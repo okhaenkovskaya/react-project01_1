@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Text = styled.div`
@@ -7,8 +6,6 @@ const Text = styled.div`
     font-size: 20px;
 `;
 
-const NotFound = () => {
-    return <Text>No Posts found</Text>;
-};
+const NotFound = () => (<Text>No Posts found</Text>);
 
 export default NotFound;

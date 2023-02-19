@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -32,13 +31,19 @@ const Title = styled.div`
     z-index: 2;
 `;
 
-const FullWidthImageWithTitle = ({ fullImageData: { alt, src }, title }) => {
-    return (
-        <Container>
-            <Title>{title}</Title>
-            <Image src={src} alt={alt} />
-        </Container>
-    );
+type Props = {
+    title: string;
+    fullImageData: {
+        alt: string,
+        src: string
+    }
 };
+
+const FullWidthImageWithTitle = ({ fullImageData: { alt, src }, title }: Props) => (
+    <Container>
+        <Title>{title}</Title>
+        <Image src={src} alt={alt} />
+    </Container>
+);
 
 export default FullWidthImageWithTitle;
