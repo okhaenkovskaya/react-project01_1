@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Title = styled.h2`
@@ -21,7 +20,7 @@ type Props = {
 };
 
 const PageTitle = ({ children, classes }: Props) => {
-    return <Title className={classes}>{children}</Title>;
+    return <Title className={classes}>{children} sd</Title>;
 };
 
 export default PageTitle;
