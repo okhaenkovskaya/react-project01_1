@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 
 import { fullImageData } from "../../data/HomeData";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import Container from "../../components/Container";
 import { BASE_URL_POST } from "../../data/Constans";
 
@@ -10,7 +10,7 @@ const FullWidthImage = React.lazy(() =>
     import("../../components/FullWidthImage")
 );
 const NotFound = React.lazy(() => import("../../components/NotFound"));
-const PostsList = React.lazy(() => import("../../components/PostsList"));
+const PostsList = React.lazy(() => import("../../components/PostsList/PostsList"));
 const FeaturedPost = React.lazy(() => import("../../components/FeaturedPost"));
 
 const HomePage = () => {

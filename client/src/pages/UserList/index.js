@@ -1,12 +1,32 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import DataTable from "react-data-table-component";
 
 import { BASE_URL_USER } from "../../data/Constans";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Form/Button";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 
 const UserList = () => {
+    const [users, setUsers] = useState([]);
+
+    const getUsers = () => {
+        fetch(`${BASE_URL_USER}/list`)
+        .then((res) => res.json())
+        .then((data) => setUsers(data));
+    };
+
+    const deleteUser = (e, id) => {
+        fetch(`${BASE_URL_USER}/${id}`, {
+            method: "DELETE",
+        })
+        .then((res) => res.json())
+        .then(() => getUsers());
+    };
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     const columns = [
         {
             name: "Name",
@@ -29,26 +49,6 @@ const UserList = () => {
             ),
         },
     ];
-
-    useEffect(() => {
-        getUsers();
-    }, []);
-
-    const getUsers = () => {
-        fetch(`${BASE_URL_USER}/list`)
-            .then((res) => res.json())
-            .then((data) => setUsers(data));
-    };
-
-    const deleteUser = (e, id) => {
-        fetch(`${BASE_URL_USER}/${id}`, {
-            method: "DELETE",
-        })
-            .then((res) => res.json())
-            .then((data) => getUsers());
-    };
-
-    const [users, setUsers] = useState([]);
 
     return (
         <Suspense fallback={<Loader />}>

@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 
 import { NavItem, NavList } from "../Nav";
-import { DashboardData } from "../../data/DashboardData";
+import { DashboardData as Menu } from "../../data/DashboardData";
 import Avatar from "../Avatar";
 
 const SidebarWrap = styled.div`
@@ -12,21 +11,26 @@ const SidebarWrap = styled.div`
     padding: 35px;
 `;
 
-const Sidebar = () => {
-    const { navItems } = DashboardData;
+type PropItem = {
+    id: number,
+    name: string,
+    link: string,
+    svg: React.ReactNode,
+};
 
-    return (
+
+const Sidebar = () =>  (
         <SidebarWrap>
             <Avatar />
 
             <NavList direction="column">
-                {navItems.map((item) => (
+                {Menu.map((item: PropItem) => (
                     <NavItem
-                        type={"dashboard"}
+                        type="dashboard"
                         key={item.id}
                         url={item.link}
                         svg={item.svg}
-                        isEnd={true}
+                        margin='15px'
                     >
                         {item.name}
                     </NavItem>
@@ -34,6 +38,5 @@ const Sidebar = () => {
             </NavList>
         </SidebarWrap>
     );
-};
 
 export default Sidebar;

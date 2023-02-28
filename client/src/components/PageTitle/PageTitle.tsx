@@ -17,10 +17,14 @@ const Title = styled.h2`
 type Props = {
     children: React.ReactNode;
     classes?: string;
+} & typeof defaultProps;
+
+const defaultProps = {
+    classes: '',
 };
 
-const PageTitle = ({ children, classes }: Props) => {
-    return <Title className={classes}>{children} sd</Title>;
-};
+const PageTitle = ({ children, classes }: Props) => (<Title className={classes}>{children}</Title>);
+
+PageTitle.defaultProps = defaultProps;
 
 export default PageTitle;

@@ -6,7 +6,7 @@ import DataTable from "react-data-table-component";
 
 import { BASE_URL_POST } from "../../data/Constans";
 import { ReactComponent as IconNewPosts } from "../../assets/icons/new_post.svg";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import DashboardPostStatus from "../../components/DashboardPosts/DashboardPostStatus";
 import DashboardPostEditButtonsPopup from "../../components/DashboardPosts/DashboardPostEditButtonsPopup";
 import PageTitle from "../../components/PageTitle";

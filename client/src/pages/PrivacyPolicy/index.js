@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import { AuthContext } from "../../context/auth";
 import { fullImageData, pageData } from "../../data/PolicyData";
@@ -18,7 +18,6 @@ const PrivacyPolicy = () => {
             ) : (
                 <PageTitle>{pageData.title}</PageTitle>
             )}
-
             <Container user={user}>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.

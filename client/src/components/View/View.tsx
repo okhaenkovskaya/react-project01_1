@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as IconEye } from "../../assets/icons/eye.svg";
@@ -18,13 +17,15 @@ const ViewComponent = styled.div`
     }
 `;
 
-const View = ({ children }) => {
-    return (
+type Props = {
+    children: React.ReactNode;
+};
+
+const View = ({ children }: Props) => (
         <ViewComponent>
             <IconEye />
             {children}
         </ViewComponent>
     );
-};
 
 export default View;

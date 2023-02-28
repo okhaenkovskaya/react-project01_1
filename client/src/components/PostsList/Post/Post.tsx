@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import Button from "../../Link";
@@ -49,24 +48,33 @@ const Holder = styled.div`
     align-items: center;
 `;
 
-const Post = ({ post: { _id, title, body, thumbnail } }) => {
-    return (
-        <Container>
-            <Image>
-                <img src={thumbnail} alt={title} />
-            </Image>
-            <TextWrap>
-                <Title>{title}</Title>
-                <Text>{body.slice(0, 122)}...</Text>
-                <Holder>
-                    <Button url={`/posts/${_id}`}>
-                        Read more
-                        <IconArrow />
-                    </Button>
-                </Holder>
-            </TextWrap>
-        </Container>
-    );
+type Props = {
+    post: PropsPost;
 };
+
+type PropsPost = {
+    _id: string | number,
+    title: string,
+    body: string,
+    thumbnail: string,
+};
+
+const Post = ({ post: { _id, title, body, thumbnail } }: Props) => (
+    <Container>
+        <Image>
+            <img src={thumbnail} alt={title} />
+        </Image>
+        <TextWrap>
+            <Title>{title}</Title>
+            <Text>{body.slice(0, 122)}...</Text>
+            <Holder>
+                <Button url={`/posts/${_id}`}>
+                    Read more
+                    <IconArrow />
+                </Button>
+            </Holder>
+        </TextWrap>
+    </Container>
+);
 
 export default Post;
