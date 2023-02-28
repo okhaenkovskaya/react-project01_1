@@ -2,11 +2,20 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-const NavListItem = styled.li`
+
+interface StyledLiProps {
+    margin: string
+}
+
+interface StyledDivProps {
+    type: string | undefined
+}
+
+const NavListItem = styled.li<StyledLiProps>`
     margin: ${(props) => props.margin || "0 0 0 10px"};
 `;
 
-const NavbarLink = styled(NavLink)`
+const NavbarLink = styled(NavLink)<StyledDivProps>`
     color: #f2f2f2;
     font-size: 18px;
     font-weight: 400;
@@ -58,17 +67,28 @@ const NavbarLink = styled(NavLink)`
   `}
 `;
 
-const NavItem = ({ children, type, url, margin, svg, isEnd }) => {
-    const end = isEnd ? "end" : null;
+type Props = {
+    children: React.ReactNode,
+    type: string | undefined,
+    url: string,
+    margin?: string,
+    svg: React.ReactNode | string,
+} & typeof defaultProps;
 
-    return (
+const defaultProps = {
+    margin: '0 0 0 10px',
+};
+
+
+const NavItem = ({ children, type, url, margin, svg } :Props) => (
         <NavListItem margin={margin}>
-            <NavbarLink type={type} activeclassname="active" to={url} end={end}>
+            <NavbarLink type={type} activeClassName="active" to={url}>
                 {svg}
                 {children}
             </NavbarLink>
         </NavListItem>
     );
-};
+
+NavItem.defaultProps = defaultProps;
 
 export default NavItem;

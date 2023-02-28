@@ -1,6 +1,6 @@
 import React, { useState, Suspense, useEffect } from "react";
 
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import { BASE_URL_TASK } from "../../data/Constans";
 const DashboardTasks = React.lazy(() =>

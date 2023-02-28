@@ -2,13 +2,14 @@ import React, { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 
 import { BASE_URL_POST } from "../../data/Constans";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import Container from "../../components/Container";
-const PostsList = React.lazy(() => import("../../components/PostsList"));
+
+const PostsList = React.lazy(() => import("../../components/PostsList/PostsList"));
 
 const ArchivePage = () => {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<object[]>([]);
 
     const onLoadPage = () => {
         axios

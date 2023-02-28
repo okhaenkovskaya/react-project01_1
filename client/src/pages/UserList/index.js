@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import { BASE_URL_USER } from "../../data/Constans";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Form/Button";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);

@@ -7,7 +7,7 @@ import {
     socialNetworkData,
 } from "../../data/ContactData";
 
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 
 const FullWidthImageWithTitle = React.lazy(() =>
     import("../../components/FullWidthImageWithTitle")

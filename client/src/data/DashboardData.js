@@ -1,10 +1,24 @@
-import React from "react";
 import { ReactComponent as IconDashboard } from "../assets/icons/dashboard.svg";
 import { ReactComponent as IconPosts } from "../assets/icons/posts.svg";
 import { ReactComponent as IconTasks } from "../assets/icons/tasks.svg";
 
-export const DashboardData = {
-    navItems: [
+
+
+/*
+* type PropsDashboardData = {
+    navItems:[];
+};
+
+type PropItem = {
+    id: number,
+    name: string,
+    link: string,
+    svg: React.ReactNode,
+};
+
+*
+* */
+export const DashboardData = [
         {
             id: 0,
             name: "Dashboard",
@@ -23,5 +37,4 @@ export const DashboardData = {
             link: "/Dashboard/Tasks",
             svg: <IconTasks />,
         },
-    ],
-};
+    ]

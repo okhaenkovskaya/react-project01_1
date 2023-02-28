@@ -17,12 +17,18 @@ const ContainerStyle = styled.div<StyledDivProps>`
 `;
 
 type Props = {
-    user: object | null;
+    user?: object | null;
     children: React.ReactNode;
+}& typeof defaultProps;
+
+const defaultProps = {
+    user: null,
 };
 
 const Container = ({ children, user }: Props) => (
     <ContainerStyle user={user}>{children}</ContainerStyle>
 );
+
+Container.defaultProps = defaultProps;
 
 export default Container;

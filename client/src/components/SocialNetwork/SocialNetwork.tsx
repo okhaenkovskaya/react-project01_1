@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -32,19 +31,33 @@ const SocialList = styled.ul`
     }
 `;
 
-const SocialNetwork = ({ socialNetworkData: { title, items } }) => {
-    return (
-        <Container>
-            <PageTitle classes={"small-title"}>{title}</PageTitle>
-            <SocialList>
-                {items.map((item, index) => (
-                    <li key={index}>
-                        <Link to={item.link}>{item.svg}</Link>
-                    </li>
-                ))}
-            </SocialList>
-        </Container>
-    );
+type PropsWrap = {
+    socialNetworkData: Props;
 };
+
+type Props = {
+    title: string;
+    items:  Item[]
+};
+
+type Item = {
+    link: string;
+    svg:  string;
+};
+
+
+
+const SocialNetwork = ({ socialNetworkData: { title, items }}: PropsWrap ) => (
+    <Container>
+        <PageTitle classes="small-title">{title}</PageTitle>
+        <SocialList>
+            {items.map((item: Item) => (
+                <li key={item.link}>
+                    <Link to={item.link}>{item.svg}</Link>
+                </li>
+            ))}
+        </SocialList>
+    </Container>
+);
 
 export default SocialNetwork;

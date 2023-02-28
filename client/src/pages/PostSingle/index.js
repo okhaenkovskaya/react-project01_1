@@ -3,7 +3,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import Like from "../../components/Like";
 import Dislike from "../../components/Dislike";
 import Container from "../../components/Container";

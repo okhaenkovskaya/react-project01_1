@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { avatarData } from "../../data/AvatarData";
 import { AuthContext } from "../../context/auth";
 
-const Container = styled.div`
+interface StyledDivProps {
+    bigImage: string | undefined;
+}
+
+const Container = styled.div<StyledDivProps>`
     margin: 0 auto 30px;
     padding: 15px 15px 15px 130px;
     background: #bdb2ff;
@@ -17,8 +21,8 @@ const Container = styled.div`
     }
 
     ${({ bigImage }) =>
-        bigImage &&
-        `
+    bigImage &&
+    `
     background: none;
     
     img {
@@ -66,12 +70,20 @@ const Author = styled.h2`
     color: #262835;
 `;
 
-const Avatar = ({ bigImage }) => {
+
+type Props = {
+    bigImage?: string;
+}& typeof defaultProps;
+
+const defaultProps = {
+    bigImage: '',
+};
+
+const Avatar = ({ bigImage }: Props) => {
     const context = useContext(AuthContext);
     const { user } = context;
-
     const { image } = avatarData;
-    const { fullName, email } = user;
+    const { fullName, email }: { fullName: string; email: string } = user;
 
     return (
         <Container bigImage={bigImage}>
@@ -83,5 +95,8 @@ const Avatar = ({ bigImage }) => {
         </Container>
     );
 };
+
+
+Avatar.defaultProps = defaultProps;
 
 export default Avatar;
