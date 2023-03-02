@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import DashboardPlaceholderPie from "../../components/PieChart";
@@ -10,18 +9,17 @@ const Diagrams = styled.div`
     flex-wrap: wrap;
 `;
 
-const Dashboard = () => {
-    return (
-        <>
-            <PageTitle>Dashboard</PageTitle>
+const Dashboard = () => (
+    <>
+        <PageTitle>Dashboard</PageTitle>
 
-            <Diagrams>
-                <DashboardPlaceholderPie />
+        <Diagrams>
+            <DashboardPlaceholderPie />
 
-                <DashboardPlaceholderLine />
-            </Diagrams>
-        </>
-    );
-};
+            <DashboardPlaceholderLine />
+        </Diagrams>
+    </>
+);
+
 
 export default Dashboard;

@@ -23,6 +23,7 @@ const Container = styled.div`
     padding: 0 30px;
 `;
 
+
 const Contact = () => (
         <Suspense fallback={<Loader />}>
             <FullWidthImageWithTitle

@@ -13,26 +13,39 @@ const NotFound = React.lazy(() => import("../../components/NotFound"));
 const PostsList = React.lazy(() => import("../../components/PostsList/PostsList"));
 const FeaturedPost = React.lazy(() => import("../../components/FeaturedPost"));
 
-const HomePage = () => {
-    const [page, setPage] = useState(1);
-    const [newPostsLoading, setNewPostsLoading] = useState(false);
+type Post = {
+    _id: any;
+    title: string;
+    body: string;
+    status: string;
+    tag: [];
+    categories: [];
+    thumbnail: string;
+    likes: number;
+    views: number;
+    createdAt: any;
+    comments: []
+};
 
-    const [posts, setPosts] = useState([]);
+const Home = () => {
+    const [newPostsLoading, setNewPostsLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        getPosts(page);
-    }, []);
+    const [posts, setPosts] = useState<Post[]>([]);
 
-    const getPosts = (page) => {
+
+    const getPosts = () => {
         axios
             .get(`${BASE_URL_POST}`)
             .then((res) => {
                 setPosts([...posts, ...res.data.data]);
-                setPage((page) => page + 1);
                 setNewPostsLoading(false);
             })
             .catch((error) => console.log(error));
     };
+
+    useEffect(() => {
+        getPosts();
+    }, []);
 
     return (
         <Suspense fallback={<Loader />}>
@@ -54,4 +67,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default Home;

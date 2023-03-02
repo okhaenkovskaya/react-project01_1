@@ -2,26 +2,22 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-
 interface StyledLiProps {
-    margin: string
+    margin: string;
 }
-
 interface StyledDivProps {
-    type: string | undefined
+    type: string | undefined;
+    activeClassName?: string;
 }
-
 const NavListItem = styled.li<StyledLiProps>`
     margin: ${(props) => props.margin || "0 0 0 10px"};
 `;
-
 const NavbarLink = styled(NavLink)<StyledDivProps>`
-    color: #f2f2f2;
+    color: #F2F2F2;
     font-size: 18px;
     font-weight: 400;
     text-decoration: none;
     opacity: 0.5;
-
     &:hover,
     &:focus {
         opacity: 0.9;
@@ -30,17 +26,15 @@ const NavbarLink = styled(NavLink)<StyledDivProps>`
         font-weight: 700;
         opacity: 1;
     }
-
     ${({ type }) =>
-        type === "dashboard" &&
-        `
+    type === "dashboard" &&
+`
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     opacity: 1;
     position: relative;
     padding: 0 20px;
-    
     & > svg {
       margin-right: 10px;
     }
@@ -66,29 +60,24 @@ const NavbarLink = styled(NavLink)<StyledDivProps>`
     }
   `}
 `;
-
 type Props = {
-    children: React.ReactNode,
-    type: string | undefined,
-    url: string,
-    margin?: string,
-    svg: React.ReactNode | string,
+    children: React.ReactNode;
+    type: string | undefined;
+    url: string;
+    margin?: string;
+    svg: React.ReactNode | string;
 } & typeof defaultProps;
-
 const defaultProps = {
     margin: '0 0 0 10px',
 };
-
-
-const NavItem = ({ children, type, url, margin, svg } :Props) => (
-        <NavListItem margin={margin}>
-            <NavbarLink type={type} activeClassName="active" to={url}>
-                {svg}
-                {children}
-            </NavbarLink>
-        </NavListItem>
-    );
+const NavItem = ({ children, type, url, margin, svg }: Props) => (
+    <NavListItem margin={margin}>
+        <NavbarLink type={type} activeClassName="active" to={url}>
+        {svg}
+        {children}
+    </NavbarLink>
+</NavListItem>
+);
 
 NavItem.defaultProps = defaultProps;
-
 export default NavItem;

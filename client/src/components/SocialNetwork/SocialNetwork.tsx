@@ -42,7 +42,7 @@ type Props = {
 
 type Item = {
     link: string;
-    svg:  string;
+    svg:  React.ReactNode | string;
 };
 
 
