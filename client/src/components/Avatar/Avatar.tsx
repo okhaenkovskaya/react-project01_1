@@ -65,6 +65,7 @@ const Author = styled.h2`
 type Props = {
     bigImage?: string;
 } & typeof defaultProps;
+
 const defaultProps = {
     bigImage: "",
 };

@@ -29,12 +29,24 @@ const FormStyle = styled.form`
     }
 `;
 
-const Form = ({ children, submitFunction, innerRef, classes }) => {
-    return (
-        <FormStyle className={classes} ref={innerRef} onSubmit={submitFunction}>
-            {children}
-        </FormStyle>
-    );
+type Props = {
+    children: React.ReactNode;
+    submitFunction: void | any;
+    innerRef?: any | null;
+    classes?: string;
+} & typeof defaultProps;
+
+const defaultProps = {
+    classes: "",
+    innerRef: null,
 };
+
+const Form = ({ children, submitFunction, innerRef, classes }: Props) => (
+    <FormStyle className={classes} ref={innerRef} onSubmit={submitFunction}>
+        {children}
+    </FormStyle>
+);
+
+Form.defaultProps = defaultProps;
 
 export default Form;

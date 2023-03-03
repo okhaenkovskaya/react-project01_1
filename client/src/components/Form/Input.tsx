@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const InputStyle = styled.input`
@@ -54,6 +53,24 @@ const InputStyle = styled.input`
     }
 `;
 
+type Props = {
+    type?: string;
+    name: string;
+    placeholder?: string;
+    value?:string;
+    isRequired?: boolean;
+    changeFunction: void | any;
+    classes?: string;
+} & typeof defaultProps;
+
+const defaultProps = {
+    type: "text",
+    placeholder: '',
+    value: '',
+    classes: '',
+    isRequired: false,
+};
+
 const Input = ({
     type,
     name,
@@ -62,20 +79,18 @@ const Input = ({
     isRequired,
     changeFunction,
     classes,
-}) => {
-    return (
-        <>
+}: Props) =>  (
             <InputStyle
                 className={classes}
-                type={type ? type : "text"}
+                type={type}
                 onChange={changeFunction}
                 name={name}
-                required={isRequired ? isRequired : false}
-                placeholder={placeholder ? placeholder : ""}
+                required={isRequired}
+                placeholder={placeholder}
                 defaultValue={value}
             />
-        </>
     );
-};
+
+Input.defaultProps = defaultProps;
 
 export default Input;

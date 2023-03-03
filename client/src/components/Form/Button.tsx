@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const ButtonStyle = styled.button`
@@ -67,6 +66,23 @@ const ButtonStyle = styled.button`
     }
 `;
 
+type Props = {
+    children: React.ReactNode | string;
+    innerRef?: any | null;
+    isDisabled?: boolean;
+    clickFunction?: void | undefined;
+    type?: any;
+    classes?: string;
+} & typeof defaultProps;
+
+const defaultProps = {
+    type: "submit",
+    classes: '',
+    isDisabled: false,
+    innerRef: null,
+    clickFunction: undefined,
+};
+
 const Button = ({
     children,
     innerRef,
@@ -74,20 +90,18 @@ const Button = ({
     clickFunction,
     type,
     classes,
-}) => {
-    return (
-        <>
-            <ButtonStyle
-                className={classes}
-                type={type}
-                ref={innerRef}
-                disabled={isDisabled ? isDisabled : false}
-                onClick={clickFunction}
-            >
-                {children}
-            </ButtonStyle>
-        </>
-    );
-};
+}: Props) => (
+    <ButtonStyle
+        className={classes}
+        type={type}
+        ref={innerRef}
+        disabled={isDisabled}
+        onClick={clickFunction}
+    >
+        {children}
+    </ButtonStyle>
+);
+
+Button.defaultProps = defaultProps;
 
 export default Button;
