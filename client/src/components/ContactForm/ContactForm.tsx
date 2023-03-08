@@ -30,9 +30,9 @@ type PropsData = {
 const ContactForm = () => {
     const [isValid, setIsValid] = useState<boolean>(false);
 
-    const formRef = useRef<HTMLDivElement>(null);
-    const buttonRef = useRef<HTMLDivElement>(null);
-    const toastId = useRef(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const toastId = useRef<any>(null);
     const [data, setData] = useState<PropsData>({
         firstName: "",
         lastName: "",
@@ -58,9 +58,9 @@ const ContactForm = () => {
 
     const checkErrors = () => {
         const children = Array.from(formRef.current.children).filter(
-            (item) => item.required
+            (item: any) => item.required
         );
-        const errorItems = children.filter((item) =>
+        const errorItems = children.filter((item: any) =>
             item.classList.contains("error")
         );
         if (buttonRef.current) {

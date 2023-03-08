@@ -71,14 +71,27 @@ type Props = {
     postsDB: [];
 };
 
+type PropsNewPost = {
+    author: string;
+    title: string;
+    body: string;
+    name: string;
+    status: string;
+    userID: any;
+    tags: [];
+    categories: [];
+    thumbnail: string;
+    slug: string;
+};
+
 const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => {
     const context = useContext(AuthContext);
-    const { user } = context;
-    const toastId = useRef(null);
+    const { user }: {user: any} = context;
+    const userID: number = user ? user.id : 9999;
+    const toastId = useRef<any>(null);
     const [selectedTags, setSelectedTags] = useState<[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<[]>([]);
-    let tags = [];
-    let categories = [];
+
 
     const optionsTags = [
         { label: "tag01 🍇", value: "tag01" },
@@ -92,19 +105,20 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
         { label: "Category03 🍎", value: "Category03" },
     ];
 
-    const [newPost, setNewPost] = useState<object>({
+    const [newPost, setNewPost] = useState<PropsNewPost>({
+        author: "",
         title: "",
         body: "",
         name: "",
         status: "",
-        userID: user.id,
-        tag: tags,
-        categories: categories,
+        userID,
+        tags: [],
+        categories: [],
         thumbnail: "",
         slug: "",
     });
 
-    function convertToSlug(Text) {
+    function convertToSlug(Text: string) {
         return Text.toLowerCase()
             .replace(/ /g, "-")
             .replace(/[^\w-]+/g, "");
@@ -115,8 +129,9 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
 
         try {
             const formData = new FormData();
-            tags = selectedTags.map((item) => item.value);
-            categories = selectedCategories.map((item) => item.value);
+
+            const tags: any = selectedTags.map((item:any) => item.value);
+            const categories: any = selectedCategories.map((item: any) => item.value);
 
             formData.append("title", newPost.title);
             formData.append("body", newPost.body);

@@ -108,17 +108,25 @@ const Button = styled.button`
 `;
 
 type Props = {
-    item: object;
+    item: PropsPost;
     setPosts: any;
     posts: [];
     setEditPostData: any;
     setShowEditPopup: any;
     editedPost: object;
-    checkedPosts: object;
+    checkedPosts: any
     setCheckedPosts:any;
     isCheck: boolean;
 };
 
+type PropsPost = {
+    id: string | number,
+    title: string,
+    author: string,
+    status: string,
+    data: any,
+    body: string,
+};
 
 const DashboardPost = ({
     item,
@@ -134,17 +142,17 @@ const DashboardPost = ({
     const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
     const deletePost = (id: string | number) => {
-        setPosts(posts.filter((item) => item.id !== id));
+        setPosts(posts.filter((item: any) => item.id !== id));
         setIsPopupOpen(false);
     };
 
     const handleClick = (e: any, id: string | number) => {
         e.target.checked
             ? setCheckedPosts([...checkedPosts, id])
-            : setCheckedPosts(checkedPosts.filter((item) => item !== id));
+            : setCheckedPosts(checkedPosts.filter((item: {}) => item !== id));
     };
 
-    const editPost = (item: object) => {
+    const editPost = (item: PropsPost) => {
         editedPost = {
             id: item.id,
             title: item.title,
@@ -162,7 +170,7 @@ const DashboardPost = ({
     return (
         <Post>
             <input
-                onClick={(e) => handleClick(e, item.id)}
+                onClick={(e:any) => handleClick(e, item.id)}
                 defaultChecked={isCheck}
                 className={`text-${isCheck}`}
                 type="checkbox"

@@ -38,15 +38,22 @@ const Head = styled.div`
     }
 `;
 
+type Props = {
+    posts: any[];
+    setCheckedPosts: ([]) => void;
+    isCheckedAllPosts: boolean;
+    setIsCheckedAllPosts: (param: boolean) => void;
+};
+
 const DashboardPostsHead = ({
     setCheckedPosts,
     posts,
     setIsCheckedAllPosts,
     isCheckedAllPosts,
-}) => {
+}: Props) => {
     const selectAllPosts = () => {
         setIsCheckedAllPosts((isCheckedAllPosts) => !isCheckedAllPosts);
-        const updatedCheckedPostsArray = posts.map((item, i) => posts[i].id);
+        const updatedCheckedPostsArray: any[] = posts.map((item, i) => posts[i].id);
         setCheckedPosts(updatedCheckedPostsArray);
 
         if (isCheckedAllPosts) {

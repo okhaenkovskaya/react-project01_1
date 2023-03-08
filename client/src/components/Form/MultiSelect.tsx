@@ -28,14 +28,13 @@ const MultiSelectStyle = styled(MultiSelect)`
 
 type Props = {
     options: any;
-    value: any;
-    changeFunction?: void | undefined;
+    value: string | [];
+    changeFunction: any;
     labelledBy?: string | null;
 } & typeof defaultProps;
 
 const defaultProps = {
     labelledBy: '',
-    changeFunction: undefined,
 };
 
 const MultiSelectWrap = ({ options, value, changeFunction, labelledBy }: Props) =>  (

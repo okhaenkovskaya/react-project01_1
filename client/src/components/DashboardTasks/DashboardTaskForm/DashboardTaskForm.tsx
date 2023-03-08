@@ -5,18 +5,26 @@ import "react-toastify/dist/ReactToastify.css";
 import { BASE_URL_TASK } from "../../../data/Constans";
 import { Button, Input } from "../../Form";
 
-const DashboardTaskForm = ({ setTasks, tasks }) => {
-    const emptyTask = {
+type Props = {
+    tasks: any[];
+    setTasks: ([]) => void;
+};
+
+
+type PropsEmptyTask = {
+    task: string;
+};
+
+const DashboardTaskForm = ({ setTasks, tasks }: Props) => {
+    const emptyTask: PropsEmptyTask = {
         task: "",
     };
-    const toastId = useRef(null);
-    const [isValid, setIsValid] = useState(false);
-    const buttonRef = useRef(null);
-    const [newTask, setNewTask] = useState({
-        task: "",
-    });
+    const toastId = useRef<any>(null);
+    const [isValid, setIsValid] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const [newTask, setNewTask] = useState<PropsEmptyTask>(emptyTask);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
 
         if (isValid) {
@@ -34,21 +42,27 @@ const DashboardTaskForm = ({ setTasks, tasks }) => {
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.success("Form submitted successfully.");
             }
-            buttonRef.current.disabled = true;
+            if (buttonRef.current) {
+                buttonRef.current.disabled = true;
+            }
         } else if (!toast.isActive(toastId.current)) {
             toastId.current = toast.error("Please fill out the form correctly.");
         }
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
 
         if (value.length > 3) {
             setIsValid(true);
-            buttonRef.current.disabled = false;
+            if (buttonRef.current) {
+                buttonRef.current.disabled = false;
+            }
         } else {
             setIsValid(false);
-            buttonRef.current.disabled = true;
+            if (buttonRef.current) {
+                buttonRef.current.disabled = true;
+            }
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.warn("You must fill at least 3 letters");
             }

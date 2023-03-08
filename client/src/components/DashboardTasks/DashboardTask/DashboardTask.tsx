@@ -8,10 +8,16 @@ import { ReactComponent as IconPencil } from "../../../assets/icons/icon-pencil.
 import { ReactComponent as IconDelete } from "../../../assets/icons/plus_circle_icon.svg";
 import { IconButton } from "../../Form";
 
-const Task = styled.div`
+
+interface StyledDivProps {
+    isCompleted: boolean;
+    isPinned: boolean;
+}
+
+const Task = styled.div<StyledDivProps>`
     background: white;
-    ${(props) => props.isCompleted && "background: #FFFBE8; order: -1"};
-    ${(props) => props.isPinned && "background: #C1C1C1;  order: -99"};
+    ${({ isCompleted }) => isCompleted && "background: #FFFBE8; order: -1"};
+    ${({ isPinned }) => isPinned && "background: #C1C1C1;  order: -99"};
 
     border-radius: 8px;
     padding: 15px;
@@ -49,16 +55,30 @@ const Input = styled.input`
     width: calc(100% - 200px);
 `;
 
-const DashboardTask = ({ item, deleteTask, updateTask }) => {
+type Props = {
+    item: PropsItem;
+    deleteTask: (e: any, id: any) => void;
+    updateTask: (e: any, updatedTask: PropsItem ) => void;
+};
+
+type PropsItem = {
+    _id: any;
+    task: string;
+    completed: boolean;
+    pinned: boolean;
+    createdAt: any;
+};
+
+const DashboardTask = ({ item, deleteTask, updateTask }: Props) => {
     const [isEdit, setIsEdit] = useState(false);
 
-    const [updatedTask, setUpdatedTask] = useState(item);
+    const [updatedTask, setUpdatedTask] = useState<PropsItem>(item);
 
-    const updateTaskValue = (e) => {
+    const updateTaskValue = (e: any) => {
         setUpdatedTask({ ...updatedTask, [e.target.name]: e.target.value });
     };
 
-    const setUpdateTask = (e) => {
+    const setUpdateTask = (e: any) => {
         if (e.key === "Enter") {
             updateTask(e, updatedTask);
             setIsEdit(false);
@@ -77,7 +97,7 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
         >
             <IconButton
                 name="completed"
-                clickFunction={(e) =>
+                clickFunction={(e: any) =>
                     updateTask(e, {
                         ...item,
                         completed: !item.completed,
@@ -94,7 +114,7 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
                     placeholder={item.task}
                     onKeyDown={setUpdateTask}
                     value={updatedTask.task}
-                    onChange={(e) => updateTaskValue(e)}
+                    onChange={(e: any) => updateTaskValue(e)}
                 />
             ) : (
                 <Title>{item.task}</Title>
@@ -102,7 +122,7 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
 
             <IconButton
                 name="pinned"
-                clickFunction={(e) =>
+                clickFunction={(e: any) =>
                     updateTask(e, {
                         ...item,
                         pinned: !item.pinned,
@@ -117,7 +137,7 @@ const DashboardTask = ({ item, deleteTask, updateTask }) => {
                 <IconPencil />
             </IconButton>
 
-            <IconButton clickFunction={(e) => deleteTask(e, item._id)}>
+            <IconButton clickFunction={(e: any) => deleteTask(e, item._id)}>
                 <IconDelete />
             </IconButton>
         </Task>
