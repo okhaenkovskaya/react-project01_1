@@ -77,7 +77,6 @@ const Avatar = ({ bigImage }: Props) => {
         return <div>Loading...</div>;
     }
     const { fullName, email }: { fullName: string; email: string } = user;
-    console.log(user, 'user')
 
     return (
         <Container bigImage={bigImage}>

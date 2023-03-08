@@ -7,11 +7,11 @@ import Container from "../../components/Container";
 import { BASE_URL_POST } from "../../data/Constans";
 
 const FullWidthImage = React.lazy(() =>
-    import("../../components/FullWidthImage")
+    import("../../components/FullWidthImage/FullWidthImage")
 );
 const NotFound = React.lazy(() => import("../../components/NotFound"));
 const PostsList = React.lazy(() => import("../../components/PostsList/PostsList"));
-const FeaturedPost = React.lazy(() => import("../../components/FeaturedPost"));
+const FeaturedPost = React.lazy(() => import("../../components/FeaturedPost/FeaturedPost"));
 
 type Post = {
     _id: any;

@@ -12,7 +12,7 @@ import Loader from "../../components/Loader/Loader";
 const FullWidthImageWithTitle = React.lazy(() =>
     import("../../components/FullWidthImageWithTitle")
 );
-const ContactForm = React.lazy(() => import("../../components/ContactForm"));
+const ContactForm = React.lazy(() => import("../../components/ContactForm/ContactForm"));
 const SocialNetwork = React.lazy(() =>
     import("../../components/SocialNetwork")
 );

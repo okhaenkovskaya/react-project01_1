@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Button from "../../Link";
+import Button from "../../Link/Link";
 import { ReactComponent as IconArrow } from "../../../assets/icons/arrow.svg";
 
 const Container = styled.div`

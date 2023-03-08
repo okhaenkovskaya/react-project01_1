@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import DashboardPlaceholderPie from "../../components/PieChart";
-import DashboardPlaceholderLine from "../../components/LineChart";
+import DashboardPlaceholderPie from "../../components/PieChart/PieChart";
+import DashboardPlaceholderLine from "../../components/LineChart/LineChart";
 import PageTitle from "../../components/PageTitle";
 
 const Diagrams = styled.div`

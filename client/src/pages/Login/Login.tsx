@@ -6,7 +6,7 @@ import { accountData } from "../../data/AccountData";
 import { BASE_URL_USER } from "../../data/Constans";
 import { Button, Form, Input } from "../../components/Form";
 import PageTitle from "../../components/PageTitle";
-import ContainerWithBG from "../../components/ContainerWithBG";
+import ContainerWithBG from "../../components/ContainerWithBG/ContainerWithBG";
 
 interface IUserData {
     email: string;
