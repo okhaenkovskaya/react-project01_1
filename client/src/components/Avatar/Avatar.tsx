@@ -1,25 +1,21 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { avatarData } from "../../data/AvatarData";
 import { AuthContext } from "../../context/auth";
 
 interface StyledDivProps {
     bigImage: string | undefined;
 }
-
 const Container = styled.div<StyledDivProps>`
     margin: 0 auto 30px;
     padding: 15px 15px 15px 130px;
     background: #bdb2ff;
     border-radius: 12px;
     position: relative;
-
     a {
         text-decoration: none;
     }
-
     ${({ bigImage }) =>
     bigImage &&
     `
@@ -46,13 +42,11 @@ const Container = styled.div<StyledDivProps>`
     }
   `}
 `;
-
 const Image = styled.img`
     position: absolute;
     top: 15px;
     left: 26px;
 `;
-
 const Title = styled.h2`
     font-style: normal;
     font-weight: 500;
@@ -61,7 +55,6 @@ const Title = styled.h2`
     color: #262835;
     margin: 0 0 10px;
 `;
-
 const Author = styled.h2`
     font-weight: 400;
     font-size: 16px;
@@ -69,20 +62,20 @@ const Author = styled.h2`
     display: block;
     color: #262835;
 `;
-
-
 type Props = {
     bigImage?: string;
-}& typeof defaultProps;
+} & typeof defaultProps;
 
 const defaultProps = {
-    bigImage: '',
+    bigImage: "",
 };
-
 const Avatar = ({ bigImage }: Props) => {
     const context = useContext(AuthContext);
     const { user } = context;
     const { image } = avatarData;
+    if (!user) {
+        return <div>Loading...</div>;
+    }
     const { fullName, email }: { fullName: string; email: string } = user;
 
     return (
@@ -95,8 +88,5 @@ const Avatar = ({ bigImage }: Props) => {
         </Container>
     );
 };
-
-
 Avatar.defaultProps = defaultProps;
-
 export default Avatar;

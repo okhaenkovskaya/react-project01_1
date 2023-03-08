@@ -25,7 +25,8 @@
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
         "no-underscore-dangle": "off",
-        "allowTernary": 0,
+        "allowTernary": true,
+        "allowShortCircuit": true,
         "react/prop-types": "off",
         "import/extensions": [
             "error",
