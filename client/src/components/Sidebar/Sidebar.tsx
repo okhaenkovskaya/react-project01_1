@@ -15,9 +15,8 @@ type PropItem = {
     id: number,
     name: string,
     link: string,
-    svg: React.ReactNode,
+    svg: any,
 };
-
 
 const Sidebar = () =>  (
         <SidebarWrap>

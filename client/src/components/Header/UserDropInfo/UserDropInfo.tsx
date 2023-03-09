@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../context/auth";
+import { useContext } from "react";
 import styled from "styled-components";
-import { ReactComponent as IconUser } from "../../../assets/icons/user.svg";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from "../../../context/auth";
+import { ReactComponent as IconUser } from "../../../assets/icons/user.svg";
 
 const NavigationDrop = styled.div`
     background: #303033;
@@ -48,8 +49,13 @@ const UserInfo = styled.div`
     }
 `;
 
+
 const UserDropInfo = () => {
     const { user, logout } = useContext(AuthContext);
+
+    if (!user) {
+        return <>Please Login...</>;
+    }
 
     return (
         <NavigationDrop>

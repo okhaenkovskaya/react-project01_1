@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Logo from "../Header/Logo/Logo";
+import Logo from "../Header/Logo";
 import { footerData } from "../../data/FooterData";
 import { NavItem, NavList } from "../Nav";
 
@@ -48,6 +48,13 @@ const FooterHeading = styled.h2`
     margin: 0 0 14px;
 `;
 
+
+type PropsItem = {
+    id: string | number;
+    link: string;
+    name: string;
+};
+
 const Footer = () => {
     const {
         logoUrl,
@@ -70,7 +77,7 @@ const Footer = () => {
                     <div className="footer__menu-wrap">
                         <FooterHeading>{footerNavFirst.heading}</FooterHeading>
                         <NavList direction="column">
-                            {footerNavFirst.items.map((item) => (
+                            {footerNavFirst.items.map((item: PropsItem) => (
                                 <NavItem
                                     margin="0 0 5px"
                                     key={item.id}

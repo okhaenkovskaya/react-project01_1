@@ -27,8 +27,8 @@ const MultiSelectStyle = styled(MultiSelect)`
 `;
 
 type Props = {
-    options: any;
-    value: string | [];
+    options: any[];
+    value: any;
     changeFunction: any;
     labelledBy?: string | null;
 } & typeof defaultProps;

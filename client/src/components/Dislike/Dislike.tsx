@@ -2,8 +2,8 @@ import { ReactComponent as IconDisLike } from "../../assets/icons/dislike.svg";
 import IconButton from "../Form/IconButton";
 
 type Props = {
-    likes: string;
-    removeLike: void;
+    likes: string | number;
+    removeLike: () => void;
 };
 
 const Dislike = ({ likes, removeLike }: Props) => (

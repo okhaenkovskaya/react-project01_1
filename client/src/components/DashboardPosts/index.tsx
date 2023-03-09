@@ -9,15 +9,15 @@ type Props = {
     checkedPosts: [];
 };
 
-
 type PropsItem = {
-    id: any;
+    id: string | number;
     title: string;
     author: string;
     status: string;
     data: any;
     body: string;
 };
+
 
 const DashboardPosts = ({
     posts,
@@ -29,19 +29,22 @@ const DashboardPosts = ({
 }: Props) => {
     return (
         <div>
-            {posts.map((item: PropsItem) => (
-                <DashboardPost
-                    key={item.id}
-                    item={item}
-                    posts={posts}
-                    setCheckedPosts={setCheckedPosts}
-                    checkedPosts={checkedPosts}
-                    setShowEditPopup={setShowEditPopup}
-                    setEditPostData={setEditPostData}
-                    isCheck={checkedPosts.includes(item.id)}
-                    setPosts={setPosts}
-                />
-            ))}
+            {posts.map((item: PropsItem) => {
+                    return (
+                        <DashboardPost
+                            key={item.id}
+                            item={item}
+                            posts={posts}
+                            setCheckedPosts={setCheckedPosts}
+                            checkedPosts={checkedPosts}
+                            setShowEditPopup={setShowEditPopup}
+                            setEditPostData={setEditPostData}
+                            isCheck
+                            setPosts={setPosts}
+                        />
+                    )
+                }
+                )}
         </div>
     );
 };

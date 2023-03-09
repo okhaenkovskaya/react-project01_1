@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Avatar from "../../components/Avatar";
@@ -34,19 +34,29 @@ const LinkWrap = styled(Link)`
     text-decoration: none;
 `;
 
+type Props = {
+    user: null | PropsUser;
+    logout: any;
+}
+
+type PropsUser = {
+    id: any;
+    fullName: string;
+    email: string;
+}
+
 const ProfilePage = () => {
     const context = useContext(AuthContext);
-    const user = context.user;
+    const { user, logout }: Props = context;
+    const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+    const [updatedUser, setUpdatedUser] = useState<PropsUser>(user);
 
-    const [isOpenForm, setIsOpenForm] = useState(false);
-    const [updatedUser, setUpdatedUser] = useState(user);
-
-    const deleteUser = (id) => {
+    const deleteUser = (id: string | number) => {
         fetch(`${BASE_URL_USER}/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
-            .then((data) => context.logout());
+            .then(() => logout());
     };
 
     return (
@@ -56,19 +66,19 @@ const ProfilePage = () => {
                 <LinkWrap to="/user-list">User List</LinkWrap>
             </Head>
             <Container>
-                <Avatar bigImage={true} />
+                <Avatar bigImage='' />
 
                 <Button
-                    type={"button"}
-                    classes={"small-inline-button"}
+                    type="button"
+                    classes="small-inline-button"
                     clickFunction={() => setIsOpenForm(!isOpenForm)}
                 >
                     {isOpenForm ? "Close" : "Edit"}
                 </Button>
 
                 <Button
-                    type={"button"}
-                    classes={"small-inline-button"}
+                    type="button"
+                    classes="small-inline-button"
                     clickFunction={() => deleteUser(updatedUser.id)}
                 >
                     DELETE MY PROFILE

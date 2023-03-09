@@ -22,7 +22,20 @@ const FirstCommentStyle = styled.div`
     border-radius: 40px;
 `;
 
-const FirstComment = ({ AddLikeComment, ShowReplyForm, comment }) => (
+
+type Props = {
+    comment: PropsComment;
+    AddLikeComment: (id: any) => void;
+    ShowReplyForm: (e: any) => void;
+};
+
+type PropsComment = {
+    _id: any;
+    text: string;
+    likes: string | number;
+};
+
+const FirstComment = ({ AddLikeComment, ShowReplyForm, comment }: Props) => (
     <FirstCommentContainer>
         <FirstCommentStyle>
             <p>{comment.text}</p>
@@ -38,7 +51,7 @@ const FirstComment = ({ AddLikeComment, ShowReplyForm, comment }) => (
             </IconButton>
             <IconButton
                 classes="like--button"
-                clickFunction={(e) => ShowReplyForm(e)}
+                clickFunction={(e: any) => ShowReplyForm(e)}
             >
                 Reply
             </IconButton>

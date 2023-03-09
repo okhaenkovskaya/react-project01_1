@@ -8,6 +8,16 @@ const Image = styled.img`
     margin: 0 0 30px;
 `;
 
-const FullWidthImage = ({ fullImageData: { alt, src } }) => <Image src={src} alt={alt} />;
+
+type Props = {
+    fullImageData: PropsImage;
+};
+
+type PropsImage = {
+    alt: string;
+    src: string;
+};
+
+const FullWidthImage = ({ fullImageData: { alt, src } }: Props) => <Image src={src} alt={alt} />;
 
 export default FullWidthImage;

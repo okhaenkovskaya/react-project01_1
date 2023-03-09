@@ -6,8 +6,15 @@ import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Form/Button";
 import Loader from "../../components/Loader/Loader";
 
+
+type PropsUser = {
+    _id: any;
+    fullName: string;
+    email: boolean;
+};
+
 const UserList = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<PropsUser[]>([]);
 
     const getUsers = () => {
         fetch(`${BASE_URL_USER}/list`)
@@ -15,7 +22,7 @@ const UserList = () => {
         .then((data) => setUsers(data));
     };
 
-    const deleteUser = (e, id) => {
+    const deleteUser = (e: any, id: number | string) => {
         fetch(`${BASE_URL_USER}/${id}`, {
             method: "DELETE",
         })
@@ -30,19 +37,19 @@ const UserList = () => {
     const columns = [
         {
             name: "Name",
-            selector: (row) => row.fullName,
+            selector: (row: PropsUser) => row.fullName,
         },
         {
             name: "Email",
-            selector: (row) => row.email,
+            selector: (row: PropsUser) => row.email,
         },
         {
             name: "BUTTONS",
-            selector: (row) => (
+            selector: (row: PropsUser) => (
                 <Button
-                    type={"button"}
-                    classes={"small-button"}
-                    clickFunction={(e) => deleteUser(e, row._id)}
+                    type="button"
+                    classes="small-button"
+                    clickFunction={(e: any) => deleteUser(e, row._id)}
                 >
                     Delete
                 </Button>

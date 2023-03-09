@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { accountData } from "../../data/AccountData";
 import { BASE_URL_USER } from "../../data/Constans";
@@ -20,7 +20,7 @@ const RegisterPage = () => {
         tel: "",
     });
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         await fetch(`${BASE_URL_USER}/registration`, {
@@ -50,7 +50,7 @@ const RegisterPage = () => {
             });
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value });
         setIsError(null);
@@ -64,58 +64,56 @@ const RegisterPage = () => {
                 {isError && <mark>{isError}</mark>}
 
                 <Input
-                    type={"text"}
-                    placeholder={"First Name"}
-                    name={"firstName"}
-                    required={true}
+                    placeholder="First Name"
+                    name="firstName"
+                    isRequired
                     value={userData.firstName}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
                 <Input
-                    type={"text"}
-                    placeholder={"Last Name"}
-                    name={"lastName"}
+                    placeholder="Last Name"
+                    name="lastName"
                     value={userData.lastName}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
                 <Input
-                    type={"email"}
-                    placeholder={"Email"}
-                    name={"email"}
-                    required={true}
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    isRequired
                     value={userData.email}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
                 <Input
-                    type={"tel"}
-                    placeholder={"Phone"}
-                    name={"tel"}
+                    type="tel"
+                    placeholder="Phone"
+                    name="tel"
                     value={userData.tel}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
                 <Input
-                    type={"password"}
-                    placeholder={"Password"}
-                    name={"password"}
-                    required={true}
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    isRequired
                     value={userData.password}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
                 <Input
-                    type={"password"}
-                    placeholder={"Confirm Password"}
-                    name={"confirmPassword"}
-                    required={true}
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    isRequired
                     value={userData.confirmPassword}
                     changeFunction={handleChange}
-                    classes={"input--long"}
+                    classes="input--long"
                 />
-                <Button type={"submit"}>Send</Button>
+                <Button type="submit">Send</Button>
             </Form>
         </ContainerWithBG>
     );
