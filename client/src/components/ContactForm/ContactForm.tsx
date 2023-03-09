@@ -57,20 +57,22 @@ const ContactForm = () => {
     };
 
     const checkErrors = () => {
-        const children = Array.from(formRef.current.children).filter(
-            (item: any) => item.required
-        );
-        const errorItems = children.filter((item: any) =>
-            item.classList.contains("error")
-        );
-        if (buttonRef.current) {
-            buttonRef.current.style.backgroundColor = "black";
+        if (formRef.current) {
+            const children = Array.from(formRef.current.children).filter(
+                (item: any) => item.required
+            );
+            const errorItems = children.filter((item: any) =>
+                item.classList.contains("error")
+            );
+            if (buttonRef.current) {
+                buttonRef.current.style.backgroundColor = "black";
 
-            errorItems.length === 0
-                ? (buttonRef.current.disabled = false)
-                : (buttonRef.current.disabled = true);
+                errorItems.length === 0
+                    ? (buttonRef.current.disabled = false)
+                    : (buttonRef.current.disabled = true);
+            }
+            errorItems.length === 0 ? setIsValid(true) : setIsValid(false);
         }
-        errorItems.length === 0 ? setIsValid(true) : setIsValid(false);
     };
 
     const isValidPhoneNumber = (input_str: string) => {

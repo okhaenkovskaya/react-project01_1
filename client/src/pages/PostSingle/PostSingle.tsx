@@ -32,17 +32,27 @@ const Intro = styled.div`
     }
 `;
 
+type Props = {
+    title: string;
+    body: string;
+    thumbnail: string;
+    createdAt: any;
+    likes: number | string;
+    _id: any;
+}
+
+type PostParams = {
+    postId: string;
+};
+
 const PostPage = () => {
-    const { postId } = useParams();
-    const [post, setPost] = useState({});
-    const [view, setView] = useState(0);
-    const { title, body, thumbnail, createdAt, likes } = post;
+    const { postId } = useParams<PostParams>();
+    const [post, setPost] = useState<object>({});
+    const [view, setView] = useState<number>(0);
+    const { title, body, thumbnail, createdAt, likes }: Props = post;
     const date = new Date(Date(createdAt));
 
-    useEffect(() => {
-        getPost();
-        fetchView();
-    }, []);
+
 
     const getPost = () => {
         axios
@@ -71,6 +81,11 @@ const PostPage = () => {
             .then((res) => setPost(res.data))
             .catch((error) => console.log(error));
     };
+
+    useEffect(() => {
+        getPost();
+        fetchView();
+    }, []);
 
     return (
         <Suspense fallback={<Loader />}>

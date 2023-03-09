@@ -70,7 +70,7 @@ type Props = {
     children: React.ReactNode | string;
     innerRef?: any | null;
     isDisabled?: boolean;
-    clickFunction?: void | undefined;
+    clickFunction?:() => void | void | undefined;
     type?: any;
     classes?: string;
 } & typeof defaultProps;

@@ -68,7 +68,7 @@ const Textarea = styled.div`
 type Props = {
     setShowNewPopup: any;
     setPostsDB: any;
-    postsDB: [];
+    postsDB: any[];
 };
 
 type PropsNewPost = {
@@ -169,9 +169,11 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
 
-        isValidField(value)
-            ? e.target.classList.remove("error")
-            : e.target.classList.add("error");
+        if (isValidField(value)) {
+            e.target.classList.remove("error")
+        } else {
+            e.target.classList.add("error");
+        }
 
         setNewPost({ ...newPost, [name]: value });
     };
@@ -310,5 +312,6 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
         </Popup>
     );
 };
+
 
 export default DashboardFormPopup;

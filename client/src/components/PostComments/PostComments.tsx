@@ -24,10 +24,20 @@ const CommentsContainer = styled.div`
     }
 `;
 
-const PostComment = ({ postId }) => {
+
+
+type PropsComments = {
+    text: string;
+    userId: any;
+    likes: number;
+    _id: any;
+    replies: any[];
+};
+
+const PostComment = ({ postId }: {postId: number | string}) => {
     const context = useContext(AuthContext);
     const { user } = context;
-    const [comments, setComments] = useState({});
+    const [comments, setComments] = useState<any[]>([]);
     const [newComment, setNewComment] = useState("");
 
     const getComments = async () => {
@@ -49,7 +59,7 @@ const PostComment = ({ postId }) => {
         }
     }, [postId]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         try {
@@ -67,7 +77,7 @@ const PostComment = ({ postId }) => {
         }
     };
 
-    const AddLikeComment = async (commentId) => {
+    const AddLikeComment = async (commentId: number | string) => {
         try {
             const res = await axios.patch(
                 `${BASE_URL_POST}/${postId}/comments/${commentId}/like`
@@ -78,12 +88,12 @@ const PostComment = ({ postId }) => {
         }
     };
 
-    const ShowReplyForm = (e) => {
+    const ShowReplyForm = (e: any) => {
         const formReplyHolder = e.target.parentNode.parentNode.parentNode;
         formReplyHolder.classList.toggle("hide-form");
     };
 
-    const handleReply = async (e, commentId, text) => {
+    const handleReply = async (e: any, commentId: any, text: string) => {
         e.preventDefault();
 
         try {
@@ -111,7 +121,7 @@ const PostComment = ({ postId }) => {
             )}
 
             {comments.length > 0 &&
-                comments.map((comment) => (
+                comments.map((comment: PropsComments) => (
                     <CommentsContainer key={comment._id} className="hide-form">
                         <FirstComment
                             AddLikeComment={AddLikeComment}
@@ -122,9 +132,9 @@ const PostComment = ({ postId }) => {
                             handleReply={handleReply}
                             comment={comment}
                         />
-                        {comment.replies.map((innerComment, i) => (
+                        {comment.replies.map((innerComment) => (
                             <SecondComment
-                                key={i}
+                                key={innerComment.slice(0, 15)}
                                 innerComment={innerComment}
                             />
                         ))}

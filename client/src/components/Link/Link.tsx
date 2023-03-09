@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -25,8 +24,11 @@ const ButtonLink = styled(Link)`
     }
 `;
 
-const Button = ({ children, url }) => {
-    return <ButtonLink to={url}>{children}</ButtonLink>;
+type Props = {
+    children: React.ReactNode;
+    url: string;
 };
+
+const Button = ({ children, url }: Props) =>  <ButtonLink to={url}>{children}</ButtonLink>;
 
 export default Button;

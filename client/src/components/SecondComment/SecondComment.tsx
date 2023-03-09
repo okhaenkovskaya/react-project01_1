@@ -58,7 +58,7 @@ const SecondCommentStyle = styled.div`
     border-radius: 40px;
 `;
 
-const SecondComment = ({ innerComment }) => (
+const SecondComment = ({ innerComment }: {innerComment: string}) => (
     <SecondCommentContainer>
         <Avatar>User</Avatar>
         <div className="holder">

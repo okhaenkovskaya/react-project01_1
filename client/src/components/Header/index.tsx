@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import Logo from "./Logo/Logo";
 import { headerData } from "../../data/HeaderData";
@@ -61,10 +61,17 @@ const DropOpener = styled.button`
     }
 `;
 
+
+type PropsItem = {
+    id: any;
+    link: string;
+    name: string;
+};
+
 const Header = () => {
     const { logoUrl, headerNavItems } = headerData;
     const context = useContext(AuthContext);
-    const user = context.user;
+    const { user } = context;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     return (
@@ -73,10 +80,9 @@ const Header = () => {
 
             <NavigationWrap>
                 <NavList>
-                    {headerNavItems.map((item) =>
+                    {headerNavItems.map((item: PropsItem) =>
                         user && item.link === "/Register" ? null : (
                             <NavItem key={item.id} url={item.link}>
-                                {item.svg}
                                 {item.name}
                             </NavItem>
                         )

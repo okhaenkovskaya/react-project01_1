@@ -113,7 +113,6 @@ type Props = {
     posts: [];
     setEditPostData: any;
     setShowEditPopup: any;
-    editedPost: object;
     checkedPosts: any
     setCheckedPosts:any;
     isCheck: boolean;
@@ -134,7 +133,6 @@ const DashboardPost = ({
     posts,
     setEditPostData,
     setShowEditPopup,
-    editedPost,
     checkedPosts,
     setCheckedPosts,
     isCheck,
@@ -153,7 +151,7 @@ const DashboardPost = ({
     };
 
     const editPost = (item: PropsPost) => {
-        editedPost = {
+        const editedPost = {
             id: item.id,
             title: item.title,
             author: item.author,

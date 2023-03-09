@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface StyledDivProps {
-    direction: string;
+    direction: string | null;
 }
 
 const HeaderNavList = styled.ul<StyledDivProps>`
@@ -9,12 +9,12 @@ const HeaderNavList = styled.ul<StyledDivProps>`
     display: flex;
     padding: 0;
     margin: 0 20px;
-    flex-direction: ${(props) => props.direction || "row"};
+    flex-direction: ${({ direction }) => direction || "row"};
 `;
 
 type Props = {
     children: React.ReactNode;
-    direction: string;
+    direction?: string | null;
 } & typeof defaultProps;
 
 const defaultProps = {
@@ -22,5 +22,7 @@ const defaultProps = {
 };
 
 const NavList = ({ children, direction }: Props) => <HeaderNavList direction={direction}>{children}</HeaderNavList>;
+
+NavList.defaultProps = defaultProps;
 
 export default NavList;

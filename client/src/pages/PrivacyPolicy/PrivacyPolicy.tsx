@@ -7,7 +7,8 @@ import PageTitle from "../../components/PageTitle";
 import Container from "../../components/Container";
 
 const PrivacyPolicy = () => {
-    const { user } = useContext(AuthContext);
+    const { user }: {user: any} = useContext(AuthContext);
+
     return (
         <>
             {!user ? (

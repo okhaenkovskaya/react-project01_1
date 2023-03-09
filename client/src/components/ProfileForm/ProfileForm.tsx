@@ -5,16 +5,28 @@ import PageTitle from "../PageTitle";
 import { BASE_URL_USER } from "../../data/Constans";
 import { AuthContext } from "../../context/auth";
 
-const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }) => {
-    const context = useContext(AuthContext);
-    const { user } = context;
+type Props = {
+    setUpdatedUser: (param: object) => void;
+    setIsOpenForm: (param: boolean) => void;
+    updatedUser: PropsUser
+};
 
-    const handleChange = (e) => {
+type PropsUser = {
+    fullName: string;
+    email: string;
+    id: any;
+};
+
+const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }: Props) => {
+    const context = useContext(AuthContext);
+    const { user, update } = context;
+
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
         setUpdatedUser({ ...user, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
 
         fetch(`${BASE_URL_USER}/${updatedUser.id}`, {
@@ -26,7 +38,7 @@ const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                context.update(data);
+                update(data);
                 setIsOpenForm(false);
             })
             .catch((error) => {
@@ -40,7 +52,7 @@ const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }) => {
             <Input
                 name="fullName"
                 value={updatedUser.fullName}
-                changeFunction={(e) => handleChange(e)}
+                changeFunction={(e: any) => handleChange(e)}
                 classes="input--long"
             />
 
@@ -48,7 +60,7 @@ const ProfileForm = ({ setUpdatedUser, updatedUser, setIsOpenForm }) => {
                 name="email"
                 type="email"
                 value={updatedUser.email}
-                changeFunction={(e) => handleChange(e)}
+                changeFunction={(e: any) => handleChange(e)}
                 classes="input--long"
             />
             <Button type="submit">Update my Info</Button>

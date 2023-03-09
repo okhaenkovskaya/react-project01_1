@@ -60,16 +60,21 @@ const NavbarLink = styled(NavLink)<StyledDivProps>`
     }
   `}
 `;
+
 type Props = {
     children: React.ReactNode;
-    type: string | undefined;
+    type?: string | undefined;
     url: string;
     margin?: string;
-    svg: React.ReactNode | string;
+    svg?: React.ReactNode | string;
 } & typeof defaultProps;
+
 const defaultProps = {
     margin: '0 0 0 10px',
+    type: '',
+    svg: '',
 };
+
 const NavItem = ({ children, type, url, margin, svg }: Props) => (
     <NavListItem margin={margin}>
         <NavbarLink type={type} activeClassName="active" to={url}>
@@ -80,4 +85,5 @@ const NavItem = ({ children, type, url, margin, svg }: Props) => (
 );
 
 NavItem.defaultProps = defaultProps;
+
 export default NavItem;
