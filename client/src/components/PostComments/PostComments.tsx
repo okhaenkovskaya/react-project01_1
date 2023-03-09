@@ -25,7 +25,6 @@ const CommentsContainer = styled.div`
 `;
 
 
-
 type PropsComments = {
     text: string;
     userId: any;

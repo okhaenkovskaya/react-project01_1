@@ -2,7 +2,7 @@ import { Form, Textarea, Button } from "../Form";
 import PageTitle from "../PageTitle";
 
 type Props = {
-    handleSubmit: void;
+    handleSubmit: any;
     setNewComment: (e: any) => void;
     newComment: any
 };
