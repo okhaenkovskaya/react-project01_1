@@ -70,14 +70,14 @@ type Props = {
     children: React.ReactNode | string;
     innerRef?: any | null;
     isDisabled?: boolean;
-    clickFunction?:() => void | void | undefined;
+    clickFunction?: any | undefined;
     type?: any;
     classes?: string;
 } & typeof defaultProps;
 
 const defaultProps = {
     type: "submit",
-    classes: '',
+    classes: "",
     isDisabled: false,
     innerRef: null,
     clickFunction: undefined,

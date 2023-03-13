@@ -34,7 +34,7 @@ const UserList = () => {
         getUsers();
     }, []);
 
-    const columns = [
+    const columns: any = [
         {
             name: "Name",
             selector: (row: PropsUser) => row.fullName,

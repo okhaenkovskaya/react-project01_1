@@ -43,7 +43,13 @@ type PropsUser = {
     id: any;
     fullName: string;
     email: string;
-}
+} & typeof defaultProps;
+
+const defaultProps = {
+    id: "999",
+    fullName: "TestUser",
+    email: "test@test99.com",
+};
 
 const ProfilePage = () => {
     const context = useContext(AuthContext);
@@ -95,5 +101,7 @@ const ProfilePage = () => {
         </>
     );
 };
+
+ProfilePage.defaultProps = defaultProps;
 
 export default ProfilePage;

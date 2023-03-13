@@ -10,7 +10,6 @@ type Props = {
     setTasks: ([]) => void;
 };
 
-
 type PropsEmptyTask = {
     task: string;
 };
@@ -30,7 +29,7 @@ const DashboardTaskForm = ({ setTasks, tasks }: Props) => {
         if (isValid) {
             fetch(`${BASE_URL_TASK}`, {
                 method: "POST",
-                headers: {"Content-Type": "application/json",},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newTask),
             })
                 .then((res) => res.json())
@@ -40,13 +39,13 @@ const DashboardTaskForm = ({ setTasks, tasks }: Props) => {
 
             setNewTask(emptyTask);
             if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.success("Form submitted successfully.");
+                toastId.current = toast.success("Form success");
             }
             if (buttonRef.current) {
                 buttonRef.current.disabled = true;
             }
         } else if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.error("Please fill out the form correctly.");
+            toastId.current = toast.error("Please fill correctly.");
         }
     };
 
@@ -64,7 +63,7 @@ const DashboardTaskForm = ({ setTasks, tasks }: Props) => {
                 buttonRef.current.disabled = true;
             }
             if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.warn("You must fill at least 3 letters");
+                toastId.current = toast.warn("You must fill");
             }
         }
         setNewTask({ ...newTask, [name]: value });
@@ -79,11 +78,7 @@ const DashboardTaskForm = ({ setTasks, tasks }: Props) => {
                 value={newTask.task}
                 classes="task-create-input"
             />
-            <Button
-                innerRef={buttonRef}
-                isDisabled
-                classes="task-button"
-            >
+            <Button innerRef={buttonRef} isDisabled classes="task-button">
                 SUBMIT
             </Button>
             <ToastContainer />

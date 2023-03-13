@@ -2,12 +2,16 @@ import { Form, Textarea, Button } from "../Form";
 import PageTitle from "../PageTitle";
 
 type Props = {
-    handleSubmit: void;
+    handleSubmit: (e: any) => void;
     setNewComment: (e: any) => void;
-    newComment: any
+    newComment: any;
 };
 
-const PostCommentForm = ({ handleSubmit, setNewComment, newComment }: Props) => (
+const PostCommentForm = ({
+                             handleSubmit,
+                             setNewComment,
+                             newComment,
+                         }: Props) => (
     <Form submitFunction={handleSubmit}>
         <PageTitle>Add Comment</PageTitle>
         <Textarea

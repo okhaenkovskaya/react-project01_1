@@ -84,14 +84,17 @@ type PropsNewPost = {
     slug: string;
 };
 
-const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => {
+const DashboardFormPopup = ({
+    setShowNewPopup,
+    setPostsDB,
+    postsDB,
+}: Props) => {
     const context = useContext(AuthContext);
-    const { user }: {user: any} = context;
+    const { user }: { user: any } = context;
     const userID: number = user ? user.id : 9999;
     const toastId = useRef<any>(null);
     const [selectedTags, setSelectedTags] = useState<[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<[]>([]);
-
 
     const optionsTags = [
         { label: "tag01 🍇", value: "tag01" },
@@ -131,7 +134,9 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
             const formData = new FormData();
 
             const tags: any = selectedTags.map((item:any) => item.value);
-            const categories: any = selectedCategories.map((item: any) => item.value);
+            const categories: any = selectedCategories.map(
+                (item: any) => item.value
+            );
 
             formData.append("title", newPost.title);
             formData.append("body", newPost.body);
@@ -170,7 +175,7 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
         const { name, value } = e.target;
 
         if (isValidField(value)) {
-            e.target.classList.remove("error")
+            e.target.classList.remove("error");
         } else {
             e.target.classList.add("error");
         }
@@ -312,6 +317,5 @@ const DashboardFormPopup = ({ setShowNewPopup, setPostsDB, postsDB }: Props) => 
         </Popup>
     );
 };
-
 
 export default DashboardFormPopup;

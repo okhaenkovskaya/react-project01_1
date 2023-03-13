@@ -26,10 +26,12 @@ type Props = {
 } & typeof defaultProps;
 
 const defaultProps = {
-    status: '',
+    status: "",
 };
 
-const DashboardPostStatus = ({ status }: Props) => <Span className={status.toLowerCase()}>{status}</Span>;
+const DashboardPostStatus = ({ status }: Props) => (
+    <Span className={status.toLowerCase()}>{status}</Span>
+);
 
 DashboardPostStatus.defaultProps = defaultProps;
 

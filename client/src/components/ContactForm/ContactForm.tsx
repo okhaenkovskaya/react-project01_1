@@ -52,7 +52,7 @@ const ContactForm = () => {
                 toastId.current = toast.success("Form submitted successfully.");
             }
         } else if(!toast.isActive(toastId.current)) {
-            toastId.current = toast.error("Please fill out the form correctly.");
+            toastId.current = toast.error("Please fill form");
         }
     };
 
@@ -90,7 +90,7 @@ const ContactForm = () => {
             return true;
         }
         if (!toast.isActive(toastId.current)) {
-            toastId.current = toast.warn("You must fill at least 3 letters")
+            toastId.current = toast.warn("You must fill at least 3");
         }
 
         return false;

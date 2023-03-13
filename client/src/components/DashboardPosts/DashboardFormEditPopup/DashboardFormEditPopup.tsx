@@ -55,7 +55,6 @@ type PropsPost = {
     comments: [];
 };
 
-
 const DashboardFormEditPopup = ({
     editedPostDB,
     updatePost,

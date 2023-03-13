@@ -55,7 +55,6 @@ const DashboardPostEditButtonsPopup = ({
     showEditPopup,
     setEditedPostDB,
 }: Props) => {
-
     const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
     return (
@@ -90,6 +89,5 @@ const DashboardPostEditButtonsPopup = ({
         </ButtonWrap>
     );
 };
-
 
 export default DashboardPostEditButtonsPopup;

@@ -10,7 +10,9 @@ import Container from "../../components/Container";
 import View from "../../components/View";
 import { BASE_URL_POST } from "../../data/Constans";
 
-const PostComment = React.lazy(() => import("../../components/PostComments/PostComments"));
+const PostComment = React.lazy(
+    () => import("../../components/PostComments/PostComments")
+);
 
 const Intro = styled.div`
     display: flex;
@@ -39,7 +41,7 @@ type Props = {
     createdAt: any;
     likes: number | string;
     _id: any;
-}
+};
 
 type PostParams = {
     postId: string;
@@ -47,12 +49,16 @@ type PostParams = {
 
 const PostPage = () => {
     const { postId } = useParams<PostParams>();
-    const [post, setPost] = useState<object>({});
+    const [post, setPost] = useState<Props>({
+        title: "",
+        body: "",
+        thumbnail: "",
+        createdAt: "",
+        likes: 0,
+        _id: "",
+    });
     const [view, setView] = useState<number>(0);
-    const { title, body, thumbnail, createdAt, likes }: Props = post;
-    const date = new Date(Date(createdAt));
-
-
+    const date = new Date(post.createdAt);
 
     const getPost = () => {
         axios
@@ -91,16 +97,16 @@ const PostPage = () => {
         <Suspense fallback={<Loader />}>
             <Container>
                 <Intro>
-                    <img src={thumbnail} alt={title} />
-                    <h1>{title}</h1>
+                    <img src={post.thumbnail} alt={post.title} />
+                    <h1>{post.title}</h1>
                     <View>{view}</View>
                 </Intro>
-                {body}
+                {post.body}
                 <span style={{ textAlign: "right", display: "block" }}>
                     {date.toLocaleDateString()}
                 </span>
-                <Like addLike={addLike} likes={likes} />
-                <Dislike removeLike={removeLike} likes={likes} />
+                <Like addLike={addLike} likes={post.likes} />
+                <Dislike removeLike={removeLike} likes={post.likes} />
                 <br />
                 <PostComment postId={post._id} />
             </Container>

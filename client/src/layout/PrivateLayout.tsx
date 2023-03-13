@@ -20,20 +20,27 @@ const ContentWrap = styled.div`
     padding: 30px;
 `;
 
-const PrivateLayout = () => (
-    <>
-        <Header />
+interface PrivateLayoutProps {
+    children?: React.ReactNode;
+}
 
-        <Container>
-            <Sidebar />
+function PrivateLayout({ children }: PrivateLayoutProps) {
+    return (
+        <>
+            <Header />
 
-            <ContentWrap>
-                <Outlet />
-            </ContentWrap>
-        </Container>
+            <Container>
+                <Sidebar />
+                <ContentWrap>{children ?? <Outlet />}</ContentWrap>
+            </Container>
 
-        <Footer />
-    </>
-);
+            <Footer />
+        </>
+    );
+}
+
+PrivateLayout.defaultProps = {
+    children: null,
+};
 
 export default PrivateLayout;

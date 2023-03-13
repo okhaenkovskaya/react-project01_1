@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth";
 import PublicLayout from "../layout/PublicLayout";
 import PrivateLayout from "../layout/PrivateLayout";
 
-const CheckUserAuth = () => {
+function CheckUserAuth() {
     const { user } = useContext(AuthContext);
 
     return user ? (
@@ -17,6 +17,6 @@ const CheckUserAuth = () => {
             <Outlet />
         </PublicLayout>
     );
-};
+}
 
 export default CheckUserAuth;
