@@ -8,7 +8,6 @@ import { ReactComponent as IconPencil } from "../../../assets/icons/icon-pencil.
 import { ReactComponent as IconDelete } from "../../../assets/icons/plus_circle_icon.svg";
 import { IconButton } from "../../Form";
 
-
 interface StyledDivProps {
     isCompleted: boolean;
     isPinned: boolean;
@@ -58,7 +57,7 @@ const Input = styled.input`
 type Props = {
     item: PropsItem;
     deleteTask: (e: any, id: any) => void;
-    updateTask: (e: any, updatedTask: PropsItem ) => void;
+    updateTask: (e: any, updatedTask: PropsItem) => void;
 };
 
 type PropsItem = {

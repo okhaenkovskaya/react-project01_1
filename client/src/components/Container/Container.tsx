@@ -19,7 +19,7 @@ const ContainerStyle = styled.div<StyledDivProps>`
 type Props = {
     user?: object | null;
     children: React.ReactNode;
-}& typeof defaultProps;
+} & typeof defaultProps;
 
 const defaultProps = {
     user: null,

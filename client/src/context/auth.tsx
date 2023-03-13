@@ -1,26 +1,32 @@
-import { useReducer, createContext, ReactNode } from "react";
+import { useReducer, createContext, ReactNode, useMemo } from "react";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
 interface User {
+    id: string;
     fullName: string;
     email: string;
     iat: number;
     exp: number;
 }
+
 interface AuthState {
     user: User | null;
 }
+
 interface AuthContextType extends AuthState {
     login: (userData: object) => void;
     logout: () => void;
     update: (userData: object) => void;
 }
+
 interface AuthProviderProps {
     children: ReactNode;
 }
+
 const initialState: AuthState = {
     user: null,
 };
+
 if (localStorage.getItem("jwtDecode")) {
     const decodedToken = jwtDecode<JwtPayload>(
         localStorage.getItem("jwtDecode") as string
@@ -32,6 +38,7 @@ if (localStorage.getItem("jwtDecode")) {
         initialState.user = decodedToken as User;
     }
 }
+
 const AuthContext = createContext<AuthContextType>({
     user: null,
     login: () => {},
@@ -60,8 +67,10 @@ function authReducer(state: AuthState, action: any) {
             return state;
     }
 }
-function AuthProvider(props: AuthProviderProps) {
+
+function AuthProvider({ children }: AuthProviderProps) {
     const [state, dispatch] = useReducer(authReducer, initialState);
+
     function update(userData: any) {
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
@@ -69,6 +78,7 @@ function AuthProvider(props: AuthProviderProps) {
             payload: userData.data,
         });
     }
+
     function login(userData: any) {
         localStorage.setItem("jwtDecode", userData.token);
         dispatch({
@@ -76,15 +86,21 @@ function AuthProvider(props: AuthProviderProps) {
             payload: userData.result,
         });
     }
+
     function logout() {
         localStorage.removeItem("jwtDecode");
         dispatch({ type: "LOGOUT" });
     }
+
+    const authContextValue = useMemo(() => {
+        return { user: state.user, login, logout, update };
+    }, [state.user]);
+
     return (
-        <AuthContext.Provider
-            value={{ user: state.user, login, logout, update }}
-            {...props}
-        />
+        <AuthContext.Provider value={authContextValue}>
+            {children}
+        </AuthContext.Provider>
     );
 }
+
 export { AuthContext, AuthProvider };

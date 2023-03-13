@@ -24,7 +24,6 @@ const CommentsContainer = styled.div`
     }
 `;
 
-
 type PropsComments = {
     text: string;
     userId: any;
@@ -33,7 +32,7 @@ type PropsComments = {
     replies: any[];
 };
 
-const PostComment = ({ postId }: {postId: number | string}) => {
+const PostComment = ({ postId }: { postId: number | string }) => {
     const context = useContext(AuthContext);
     const { user } = context;
     const [comments, setComments] = useState<any[]>([]);
@@ -66,7 +65,7 @@ const PostComment = ({ postId }: {postId: number | string}) => {
                 `${BASE_URL_POST}/${postId}/comments`,
                 {
                     text: newComment,
-                    userId: user.id,
+                    userId: user ? user.id : null,
                 }
             );
             setComments(res.data.comments);
@@ -120,25 +119,25 @@ const PostComment = ({ postId }: {postId: number | string}) => {
             )}
 
             {comments.length > 0 &&
-                comments.map((comment: PropsComments) => (
-                    <CommentsContainer key={comment._id} className="hide-form">
-                        <FirstComment
-                            AddLikeComment={AddLikeComment}
-                            ShowReplyForm={ShowReplyForm}
-                            comment={comment}
+            comments.map((comment: PropsComments) => (
+                <CommentsContainer key={comment._id} className="hide-form">
+                    <FirstComment
+                        AddLikeComment={AddLikeComment}
+                        ShowReplyForm={ShowReplyForm}
+                        comment={comment}
+                    />
+                    <PostCommentFormReply
+                        handleReply={handleReply}
+                        comment={comment}
+                    />
+                    {comment.replies.map((innerComment) => (
+                        <SecondComment
+                            key={innerComment.slice(0, 15)}
+                            innerComment={innerComment}
                         />
-                        <PostCommentFormReply
-                            handleReply={handleReply}
-                            comment={comment}
-                        />
-                        {comment.replies.map((innerComment) => (
-                            <SecondComment
-                                key={innerComment.slice(0, 15)}
-                                innerComment={innerComment}
-                            />
-                        ))}
-                    </CommentsContainer>
-                ))}
+                    ))}
+                </CommentsContainer>
+            ))}
         </>
     );
 };

@@ -22,7 +22,6 @@ const FirstCommentStyle = styled.div`
     border-radius: 40px;
 `;
 
-
 type Props = {
     comment: PropsComment;
     AddLikeComment: (id: any) => void;

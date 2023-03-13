@@ -55,7 +55,6 @@ const Holder = styled.div`
     align-items: center;
 `;
 
-
 type Props = {
     post: PropsItem;
 };
@@ -68,7 +67,9 @@ type PropsItem = {
     likes: string | number;
 };
 
-const FeaturedPost = ({ post: { _id, title, body, thumbnail, likes } }: Props) => {
+const FeaturedPost = ({
+    post: { _id, title, body, thumbnail, likes },
+}: Props) => {
     const [updatedLikes, setUpdatedLikes] = useState<string | number>(likes);
 
     const addLike = () => {

@@ -17,8 +17,7 @@ const Container = styled.div<StyledDivProps>`
         text-decoration: none;
     }
     ${({ bigImage }) =>
-    bigImage &&
-    `
+    bigImage && `
     background: none;
     
     img {
@@ -89,4 +88,5 @@ const Avatar = ({ bigImage }: Props) => {
     );
 };
 Avatar.defaultProps = defaultProps;
+
 export default Avatar;

@@ -48,7 +48,6 @@ const FooterHeading = styled.h2`
     margin: 0 0 14px;
 `;
 
-
 type PropsItem = {
     id: string | number;
     link: string;

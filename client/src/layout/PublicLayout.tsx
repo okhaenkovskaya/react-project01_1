@@ -1,16 +1,25 @@
 import { Outlet } from "react-router-dom";
-
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
 
-const PublicLayout = () => (
-    <>
-        <Header />
+interface PublicLayoutProps {
+    children?: React.ReactNode | null;
+}
 
-        <Outlet />
+function PublicLayout({ children }: PublicLayoutProps) {
+    return (
+        <>
+            <Header />
 
-        <Footer />
-    </>
-);
+            {children ?? <Outlet />}
+
+            <Footer />
+        </>
+    );
+}
+
+PublicLayout.defaultProps = {
+    children: null,
+};
 
 export default PublicLayout;

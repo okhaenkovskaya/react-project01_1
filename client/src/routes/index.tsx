@@ -23,7 +23,9 @@ import {
     UserList,
 } from "../pages";
 
-const titles = {
+type TitleRecord = Record<string, string>;
+
+const titles: TitleRecord = {
     "/": "Home",
     "/Contact": "Contact",
     "/dashboard": "Dashboard",
@@ -45,55 +47,30 @@ const Router = () => {
                 <Route element={<PublicLayout />}>
                     <Route index element={<Home />} />
                     <Route element={<PublicRouter />}>
-                        <Route exact path="/login" element={<Login />} />
-                        <Route exact path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
                     </Route>
-                    <Route exact path="/contact" element={<Contact />} />
-                    <Route exact path="/posts/:postId" element={<Post />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/posts/:postId" element={<Post />} />
                     <Route
-                        exact
                         path="/archive/:filter/:param"
                         element={<Archive />}
                     />
-                    <Route exact path="*" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route element={<PrivateRouter />}>
                     <Route element={<PrivateLayout />}>
-                        <Route
-                            exact
-                            path="/dashboard"
-                            element={<Dashboard />}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/tasks"
-                            element={<Tasks />}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/posts"
-                            element={<Posts />}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/posts"
-                            element={<Posts />}
-                        />
-                        <Route
-                            exact
-                            path="/profile"
-                            element={<ProfilePage />}
-                        />
-                        <Route exact path="/user-list" element={<UserList />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/dashboard/tasks" element={<Tasks />} />
+                        <Route path="/dashboard/posts" element={<Posts />} />
+                        <Route path="/dashboard/posts" element={<Posts />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/user-list" element={<UserList />} />
                     </Route>
                 </Route>
 
                 <Route element={<CheckUserAuth />}>
-                    <Route
-                        exact
-                        path="/privacy-policy"
-                        element={<PrivacyPolicy />}
-                    />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 </Route>
             </Routes>
         </AuthProvider>
